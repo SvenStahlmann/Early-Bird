@@ -24,7 +24,7 @@ SECRET_KEY = '=6_e@f+!x4#xn&h_3j#w*$8(zu)!yn*(05=&(w1*c6oho_znh='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['173.249.31.162']
+ALLOWED_HOSTS = ['173.249.31.162', '127.0.0.1']
 
 # Application definition
 
@@ -52,7 +52,8 @@ ROOT_URLCONF = 'earlybirdwebsite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        ,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -100,7 +101,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'de'
 
-TIME_ZONE = 'UTC+1'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 

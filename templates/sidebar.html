@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+    <div class="off-canvas position-left" id="offCanvas" data-off-canvas data-transition="overlap">
+
+        <!-- Close button -->
+        <button class="close-button" aria-label="Close menu" type="button" data-close>
+            <span aria-hidden="true">&times;</span>
+        </button>
+
+        <!-- Menu -->
+        {% block sidebar_content %}{% endblock sidebar_content %}
+
+
+    </div>
+
+    <div class="off-canvas-content" data-off-canvas-content>
+        <button class="button" type="button" data-toggle="offCanvas" aria-expanded="false"
+                aria-controls="offCanvas">Toggle Off-canvas
+        </button>
+    </div>
+{% endblock body %}

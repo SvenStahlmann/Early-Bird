@@ -35,6 +35,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'earlybirdwebsite.apps.EarlybirdwebsiteConfig',
+    'loot.apps.LootConfig',
+    'raids.apps.RaidsConfig',
+    'roster.apps.RosterConfig',
 ]
 
 MIDDLEWARE = [

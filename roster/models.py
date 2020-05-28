@@ -31,10 +31,14 @@ def save_user_profile(sender, instance, **kwargs):
 
 class WowClass(models.Model):
     name = models.CharField(max_length=80, help_text='Name der Klasse.')
+    order = models.PositiveIntegerField(blank=False, null=False)
 
     # Timestamp
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['order']
 
     def __str__(self):
         return self.name
@@ -42,6 +46,7 @@ class WowClass(models.Model):
 
 class Specialization(models.Model):
     name = models.CharField(max_length=80, help_text='Name der Spezialisierung.')
+    order = models.PositiveIntegerField(blank=False, null=False)
 
     # Foreign key
     wow_class = models.ForeignKey(WowClass, related_name='specialization', on_delete=models.CASCADE)
@@ -50,12 +55,16 @@ class Specialization(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ['order']
+
     def __str__(self):
         return str(self.wow_class) + ' - ' + self.name
 
 
 class Character(models.Model):
     name = models.CharField(max_length=80, help_text='Name des Charakters.')
+    order = models.PositiveIntegerField(blank=False, null=False)
 
     # Foreign keys
     user = models.ForeignKey(User, related_name='character', on_delete=models.CASCADE)
@@ -64,6 +73,9 @@ class Character(models.Model):
     # Timestamp
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['order']
 
     def __str__(self):
         return self.name

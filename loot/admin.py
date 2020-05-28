@@ -1,24 +1,25 @@
 from django.contrib import admin
+from adminsortable2.admin import SortableAdminMixin
 from .models import Enchants, RaidDay, Attendance, LootHistory, Entitlement
 
 
-class EnchantsAdmin(admin.ModelAdmin):
+class EnchantsAdmin(SortableAdminMixin, admin.ModelAdmin):
     model = Enchants
 
 
-class RaidDayAdmin(admin.ModelAdmin):
+class RaidDayAdmin(SortableAdminMixin, admin.ModelAdmin):
     model = RaidDay
 
 
-class AttendanceAdmin(admin.ModelAdmin):
+class AttendanceAdmin(SortableAdminMixin, admin.ModelAdmin):
     model = Attendance
 
 
-class LootHistoryAdmin(admin.ModelAdmin):
+class LootHistoryAdmin(SortableAdminMixin, admin.ModelAdmin):
     model = LootHistory
 
 
-class EntitlementAdmin(admin.ModelAdmin):
+class EntitlementAdmin(SortableAdminMixin, admin.ModelAdmin):
     model = Entitlement
 
 

@@ -1,0 +1,74 @@
+
+.multilevel-accordion-menu .is-accordion-submenu-parent a {
+    background: #4d5158;
+}
+
+.multilevel-accordion-menu .is-accordion-submenu a {
+    background: #35383d;
+}
+
+.multilevel-accordion-menu .sublevel-1 {
+    text-indent: 1rem;
+}
+
+.multilevel-accordion-menu .sublevel-2 {
+    text-indent: 2rem;
+}
+
+.multilevel-accordion-menu .sublevel-3 {
+    text-indent: 3rem;
+}
+
+.multilevel-accordion-menu .sublevel-4 {
+    text-indent: 4rem;
+}
+
+.multilevel-accordion-menu .sublevel-5 {
+    text-indent: 5rem;
+}
+
+.multilevel-accordion-menu .sublevel-6 {
+    text-indent: 6rem;
+}
+
+.multilevel-accordion-menu a {
+    color: #fefefe;
+    box-shadow: inset 0 -1px #41444a;
+}
+
+.multilevel-accordion-menu a::after {
+    border-color: #fefefe transparent transparent;
+}
+
+.multilevel-accordion-menu .menu > li:not(.menu-text) > a {
+    padding: 1.2rem 1rem;
+}
+
+.multilevel-accordion-menu .is-accordion-submenu-parent[aria-expanded="true"] a.subitem::before {
+    font-family: 'Font Awesome\ 5 Free';
+    content: "\f714";
+    font-weight: 900;
+    margin-right: 1rem;
+}
+
+.multilevel-accordion-menu .is-accordion-submenu-parent[aria-expanded="false"] a.subitem::before {
+    font-family: 'Font Awesome\ 5 Free';
+    content: "\f714";
+    font-weight: 900;
+    margin-right: 1rem;
+}
+
+.multilevel-accordion-menu .is-accordion-submenu-parent[aria-expanded="true"] a::before {
+    font-family: 'Font Awesome\ 5 Free';
+    content: "\f6b7";
+    font-weight: 900;
+    margin-right: 1rem;
+}
+
+.multilevel-accordion-menu .is-accordion-submenu-parent[aria-expanded="false"] a::before {
+    font-family: 'Font Awesome\ 5 Free';
+    content: "\f6b7";
+    font-weight: 900;
+    margin-right: 1rem;
+}
+

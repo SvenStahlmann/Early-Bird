@@ -1,3 +1,6 @@
 from django.shortcuts import render
+from .utils import get_instances
 
-# Create your views here.
+
+def page(request):
+    return render(request, 'raids/base.html', {'instances': get_instances()})

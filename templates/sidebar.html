@@ -3,14 +3,8 @@
 
 {% block body %}
     <div class="off-canvas position-left" id="offCanvas" data-off-canvas data-transition="overlap">
-
-        <!-- Close button -->
-        <button class="close-button" aria-label="Close menu" type="button" data-close>
-            <span aria-hidden="true">&times;</span>
-        </button>
-
         <!-- Menu -->
-        {% block sidebar_content %}{% endblock sidebar_content %}
+        {% block sidebar %}{% endblock sidebar %}
 
 
     </div>
@@ -19,5 +13,6 @@
         <button class="button" type="button" data-toggle="offCanvas" aria-expanded="false"
                 aria-controls="offCanvas">Toggle Off-canvas
         </button>
+        {% block content %}{% endblock content %}
     </div>
 {% endblock body %}

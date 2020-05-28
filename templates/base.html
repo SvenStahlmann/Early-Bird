@@ -6,11 +6,16 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
-    {% block css %}{% endblock css %}
-
     <!-- foundation -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
-          integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'earlybirdwebsite/css/foundation.min.css' %}">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+
+    {% block css_app %}{% endblock css_app %}
+    {% block css_app_section %}{% endblock css_app_section %}
+    {% block css_page %}{% endblock css_page %}
+    {% block css_page_section %}{% endblock css_page_section %}
 </head>
 <header>
     {% block header %}{% endblock header %}
@@ -31,5 +36,10 @@
     <script>
         $(document).foundation();
     </script>
+
+    {% block js_app %}{% endblock js_app %}
+    {% block js_app_section %}{% endblock js_app_section %}
+    {% block js_page %}{% endblock js_page %}
+    {% block js_page_section %}{% endblock js_page_section %}
 </footer>
 </html>

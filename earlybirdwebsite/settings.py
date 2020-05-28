@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'loot.apps.LootConfig',
     'raids.apps.RaidsConfig',
     'roster.apps.RosterConfig',
+    'adminsortable2',
 ]
 
 MIDDLEWARE = [

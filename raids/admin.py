@@ -1,19 +1,20 @@
 from django.contrib import admin
-from .models import Instance, Boss, Item
+from adminsortable2.admin import SortableAdminMixin
+from .models import Instance, Encounter, Item
 
 
-class InstanceAdmin(admin.ModelAdmin):
+class InstanceAdmin(SortableAdminMixin, admin.ModelAdmin):
     model = Instance
 
 
-class BossAdmin(admin.ModelAdmin):
-    model = Boss
+class EncounterAdmin(SortableAdminMixin, admin.ModelAdmin):
+    model = Encounter
 
 
-class ItemAdmin(admin.ModelAdmin):
+class ItemAdmin(SortableAdminMixin, admin.ModelAdmin):
     model = Item
 
 
 admin.site.register(Instance, InstanceAdmin)
-admin.site.register(Boss, BossAdmin)
+admin.site.register(Encounter, EncounterAdmin)
 admin.site.register(Item, ItemAdmin)

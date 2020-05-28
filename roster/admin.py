@@ -1,4 +1,5 @@
 from django.contrib import admin
+from adminsortable2.admin import SortableAdminMixin
 from .models import Profile, WowClass, Specialization, Character
 
 
@@ -6,15 +7,15 @@ class ProfileAdmin(admin.ModelAdmin):
     model = Profile
 
 
-class WowClassAdmin(admin.ModelAdmin):
+class WowClassAdmin(SortableAdminMixin, admin.ModelAdmin):
     model = WowClass
 
 
-class SpecializationAdmin(admin.ModelAdmin):
+class SpecializationAdmin(SortableAdminMixin, admin.ModelAdmin):
     model = Specialization
 
 
-class CharacterAdmin(admin.ModelAdmin):
+class CharacterAdmin(SortableAdminMixin, admin.ModelAdmin):
     model = Character
 
 

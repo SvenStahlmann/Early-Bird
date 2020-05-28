@@ -1,0 +1,23 @@
+{% extends 'sidebar.html' %}
+{% load static %}
+
+{% block css_app %}
+    <link rel="stylesheet" href="{% static 'raids/css/base.css' %}">
+{% endblock css_app %}
+
+{% block sidebar %}
+    <ul class="multilevel-accordion-menu vertical menu" data-accordion-menu>
+        {% for instance, encounters in instances.items %}
+            <li>
+                <a href="">{{ instance.name }}</a>
+                <ul class="menu vertical sublevel-1">
+                    {% for encounter in encounters %}
+                        <li>
+                            <a class="subitem" href="raid.lootsystem?encounter=0">{{ encounter.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock sidebar %}

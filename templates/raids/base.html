@@ -13,7 +13,7 @@
                 <ul class="menu vertical sublevel-1">
                     {% for encounter in encounters %}
                         <li>
-                            <a class="subitem" href="raid.lootsystem?encounter=0">{{ encounter.name }}</a>
+                            <a id="encounter-{{ encounter.id }}" class="subitem" href="{% url 'raids_encounter' %}?boss={{ encounter.id }}">{{ encounter.name }}</a>
                         </li>
                     {% endfor %}
                 </ul>
@@ -21,3 +21,7 @@
         {% endfor %}
     </ul>
 {% endblock sidebar %}
+
+{% block js_app %}
+    <script src="{% static 'raids/js/base.js' %}"></script>
+{% endblock js_app %}

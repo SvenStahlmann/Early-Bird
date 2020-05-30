@@ -1,0 +1,33 @@
+.callout {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.item-background {
+    background-color: #181818;
+    color: #ffffff;
+}
+
+.thumbnail {
+    border: 1px solid #ffffff;
+}
+
+.badge {
+    position: absolute;
+    max-width: 14px;
+    min-height: 14px;
+    top: 5px;
+    right: 5px;
+}
+
+.tooltip {
+    background-color: #767676;
+    color: #fefefe;
+}
+
+.tooltip.left::before {
+    border-color: transparent transparent transparent #767676;
+}
+
+.has-tip {
+    border-bottom: none;
+}

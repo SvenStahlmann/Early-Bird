@@ -1,4 +1,4 @@
-from .models import Instance
+from raids.models import Instance
 
 
 def get_instances():

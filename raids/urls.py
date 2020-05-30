@@ -2,5 +2,6 @@ from django.urls import path
 from raids import views
 
 urlpatterns = [
-    path('page', views.page, name='raid_page')
+    path('encounter', views.encounter, name='raids_encounter'),
+    path('dispatch', views.dispatch_loot_system, name='raids_dispatch'),
 ]

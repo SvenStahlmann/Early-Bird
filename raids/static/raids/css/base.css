@@ -1,10 +1,14 @@
+/* Sidebar */
+.off-canvas {
+    background-color: #2C2B30;
+}
 
 .multilevel-accordion-menu .is-accordion-submenu-parent a {
-    background: #4d5158;
+    background: #2C2B30;
 }
 
 .multilevel-accordion-menu .is-accordion-submenu a {
-    background: #35383d;
+    background: #3e4146;
 }
 
 .multilevel-accordion-menu .sublevel-1 {
@@ -60,15 +64,20 @@
 
 .multilevel-accordion-menu .is-accordion-submenu-parent[aria-expanded="true"] a::before {
     font-family: 'Font Awesome\ 5 Free';
-    content: "\f6b7";
+    content: "\f0c0";
     font-weight: 900;
     margin-right: 1rem;
 }
 
 .multilevel-accordion-menu .is-accordion-submenu-parent[aria-expanded="false"] a::before {
     font-family: 'Font Awesome\ 5 Free';
-    content: "\f6b7";
+    content: "\f0c0";
     font-weight: 900;
     margin-right: 1rem;
+}
+
+/* Custom */
+.input-group {
+    margin-bottom: 0;
 }
 

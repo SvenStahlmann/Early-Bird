@@ -3,7 +3,13 @@ from roster.models import Specialization
 
 
 class Instance(models.Model):
+    LOOTSYSTEM_CHOICES = (
+        ('SOFTLOCK', 'Softlock'),
+        ('LOOTCOUNCIL', 'Loot Council'),
+    )
+
     name = models.CharField(max_length=80, help_text='Name der Instanz.')
+    loot_system = models.CharField(max_length=11, choices=LOOTSYSTEM_CHOICES, help_text='Auswahl des Lootsystems.')
     order = models.PositiveIntegerField(blank=False, null=False)
 
     # Timestamp
@@ -65,27 +71,28 @@ class Item(models.Model):
         ('TWOHAND', 'Zweihändig'),
         ('RANGED', 'Distanz'),
         ('RELIC', 'Relikt'),
+        ('MISCELLANEOUS', 'Sonstiges'),
     )
 
     TYPE_CHOICES = (
         ('CLOTH', 'Stoff'),
         ('LEATHER', 'Leder'),
         ('MAIL', 'Kette'),
-        ('PLATE', 'Platte')
+        ('PLATE', 'Platte'),
     )
 
     name = models.CharField(max_length=80, help_text='Name des Items.')
     icon = models.ImageField(upload_to='item_icons/', help_text='Icon des Items.')
     quality = models.CharField(max_length=9, choices=QUALITY_CHOICES, help_text='Qualität des Items.')
-    slot = models.CharField(max_length=9, choices=SLOT_CHOICES,
+    slot = models.CharField(max_length=13, choices=SLOT_CHOICES,
                             help_text='Ausrüstungsplatz, an welchem dieses Item angelegt wird.')
-    type = models.CharField(max_length=7, choices=TYPE_CHOICES, blank=True, null=True,
+    type = models.CharField(max_length=13, choices=TYPE_CHOICES, blank=True, null=True,
                             help_text='Rüstungstyp des Items.')
     wowhead_link = models.URLField(help_text='Hyperlink zum Item auf wowhead.com.')
     order = models.PositiveIntegerField(blank=False, null=False)
 
     # Many to many
-    Encounter = models.ManyToManyField(Encounter, related_name='item')
+    encounter = models.ManyToManyField(Encounter, related_name='item')
 
     # Timestamp
     created_at = models.DateTimeField(auto_now_add=True)

@@ -1,14 +1,14 @@
 /* Sidebar */
 .off-canvas {
-    background-color: #2C2B30;
+    background-color: #9FAAC4;
 }
 
 .multilevel-accordion-menu .is-accordion-submenu-parent a {
-    background: #2C2B30;
+    background: #8590AA;
 }
 
 .multilevel-accordion-menu .is-accordion-submenu a {
-    background: #3e4146;
+    background: #B8C3DD;
 }
 
 .multilevel-accordion-menu .sublevel-1 {
@@ -36,12 +36,12 @@
 }
 
 .multilevel-accordion-menu a {
-    color: #fefefe;
+    color: #000000;
     box-shadow: inset 0 -1px #41444a;
 }
 
 .multilevel-accordion-menu a::after {
-    border-color: #fefefe transparent transparent;
+    border-color: #e3e3e3 transparent transparent;
 }
 
 .multilevel-accordion-menu .menu > li:not(.menu-text) > a {
@@ -79,5 +79,15 @@
 /* Custom */
 .input-group {
     margin-bottom: 0;
+}
+
+.top-bar {
+    background-color: #9FAAC4;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .25),
+    0 3px 6px rgba(0, 0, 0, .22);
+}
+
+.top-bar ul {
+    background-color: #9FAAC4;
 }
 

@@ -108,3 +108,18 @@ class Entitlement(models.Model):
 
     def __str__(self):
         return str(self.item) + ' - ' + str(self.specialization) + ' - ' + str(self.priority)
+
+
+class Softlock(models.Model):
+    priority = models.IntegerField(blank=True, null=True, help_text='Priorität für Hardlocks.')
+
+    # Foreign keys
+    item = models.ForeignKey(Item, related_name='softlock', on_delete=models.CASCADE)
+    character = models.OneToOneField(Character, related_name='softlock', on_delete=models.CASCADE)
+
+    # Timestamp
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.character) + ' - ' + str(self.item)

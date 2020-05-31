@@ -3,7 +3,13 @@ from roster.models import Specialization
 
 
 class Instance(models.Model):
+    LOOTSYSTEM_CHOICES = (
+        ('SOFTLOCK', 'Softlock'),
+        ('LOOTCOUNCIL', 'Loot Council'),
+    )
+
     name = models.CharField(max_length=80, help_text='Name der Instanz.')
+    loot_system = models.CharField(max_length=11, choices=LOOTSYSTEM_CHOICES, help_text='Auswahl des Lootsystems.')
     order = models.PositiveIntegerField(blank=False, null=False)
 
     # Timestamp

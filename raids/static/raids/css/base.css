@@ -58,20 +58,21 @@ body, html {
     max-width: 300px;
     min-height: calc(100% - 2.5rem);
     background-color: #2C2B30;
-    line-height: 1;
     border: none;
     padding-top: 5px;
     position:fixed;
 }
 
-.autocomplete-suggestions div {
-    font-size: 1.02em;
+.autocomplete-suggestion {
+    margin-bottom: 5px;
+    font-size: 1.07em;
     font-weight: 400;
     color: #ababab;
 }
 
-.autocomplete-suggestions div.selected {
+.autocomplete-suggestion.selected {
     background-color: #1e1e21;
+    color: #f4f4f4;
 }
 
 .autocomplete-suggestions div b {

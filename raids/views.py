@@ -1,5 +1,7 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
+from django.utils.http import urlencode
 from rest_framework.utils import json
 from earlybirdwebsite.utils import get_instances
 from .models import Encounter, Item
@@ -26,9 +28,11 @@ def dispatch_loot_system(request):
             item = request.GET.get('item')
 
             if loot == 'SOFTLOCK':
+                # TODO: dispatch to softlock view of item
                 pass
 
             if loot == 'LOOTCOUNCIL':
+                # TODO: dispatch to loot council view of item
                 pass
 
     # Return 404 if any of the checks fail
@@ -37,6 +41,31 @@ def dispatch_loot_system(request):
     return response
 
 
+def search(request):
+    if request.method == 'GET':
+        if request.GET.get('search'):
+            specifier, pk = request.GET.get('search').split('-')
+            encounter_id = False
+
+            if specifier == 'item':
+                if Item.objects.filter(pk=pk).exists():
+                    # TODO: Show softlock or loot council statistics of item
+                    pass
+
+            if specifier == 'encounter':
+                if Encounter.objects.filter(pk=pk).exists():
+                    encounter_id = Encounter.objects.get(pk=pk).id
+
+            if encounter_id:
+                return HttpResponseRedirect(reverse('raids_encounter') + '?' + urlencode({'boss': encounter_id}))
+
+    # Return 404 if any of the checks fail
+    response = render(request, '404.html')
+    response.status_code = 404
+    return response
+
+
+# Ajax
 def ajax_autocomplete_search(request):
     if request.is_ajax():
         # Get search string
@@ -50,10 +79,10 @@ def ajax_autocomplete_search(request):
         names = []
 
         for encounter in encounters:
-            names.append(encounter.name)
+            names.append([encounter.name, encounter.id, 'encounter'])
 
         for item in items:
-            names.append(item.name)
+            names.append([item.name, item.id, 'item'])
 
         # Encode results list to json data
         data = json.dumps(names)

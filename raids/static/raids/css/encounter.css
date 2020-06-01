@@ -4,11 +4,11 @@
 
 .item-background {
     background-color: #181818;
-    color: #ffffff;
+    color: #f4f4f4;
 }
 
 .thumbnail {
-    border: 1px solid #ffffff;
+    border: 1px solid #C0B283;
 }
 
 .badge {
@@ -17,15 +17,19 @@
     min-height: 14px;
     top: 5px;
     right: 5px;
+    background-color: #C0B283;
+    color: #1e1e21;
+    font-size: .7rem;
 }
 
 .tooltip {
-    background-color: #767676;
-    color: #fefefe;
+    background-color: #C0B283;
+    color: #1e1e21;
+    border: 1px solid #1e1e21;
 }
 
 .tooltip.left::before {
-    border-color: transparent transparent transparent #767676;
+    border-color: transparent transparent transparent #C0B283;
 }
 
 .has-tip {

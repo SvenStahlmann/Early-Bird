@@ -1,79 +1,108 @@
+body, html {
+    background-color: #848484;
+}
+
 /* Sidebar */
 .off-canvas {
-    background-color: #9FAAC4;
+    background-color: #2C2B30;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .25),
+    0 3px 6px rgba(0, 0, 0, .22);
 }
 
-.multilevel-accordion-menu .is-accordion-submenu-parent a {
-    background: #8590AA;
+.accordion-menu li a, .accordion-menu li a ul li a {
+    color: #ababab;
 }
 
-.multilevel-accordion-menu .is-accordion-submenu a {
-    background: #B8C3DD;
+.accordion-menu li a.active span, .accordion-menu li a ul li a.active span {
+    color: #f4f4f4;
 }
 
-.multilevel-accordion-menu .sublevel-1 {
-    text-indent: 1rem;
+.accordion-menu .is-accordion-submenu-parent:not(.has-submenu-toggle) > a::after {
+    border-color: #ababab transparent transparent;
 }
 
-.multilevel-accordion-menu .sublevel-2 {
-    text-indent: 2rem;
+/* Search */
+#sidebar-search {
+    margin-bottom: 5px;
 }
 
-.multilevel-accordion-menu .sublevel-3 {
-    text-indent: 3rem;
+#search-input {
+    background-color: transparent;
+    border-left: unset;
+    border-right: unset;
+    border-top: unset;
+    color: #fefefe;
 }
 
-.multilevel-accordion-menu .sublevel-4 {
-    text-indent: 4rem;
+#search-input:focus, #search-input:active {
+    box-shadow: none;
+    border-bottom: 1px solid #cacaca;
 }
 
-.multilevel-accordion-menu .sublevel-5 {
-    text-indent: 5rem;
+#search-input-button {
+    background-color: transparent;
+    border-left: 0;
+    border-bottom: 1px solid #cacaca;
 }
 
-.multilevel-accordion-menu .sublevel-6 {
-    text-indent: 6rem;
+#search-input-button:focus {
+    outline: none;
 }
 
-.multilevel-accordion-menu a {
-    color: #000000;
-    box-shadow: inset 0 -1px #41444a;
+.autocomplete-result-list {
+    margin-left: 0;
 }
 
-.multilevel-accordion-menu a::after {
-    border-color: #e3e3e3 transparent transparent;
+.autocomplete-suggestions {
+    min-width: 300px;
+    max-width: 300px;
+    min-height: calc(100% - 2.5rem);
+    background-color: #2C2B30;
+    line-height: 1;
+    border: none;
+    padding-top: 5px;
+    position:fixed;
 }
 
-.multilevel-accordion-menu .menu > li:not(.menu-text) > a {
-    padding: 1.2rem 1rem;
+.autocomplete-suggestions div {
+    font-size: 1.02em;
+    font-weight: 400;
+    color: #ababab;
 }
 
-.multilevel-accordion-menu .is-accordion-submenu-parent[aria-expanded="true"] a.subitem::before {
-    font-family: 'Font Awesome\ 5 Free';
-    content: "\f714";
+.autocomplete-suggestions div.selected {
+    background-color: #1e1e21;
+}
+
+.autocomplete-suggestions div b {
+    color: #f4f4f4;
+}
+
+/* Accordion icon styling */
+#instances-accordion li a {
+    transition: color .3s cubic-bezier(.215, .61, .355, 1);
+}
+
+#instances-accordion > .is-accordion-submenu-parent[aria-expanded="false"] > a::after {
+    font-family: "Font Awesome\ 5 Free";
+    display: inline-block;
+    padding-right: 3px;
     font-weight: 900;
-    margin-right: 1rem;
+    content: "\f107" !important;
+    border: unset !important;
+    top: 37% !important;
+    right: 1.2rem !important;
 }
 
-.multilevel-accordion-menu .is-accordion-submenu-parent[aria-expanded="false"] a.subitem::before {
-    font-family: 'Font Awesome\ 5 Free';
-    content: "\f714";
+#instances-accordion > .is-accordion-submenu-parent[aria-expanded="true"] > a::after {
+    font-family: "Font Awesome\ 5 Free";
+    display: inline-block;
+    padding-right: 3px;
     font-weight: 900;
-    margin-right: 1rem;
-}
-
-.multilevel-accordion-menu .is-accordion-submenu-parent[aria-expanded="true"] a::before {
-    font-family: 'Font Awesome\ 5 Free';
-    content: "\f0c0";
-    font-weight: 900;
-    margin-right: 1rem;
-}
-
-.multilevel-accordion-menu .is-accordion-submenu-parent[aria-expanded="false"] a::before {
-    font-family: 'Font Awesome\ 5 Free';
-    content: "\f0c0";
-    font-weight: 900;
-    margin-right: 1rem;
+    content: "\f107" !important;
+    border: unset !important;
+    top: 80% !important;
+    right: 0.8rem !important;
 }
 
 /* Custom */
@@ -82,12 +111,19 @@
 }
 
 .top-bar {
-    background-color: #9FAAC4;
+    background-color: #1e1e21;
     box-shadow: 0 3px 6px rgba(0, 0, 0, .25),
     0 3px 6px rgba(0, 0, 0, .22);
 }
 
 .top-bar ul {
-    background-color: #9FAAC4;
+    background-color: #1e1e21;
 }
 
+.top-bar ul li a {
+    color: #ababab;
+}
+
+#sidebar-button {
+    color: #f4f4f4;
+}

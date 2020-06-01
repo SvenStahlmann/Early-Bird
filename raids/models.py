@@ -24,7 +24,7 @@ class Instance(models.Model):
 
 
 class Encounter(models.Model):
-    name = models.CharField(max_length=80, help_text='Name des Encounteres.')
+    name = models.CharField(max_length=80, unique=True, help_text='Name des Encounteres.')
     order = models.PositiveIntegerField(blank=False, null=False)
 
     # Foreign Key
@@ -81,7 +81,7 @@ class Item(models.Model):
         ('PLATE', 'Platte'),
     )
 
-    name = models.CharField(max_length=80, help_text='Name des Items.')
+    name = models.CharField(max_length=80, unique=True, help_text='Name des Items.')
     icon = models.ImageField(upload_to='item_icons/', help_text='Icon des Items.')
     quality = models.CharField(max_length=9, choices=QUALITY_CHOICES, help_text='Qualität des Items.')
     slot = models.CharField(max_length=13, choices=SLOT_CHOICES,

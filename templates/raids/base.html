@@ -2,18 +2,31 @@
 {% load static %}
 
 {% block css_app %}
+    <link rel="stylesheet" href="{% static 'raids/css/auto-complete.css' %}">
+
     <link rel="stylesheet" href="{% static 'raids/css/base.css' %}">
 {% endblock css_app %}
 
 {% block sidebar %}
-    <ul class="multilevel-accordion-menu vertical menu" data-accordion-menu>
+    <div id="sidebar-search" class="input-group">
+        <input id="search-input" name="search" class="input-group-field autocomplete-input" type="search" placeholder="Suchen...">
+        <ul class="autocomplete-result-list"></ul>
+        <div class="input-group-button">
+            <button id="search-input-button" type="submit" class="button secondary"><i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+
+    <ul id="instances-accordion" class="vertical menu accordion-menu" data-accordion-menu>
         {% for instance, encounters in instances.items %}
             <li>
-                <a href="">{{ instance.name }}</a>
-                <ul class="menu vertical sublevel-1">
+                <a href="#"><span><i class="fas fa-users"></i>&emsp;{{ instance.name }}</span></a>
+                <ul class="menu vertical nested">
                     {% for encounter in encounters %}
                         <li>
-                            <a id="encounter-{{ encounter.id }}" class="subitem" href="{% url 'raids_encounter' %}?boss={{ encounter.id }}">{{ encounter.name }}</a>
+                            <a id="encounter-{{ encounter.id }}"
+                               href="{% url 'raids_encounter' %}?boss={{ encounter.id }}"><span><i
+                                    class="fas fa-skull"></i>&emsp;{{ encounter.name }}</span></a>
                         </li>
                     {% endfor %}
                 </ul>
@@ -23,5 +36,7 @@
 {% endblock sidebar %}
 
 {% block js_app %}
+    <script src="{% static 'raids/js/auto-complete.min.js' %}"></script>
+
     <script src="{% static 'raids/js/base.js' %}"></script>
 {% endblock js_app %}

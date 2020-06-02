@@ -95,5 +95,5 @@ def ajax_autocomplete_search(request):
     # Return nothing if any of the checks fail
     return JsonResponse({})
 
-def index(request):
+def raid(request):
     return render(request, 'raids/index.html', {'instances': get_instances()})

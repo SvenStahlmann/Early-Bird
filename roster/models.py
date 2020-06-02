@@ -31,6 +31,7 @@ def save_user_profile(sender, instance, **kwargs):
 
 class WowClass(models.Model):
     name = models.CharField(max_length=80, help_text='Name der Klasse.')
+    icon = models.ImageField(upload_to='class_icons/', help_text='Icon der Klasse.')
     order = models.PositiveIntegerField(blank=False, null=False)
 
     # Timestamp
@@ -46,6 +47,7 @@ class WowClass(models.Model):
 
 class Specialization(models.Model):
     name = models.CharField(max_length=80, help_text='Name der Spezialisierung.')
+    icon = models.ImageField(upload_to='specialization_icons/', help_text='Icon der Spezialisierung.')
     order = models.PositiveIntegerField(blank=False, null=False)
 
     # Foreign key

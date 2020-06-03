@@ -32,9 +32,6 @@ class RaidDay(models.Model):
     date = models.DateTimeField(help_text='Datum des Raids.')
     order = models.PositiveIntegerField(blank=False, null=False)
 
-    # Foreign key
-    instance = models.ForeignKey(Instance, related_name='raid_day', on_delete=models.CASCADE)
-
     # Many to many
     character = models.ManyToManyField(Character, through='Attendance')
 
@@ -46,7 +43,7 @@ class RaidDay(models.Model):
         ordering = ['order']
 
     def __str__(self):
-        return str(self.instance) + ' - ' + str(self.date)
+        return str(self.date)
 
 
 class Attendance(models.Model):

@@ -91,7 +91,7 @@ class Item(models.Model):
     order = models.PositiveIntegerField(blank=False, null=False)
 
     # Many to many
-    Encounter = models.ManyToManyField(Encounter, related_name='item')
+    encounter = models.ManyToManyField(Encounter, related_name='item')
 
     # Timestamp
     created_at = models.DateTimeField(auto_now_add=True)

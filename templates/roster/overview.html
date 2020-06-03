@@ -1,5 +1,10 @@
 {% extends 'roster/base.html' %}
 {% load static %}
+{% load count_enchants get_loot_history %}
+
+{% block css_page %}
+    <link rel="stylesheet" href="{% static 'roster/css/overview.css' %}">
+{% endblock css_page %}
 
 {% block content %}
     <div class="grid-container fluid">
@@ -9,7 +14,33 @@
                 <div class="cell large-6">
                     <a href="#">
                         <div class="callout character-background">
-                            <h4>{{ character.name }}</h4>
+                            <div class="media-object">
+                                <div class="media-object-section">
+                                    <div class="thumbnail">
+                                        <img alt="Foliant des einlullenden Schusses"
+                                             src="/media/{{ character.specialization.icon }}">
+                                    </div>
+                                </div>
+                                <div class="media-object-section" style="min-width: 80% !important;">
+                                    <h4>{{ character.name }}</h4>
+                                    <div class="grid-x grid-padding-x">
+                                        <div class="cell medium-6">
+                                            Verzauberungen:
+                                            {% if character.enchants %}
+                                                <span class="no-break">{{ character.enchants|count_enchants }} von 8</span>
+                                                <br>
+                                            {% endif %}
+                                            Attendance:
+                                        </div>
+                                        <div class="cell medium-6">
+                                            Items erhalten:<br>
+                                            {% for value in character.loot_history.all|get_loot_history %}
+                                                {{ value.0 }}: {{ value.1 }}<br>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
@@ -19,13 +50,39 @@
                     <div class="cell large-6">
                         <a href="#">
                             <div class="callout character-background">
-                                <h4>{{ character.name }}</h4>
+                                <div class="media-object">
+                                    <div class="media-object-section">
+                                        <div class="thumbnail">
+                                            <img alt="Foliant des einlullenden Schusses"
+                                                 src="/media/{{ character.specialization.icon }}">
+                                        </div>
+                                    </div>
+                                    <div class="media-object-section" style="min-width: 80% !important;">
+                                        <h4>{{ character.name }}</h4>
+                                        <div class="grid-x grid-padding-x">
+                                            <div class="cell medium-6">
+                                                Verzauberungen:
+                                                {% if character.enchants %}
+                                                    <span class="no-break">{{ character.enchants|count_enchants }} von 8</span>
+                                                    <br>
+                                                {% endif %}
+                                                Attendance:
+                                            </div>
+                                            <div class="cell medium-6">
+                                                Items erhalten:<br>
+                                                {% for value in character|get_loot_history %}
+                                                    {{ value.0 }}: {{ value.1 }}<br>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </a>
                     </div>
-                {% if forloop.last %}
-                    </div>
-                {% endif %}
+                    {% if forloop.last %}
+                        </div>
+                    {% endif %}
             {% endif %}
         {% endfor %}
     </div>

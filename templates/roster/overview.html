@@ -1,0 +1,32 @@
+{% extends 'roster/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="grid-container fluid">
+        <br>
+        {% for character in specialization.character.all %}
+            {% if forloop.counter|divisibleby:2 %}
+                <div class="cell large-6">
+                    <a href="#">
+                        <div class="callout character-background">
+                            <h4>{{ character.name }}</h4>
+                        </div>
+                    </a>
+                </div>
+                </div>
+            {% else %}
+                <div class="grid-x grid-padding-x">
+                    <div class="cell large-6">
+                        <a href="#">
+                            <div class="callout character-background">
+                                <h4>{{ character.name }}</h4>
+                            </div>
+                        </a>
+                    </div>
+                {% if forloop.last %}
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock content %}

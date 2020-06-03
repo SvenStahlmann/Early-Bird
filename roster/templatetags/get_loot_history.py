@@ -5,6 +5,8 @@ register = template.Library()
 
 def get_loot_history(character):
     # Only filters items for main specialization -> where entitlement is set for the characters specialization
+
+    # Dict for easy checking if instance is already a key
     instances = {}
 
     for acquisition in character.loot_history.all():
@@ -15,6 +17,7 @@ def get_loot_history(character):
                 else:
                     instances[acquisition.item.encounter.all()[0].instance] = 1
 
+    # Need to return the loot history as list of sets
     instances_list = []
 
     for instance, count in instances.items():

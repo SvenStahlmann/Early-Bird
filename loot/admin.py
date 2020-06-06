@@ -3,7 +3,7 @@ from adminsortable2.admin import SortableAdminMixin
 from .models import Enchants, RaidDay, Attendance, LootHistory, Entitlement
 
 
-class EnchantsAdmin(SortableAdminMixin, admin.ModelAdmin):
+class EnchantsAdmin(admin.ModelAdmin):
     model = Enchants
 
 

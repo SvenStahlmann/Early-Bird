@@ -1,18 +1,19 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from roster.models import Character, Specialization
 from raids.models import Instance, Item
 
 
 class Enchants(models.Model):
-    head = models.BooleanField(help_text='Verzauberung am Ausrüstungsplatz Kopf.')
-    shoulders = models.BooleanField(help_text='Verzauberung am Ausrüstungsplatz Schultern.')
-    back = models.BooleanField(help_text='Verzauberung am Ausrüstungsplatz Rücken.')
-    chest = models.BooleanField(help_text='Verzauberung am Ausrüstungsplatz Brust.')
-    wrist = models.BooleanField(help_text='Verzauberung am Ausrüstungplatz Handgelenk.')
-    hands = models.BooleanField(help_text='Verzauberung am Ausrüstungsplatz Hände.')
-    legs = models.BooleanField(help_text='Verzauberung am Ausrüstungsplatz Beine.')
-    feet = models.BooleanField(help_text='Verzauberung am Ausrüstungsplatz Füße.')
-    order = models.PositiveIntegerField(blank=False, null=False)
+    head = models.BooleanField(default=False, help_text='Verzauberung am Ausrüstungsplatz Kopf.')
+    shoulders = models.BooleanField(default=False, help_text='Verzauberung am Ausrüstungsplatz Schultern.')
+    back = models.BooleanField(default=False, help_text='Verzauberung am Ausrüstungsplatz Rücken.')
+    chest = models.BooleanField(default=False, help_text='Verzauberung am Ausrüstungsplatz Brust.')
+    wrist = models.BooleanField(default=False, help_text='Verzauberung am Ausrüstungplatz Handgelenk.')
+    hands = models.BooleanField(default=False, help_text='Verzauberung am Ausrüstungsplatz Hände.')
+    legs = models.BooleanField(default=False, help_text='Verzauberung am Ausrüstungsplatz Beine.')
+    feet = models.BooleanField(default=False, help_text='Verzauberung am Ausrüstungsplatz Füße.')
 
     # One to one
     character = models.OneToOneField(Character, related_name='enchants', on_delete=models.CASCADE)
@@ -21,11 +22,19 @@ class Enchants(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    class Meta:
-        ordering = ['order']
-
     def __str__(self):
         return str(self.character)
+
+
+@receiver(post_save, sender=Character)
+def create_character_enchants(sender, instance, created, **kwargs):
+    if created:
+        Enchants.objects.create(character=instance)
+
+
+@receiver(post_save, sender=Character)
+def save_character_enchants(sender, instance, **kwargs):
+    instance.enchants.save()
 
 
 class RaidDay(models.Model):

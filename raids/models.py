@@ -71,13 +71,26 @@ class Item(models.Model):
         ('TWOHAND', 'Zweihändig'),
         ('RANGED', 'Distanz'),
         ('RELIC', 'Relikt'),
+        ('WAND', 'Zauberstab'),
     )
 
+    # TODO: Weapon types
     TYPE_CHOICES = (
         ('CLOTH', 'Stoff'),
         ('LEATHER', 'Leder'),
         ('MAIL', 'Kette'),
-        ('PLATE', 'Platte')
+        ('PLATE', 'Platte'),
+        ('BOW', 'Bogen'),
+        ('CROSSBOW', 'Armbrust'),
+        ('DAGGER', 'Dolch'),
+        ('FISTWEAPON', 'Fauswaffe'),
+        ('GUN', 'Schusswaffe'),
+        ('AXE', 'Axt'),
+        ('MACE', 'Streitkolben'),
+        ('SWORD', 'Schwert'),
+        ('POLEARM', 'Stangenwaffe'),
+        ('STAVE', 'Stab'),
+        ('THROWN', 'Wurfwaffe'),
     )
 
     name = models.CharField(max_length=80, help_text='Name des Items.')
@@ -85,7 +98,7 @@ class Item(models.Model):
     quality = models.CharField(max_length=9, choices=QUALITY_CHOICES, help_text='Qualität des Items.')
     slot = models.CharField(max_length=9, choices=SLOT_CHOICES,
                             help_text='Ausrüstungsplatz, an welchem dieses Item angelegt wird.')
-    type = models.CharField(max_length=7, choices=TYPE_CHOICES, blank=True, null=True,
+    type = models.CharField(max_length=10, choices=TYPE_CHOICES, blank=True, null=True,
                             help_text='Rüstungstyp des Items.')
     wowhead_link = models.URLField(help_text='Hyperlink zum Item auf wowhead.com.')
     order = models.PositiveIntegerField(blank=False, null=False)

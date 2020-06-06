@@ -4,7 +4,7 @@
 
 .character-background {
     background-color: #181818;
-    color: #f4f4f4;
+    color: #ababab;
 }
 
 .thumbnail {
@@ -13,4 +13,24 @@
 
 .no-break {
     white-space: nowrap;
+}
+
+.fa-calendar, .fa-calendar-check {
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.fa-exclamation-triangle {
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+.fa-utensils {
+    margin-left: 3.5px;
+    margin-right: 3.5px;
+}
+
+.fa-sun {
+    margin-left: 2px;
+    margin-right: 2px;
 }

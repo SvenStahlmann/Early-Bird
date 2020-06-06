@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .utils import get_classes
-from .models import Specialization
+from .models import Specialization, Character
 
 
 def overview(request):
@@ -17,7 +17,16 @@ def overview(request):
 
 
 def character(request):
-    pass
+    if request.method == 'GET':
+        if request.GET.get('character'):
+            character_id = request.GET.get('character')
+            if Character.objects.filter(pk=character_id).exists():
+                return render(request, 'roster/character.html', {'classes': get_classes(), 'character': Character.objects.get(pk=character_id)})
+
+    # Return 404 if any of the checks fail
+    response = render(request, '404.html')
+    response.status_code = 404
+    return response
 
 
 def search(request):

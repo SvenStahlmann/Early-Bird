@@ -20,3 +20,12 @@ img {
 .has-tip {
     border-bottom: none;
 }
+
+.wowhead-tooltip table tr {
+    background: none;
+    border: none;
+}
+
+.wowhead-tooltip table tbody {
+    background-color: #060b1f;
+}

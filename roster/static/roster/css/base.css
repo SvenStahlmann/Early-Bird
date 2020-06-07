@@ -1,0 +1,136 @@
+body, html {
+    background-color: #848484;
+}
+
+/* Sidebar */
+.off-canvas {
+    background-color: #2C2B30;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .25),
+    0 3px 6px rgba(0, 0, 0, .22);
+}
+
+.accordion-menu li a, .accordion-menu li a ul li a {
+    color: #ababab;
+}
+
+.accordion-menu li a.active span, .accordion-menu li a ul li a.active span {
+    color: #f4f4f4;
+}
+
+.accordion-menu .is-accordion-submenu-parent:not(.has-submenu-toggle) > a::after {
+    border-color: #ababab transparent transparent;
+}
+
+.sidebar-img {
+    max-width: 20px;
+    max-height: 20px;
+    border-radius: 4px;
+}
+
+/* Search */
+#sidebar-search {
+    margin-bottom: 5px;
+}
+
+#search-input {
+    background-color: transparent;
+    border-left: unset;
+    border-right: unset;
+    border-top: unset;
+    color: #fefefe;
+}
+
+#search-input:focus, #search-input:active {
+    box-shadow: none;
+    border-bottom: 1px solid #cacaca;
+}
+
+#search-input-button {
+    background-color: transparent;
+    border-left: 0;
+    border-bottom: 1px solid #cacaca;
+}
+
+#search-input-button:focus {
+    outline: none;
+}
+
+.autocomplete-result-list {
+    margin-left: 0;
+}
+
+.autocomplete-suggestions {
+    min-width: 300px;
+    max-width: 300px;
+    min-height: calc(100% - 2.5rem);
+    background-color: #2C2B30;
+    border: none;
+    padding-top: 5px;
+    position: fixed;
+}
+
+.autocomplete-suggestion {
+    margin-bottom: 5px;
+    font-size: 1.07em;
+    font-weight: 400;
+    color: #ababab;
+}
+
+.autocomplete-suggestion.selected {
+    background-color: #1e1e21;
+    color: #f4f4f4;
+}
+
+.autocomplete-suggestions div b {
+    color: #f4f4f4;
+}
+
+/* Accordion icon styling */
+#classes-accordion li a {
+    transition: color .3s cubic-bezier(.215, .61, .355, 1);
+}
+
+#classes-accordion > .is-accordion-submenu-parent[aria-expanded="false"] > a::after {
+    font-family: "Font Awesome\ 5 Free";
+    display: inline-block;
+    padding-right: 3px;
+    font-weight: 900;
+    content: "\f107" !important;
+    border: unset !important;
+    top: 37% !important;
+    right: 1.2rem !important;
+}
+
+#classes-accordion > .is-accordion-submenu-parent[aria-expanded="true"] > a::after {
+    font-family: "Font Awesome\ 5 Free";
+    display: inline-block;
+    padding-right: 3px;
+    font-weight: 900;
+    content: "\f107" !important;
+    border: unset !important;
+    top: 80% !important;
+    right: 0.8rem !important;
+}
+
+/* Custom */
+.input-group {
+    margin-bottom: 0;
+}
+
+.top-bar {
+    background-color: #1e1e21;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .25),
+    0 3px 6px rgba(0, 0, 0, .22);
+}
+
+.top-bar ul {
+    background-color: #1e1e21;
+}
+
+.top-bar ul li a {
+    color: #ababab;
+}
+
+#sidebar-button {
+    color: #f4f4f4;
+}

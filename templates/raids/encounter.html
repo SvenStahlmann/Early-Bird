@@ -1,0 +1,87 @@
+{% extends 'raids/base.html' %}
+{% load static %}
+
+{% block css_page %}
+    <link rel="stylesheet" href="{% static 'raids/css/encounter.css' %}">
+{% endblock css_page %}
+
+{% block content %}
+    <div class="grid-container fluid">
+        <br>
+        {% for item in encounter.item.all %}
+            {% if forloop.counter|divisibleby:2 %}
+                <div class="cell large-6">
+                    <a href="{% url 'raids_dispatch' %}?loot={{ encounter.instance.loot_system }}&item={{ item.id }}">
+                        <div class="callout item-background">
+                            <div class="media-object">
+                                <div class="media-object-section">
+                                    <div class="thumbnail">
+                                        <img alt="Foliant des einlullenden Schusses"
+                                             src="/media/{{ item.icon }}">
+                                    </div>
+                                </div>
+                                <div class="media-object-section" style="min-width: 80% !important;">
+                                    <h5 class="{{ item.quality }}">{{ item.name }}</h5>
+                                    <div class="grid-x grid-padding-x" style="min-width: 100% !important;">
+                                        <div class="cell small-6">
+                                            Platz: {{ item.get_slot_display }}
+                                        </div>
+                                        <div class="cell small-6">
+                                            Typ:
+                                            {% if item.type %}{{ item.get_type_display }}{% else %}
+                                                Undefiniert{% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if encounter.instance.loot_system == 'SOFTLOCK' %}
+                                    <span class="badge"><span data-tooltip class="left"
+                                                                        title="Anzahl Softlocks auf diesem Item.">{{ item.softlock.count }}</span></span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                </div>
+            {% else %}
+                <div class="grid-x grid-padding-x">
+                    <div class="cell large-6">
+                        <a href="{% url 'raids_dispatch' %}?loot={{ encounter.instance.loot_system }}&item={{ item.id }}">
+                            <div class="callout item-background">
+                                <div class="media-object">
+                                    <div class="media-object-section">
+                                        <div class="thumbnail">
+                                            <img alt="Foliant des einlullenden Schusses"
+                                                 src="/media/{{ item.icon }}">
+                                        </div>
+                                    </div>
+                                    <div class="media-object-section" style="min-width: 80% !important;">
+                                        <h5 class="{{ item.quality }}">{{ item.name }}</h5>
+                                        <div class="grid-x grid-padding-x" style="min-width: 100% !important;">
+                                            <div class="cell small-6">
+                                                Platz: {{ item.get_slot_display }}
+                                            </div>
+                                            <div class="cell small-6">
+                                                Typ: {% if item.type %}{{ item.get_type_display }}{% else %}
+                                                Undefiniert{% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% if encounter.instance.loot_system == 'SOFTLOCK' %}
+                                        <span class="badge"><span data-tooltip class="left"
+                                                                            title="Anzahl Softlocks auf diesem Item.">{{ item.softlock.count }}</span></span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% if forloop.last %}
+                        </div>
+                    {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock content %}
+
+{% block js_page %}
+    {{ encounter.id|json_script:'encounter-id' }}
+{% endblock js_page %}

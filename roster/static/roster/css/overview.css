@@ -1,0 +1,36 @@
+.callout {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.character-background {
+    background-color: #181818;
+    color: #ababab;
+}
+
+.thumbnail {
+    border: 1px solid #C0B283;
+}
+
+.no-break {
+    white-space: nowrap;
+}
+
+.fa-calendar, .fa-calendar-check {
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.fa-exclamation-triangle {
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+.fa-utensils {
+    margin-left: 3.5px;
+    margin-right: 3.5px;
+}
+
+.fa-sun {
+    margin-left: 2px;
+    margin-right: 2px;
+}

@@ -1,3 +1,40 @@
+/* Classes */
+.Schurke {
+    color: #FFF569;
+}
+
+.Druide {
+    color: #FF7D0A;
+}
+
+.Jäger {
+    color: #ABD473;
+}
+
+.Magier {
+    color: #69CCF0;
+}
+
+.Paladin {
+    color: #F58CBA;
+}
+
+.Priester {
+    color: #FFFFFF;
+}
+
+.Schamane {
+    color: #0070DE;
+}
+
+.Hexenmeister {
+    color: #9482C9;
+}
+
+.Krieger {
+    color: #C79C6E;
+}
+
 /* Item quality */
 .POOR {
     color: #9d9d9d;

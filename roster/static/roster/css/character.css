@@ -1,0 +1,84 @@
+.gear-background {
+    background-color: #181818;
+    color: #ababab;
+}
+
+.item-img {
+    border: 1px solid #C0B283 !important;
+}
+
+.has-tip {
+    border-bottom: none;
+}
+
+.wowhead-tooltip table tr {
+    background: none;
+    border: none;
+}
+
+.wowhead-tooltip table tbody {
+    background-color: #060b1f;
+}
+
+/* Table */
+.attendance-table {
+    table-layout: fixed;
+    width: 100%;
+    *margin-left: -200px;
+}
+
+.attendance-table td, .attendance-table th {
+    vertical-align: top;
+    border-top: 1px solid #ccc;
+    padding: 10px;
+    width: 200px;
+}
+
+.attendance-table thead, .attendance-table.unstriped tbody, .attendance-table.unstriped tr, .attendance-table td, .attendance-table th {
+    background: transparent;
+    color: #ababab;
+    border: transparent;
+}
+
+.attendance-table td {
+    border: 1px solid #1e1e21;
+}
+
+.attendance-table td {
+    max-height: 200px !important;
+}
+
+.fix {
+    position: absolute;
+    *position: relative; /*ie7*/
+    margin-left: -200px;
+    width: 200px;
+    border: transparent !important;
+}
+
+.outer {
+    position: relative;
+}
+
+.inner {
+    overflow-x: scroll;
+    overflow-y: visible;
+    width: calc(100% - 200px);
+    margin-left: 200px;
+}
+
+.check {
+    background: #3adb76 !important;
+    color: #3adb76 !important;
+}
+
+.cross {
+    background: #cc4b37 !important;
+    color: #cc4b37 !important;
+}
+
+/* Loot history */
+.item-icon {
+    width: 20px;
+    height: 20px;
+}

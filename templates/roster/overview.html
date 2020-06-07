@@ -1,0 +1,116 @@
+{% extends 'roster/base.html' %}
+{% load static %}
+{% load count_enchants get_loot_history get_attendance get_calendar_entries get_misconduct get_consumables get_worldbuffs %}
+
+{% block css_page %}
+    <link rel="stylesheet" href="{% static 'roster/css/overview.css' %}">
+{% endblock css_page %}
+
+{% block content %}
+    <div class="grid-container fluid">
+        <br>
+        {% for character in specialization.character.all %}
+            {% if forloop.counter|divisibleby:2 %}
+                <div class="cell large-6">
+                    <a href="{% url 'roster_character' %}?character={{ character.id }}">
+                        <div class="callout character-background">
+                            <div class="media-object">
+                                <div class="media-object-section">
+                                    <div class="thumbnail">
+                                        <img alt="Foliant des einlullenden Schusses"
+                                             src="/media/{{ character.specialization.icon }}">
+                                    </div>
+                                </div>
+                                <div class="media-object-section" style="min-width: 80% !important;">
+                                    <h4 class="{{ character.specialization.wow_class }}">{{ character.name }}</h4>
+                                    <div class="grid-x grid-padding-x">
+                                        <div class="cell medium-6">
+                                            <p>
+                                                <i class="fas fa-hand-sparkles"></i> Enchants:
+                                                {% if character.enchants %}
+                                                    <span class="no-break">{{ character.enchants|count_enchants }} von 8</span>
+                                                    <br>
+                                                {% endif %}
+                                                <span class="no-break"><i
+                                                        class="fas fa-calendar"></i> Attendance:</span> <span
+                                                    class="no-break">{{ character|get_attendance }}
+                                                von {{ character.attendance.all.count }}</span><br>
+                                                <i class="fas fa-calendar-check"></i> Einträge: <span
+                                                    class="no-break">{{ character|get_calendar_entries }} von {{ character.attendance.all.count }}</span><br>
+                                                <span class="no-break"><i class="fas fa-exclamation-triangle"></i> Fehlverhalten:</span> {{ character|get_misconduct }}<br>
+                                                <span class="no-break"><i
+                                                        class="fas fa-utensils"></i> Consumables:</span> <span
+                                                    class="no-break">{{ character|get_consumables }} von {{ character.attendance.all.count }}</span><br>
+                                                <span class="no-break"><i class="fas fa-sun"></i> World Buffs:</span>
+                                                <span class="no-break">{{ character|get_world_buffs }} von {{ character.attendance.all.count }}</span>
+                                            </p>
+                                        </div>
+                                        <div class="cell medium-6">
+                                            <i class="fas fa-book"></i> Items erhalten:<br>
+                                            {% for value in character|get_loot_history %}
+                                                <i class="fas fa-users"></i> {{ value.0 }}: {{ value.1 }}<br>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                </div>
+            {% else %}
+                <div class="grid-x grid-padding-x">
+                    <div class="cell large-6">
+                        <a href="{% url 'roster_character' %}?character={{ character.id }}">
+                            <div class="callout character-background">
+                                <div class="media-object">
+                                    <div class="media-object-section">
+                                        <div class="thumbnail">
+                                            <img alt="Foliant des einlullenden Schusses"
+                                                 src="/media/{{ character.specialization.icon }}">
+                                        </div>
+                                    </div>
+                                    <div class="media-object-section" style="min-width: 80% !important;">
+                                        <h4 class="{{ character.specialization.wow_class }}">{{ character.name }}</h4>
+                                        <div class="grid-x grid-padding-x">
+                                            <div class="cell medium-6">
+                                                <p>
+                                                    <span class="no-break"><i class="fas fa-hand-sparkles"></i> Enchants:</span>
+                                                    {% if character.enchants %}
+                                                        <span class="no-break">{{ character.enchants|count_enchants }} von 8</span>
+                                                        <br>
+                                                    {% endif %}
+                                                    <span class="no-break"><i
+                                                            class="fas fa-calendar"></i> Attendance:</span> <span
+                                                        class="no-break">{{ character|get_attendance }} von {{ character.attendance.all.count }}</span><br>
+                                                    <i class="fas fa-calendar-check"></i> Einträge: <span
+                                                        class="no-break">{{ character|get_calendar_entries }} von {{ character.attendance.all.count }}</span><br>
+                                                    <span class="no-break"><i class="fas fa-exclamation-triangle"></i> Fehlverhalten:</span> {{ character|get_misconduct }}<br>
+                                                    <span class="no-break"><i class="fas fa-utensils"></i> Consumables:</span>
+                                                    <span class="no-break">{{ character|get_consumables }} von {{ character.attendance.all.count }}</span><br>
+                                                    <span class="no-break"><i
+                                                            class="fas fa-sun"></i> World Buffs:</span> <span
+                                                        class="no-break">{{ character|get_world_buffs }} von {{ character.attendance.all.count }}</span>
+                                                </p>
+                                            </div>
+                                            <div class="cell medium-6">
+                                                <p>
+                                                    <i class="fas fa-book"></i> Items erhalten:<br>
+                                                    {% for value in character|get_loot_history %}
+                                                        <i class="fas fa-users"></i> {{ value.0 }}: {{ value.1 }}<br>
+                                                    {% endfor %}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% if forloop.last %}
+                        </div>
+                    {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock content %}

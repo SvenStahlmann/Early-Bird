@@ -1,0 +1,24 @@
+/* Item quality */
+.POOR {
+    color: #9d9d9d;
+}
+
+.COMMON {
+    color: #ffffff;
+}
+
+.UNCOMMON {
+    color: #1eff00;
+}
+
+.RARE {
+    color: #0070dd;
+}
+
+.EPIC {
+    color: #a335ee;
+}
+
+.LEGENDARY {
+    color: #ff8000;
+}

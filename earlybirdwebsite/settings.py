@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'raids.apps.RaidsConfig',
     'roster.apps.RosterConfig',
     'adminsortable2',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

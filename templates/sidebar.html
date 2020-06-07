@@ -2,17 +2,36 @@
 {% load static %}
 
 {% block body %}
-    <div class="off-canvas position-left" id="offCanvas" data-off-canvas data-transition="overlap">
+    <div class="off-canvas position-left reveal-for-large" id="offCanvas" data-off-canvas data-transition="overlap">
         <!-- Menu -->
         {% block sidebar %}{% endblock sidebar %}
-
-
     </div>
 
     <div class="off-canvas-content" data-off-canvas-content>
-        <button class="button" type="button" data-toggle="offCanvas" aria-expanded="false"
-                aria-controls="offCanvas">Toggle Off-canvas
-        </button>
+        <div class="top-bar-container" data-sticky-container>
+            <div class="sticky sticky-topbar" data-sticky data-options="anchor: page; marginTop: 0; stickyOn: small;">
+                <div class="top-bar">
+                    <div class="top-bar-left">
+                        <ul class="menu">
+                            <li class="hide-for-large">
+                                <button id="sidebar-button" class="button clear" type="button" data-toggle="offCanvas" aria-expanded="false"
+                                        aria-controls="offCanvas"><i class="fas fa-ellipsis-v"></i>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="top-bar-right">
+                        <ul class="menu menu-hover-lines">
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Über uns</a></li>
+                            <li class="active"><a href="#">Raids</a></li>
+                            <li><a href="#">Roster</a></li>
+                            <li><a href="#" disabled>Kalender</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
         {% block content %}{% endblock content %}
     </div>
 {% endblock body %}

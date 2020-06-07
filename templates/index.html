@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_page %}
+    <link rel="stylesheet" href="{% static 'earlybirdwebsite/css/index.css' %}">
+{% endblock css_page %}
+
+{% block body %}
+    <div class="hero-section">
+        <div class="hero-section-text">
+            <h1>Early Bird Express</h1>
+            <h5>Lucifron Raiding Gilde</h5>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="grid-x">
+            <div class="cell small-4 img-group">
+                <a href="#"><img class="img-card" src="{% static 'earlybirdwebsite/img/loot.jpg' %}"/></a>
+                <a class="button expanded">Loot</a>
+            </div>
+            <div class="cell small-4 img-group">
+                <a href="#"><img class="img-card" src="{% static 'earlybirdwebsite/img/raids.jpg' %}"/></a>
+                <a class="button expanded">Raids</a>
+            </div>
+            <div class="cell small-4 img-group">
+                <a href="#"><img class="img-card" src="{% static 'earlybirdwebsite/img/rooster.jpg' %}"/></a>
+                <a class="button expanded">Rooster</a>
+            </div>
+        </div>
+        <p>
+        <h3 class="type-sidelines custom-2"><span>Wilkommen auf unserer Seite</span></h3>
+        Du hast keine Zeit Ragnaros, Onyxia, Nefarian und Co. zu normalen Raidzeiten zu legen
+        und suchst eine gute Alternative, um den Raidcontent von World of Warcraft Classic trotzdem
+        zu erleben? Genau das bieten wir, der Early Bird Express, dir an. Wir sind eine wachsende
+        Gemeinschaft an Spielern, die vormittags jeglichen Raidcontent absolvieren. Inzwischen sind
+        wir einige Monate unterwegs und können die aktuellen Raids souverän clearen. Zu finden sind
+        wir auf dem deutschen PvP-Server Lucifron auf Hordenseite.
+        </p>
+        <h4>Ziele der Gilde</h4>
+        <p>Wir wollen eine langlebige Gemeinschaft, die Spaß am gemeinsamen Spielen hat, aufbauen. Den Spaßfaktor wollen
+            wir durch Erfolg noch höher treiben, weshalb wir auch das Ziel verfolgen, jeglichen Content zu bewältigen.
+            Allgemein kann man uns als PvE-orientierte Raidgilde bezeichnen. PvP findet ab und an statt, steht für uns
+            jedoch nicht im Fokus.
+        </p>
+        <h4>Raidzeiten</h4>
+        <p>Unsere Raidtage sind aktuell Freitag (BWL+ZG) sowie Mittwoch (MC+ZG/Onyxia). Der Raidcontent wird von 09:00
+            bis 12:00 Uhr bewältigt.
+            Zusätzlich gibt es einen Twink-Raid, der immer Dienstags ab 09:00 Uhr durch MC läuft! Unsere Raids finden
+            immer vormittags statt!
+        </p>
+        <h4>Erwartungshaltung von uns</h4>
+        <p>Natürlich steht der Spielspaß im Vordergrund. Trotzdem erwarten wir ein gewisses Maß an Motivation, Einsatz
+            und Disziplin um den Content zu bewältigen.
+            Dazu gehört der richtige soziale Einsatz, die Pflege seines eigenen Charakters und auch der Wille das Beste
+            aus seinem Charakter und seinen Möglichkeiten herauszuholen.
+        </p>
+
+    </div>
+{% endblock body %}

@@ -1,5 +1,5 @@
 body, html {
-  height: 100%;
+    height: 100%;
     background-color: #03161d;
 }
 
@@ -28,7 +28,7 @@ body, html {
     text-shadow: 1px 1px 2px #0a0a0a;
 }
 
-.main-content{
+.main-content {
     color: #fefefe;
     padding: 25px 50px;
     margin: auto;
@@ -41,11 +41,22 @@ body, html {
     max-width: 100%;
     height: auto;
 }
-.img-group:hover .img-card{
+
+.img-group:hover .img-card {
     -webkit-filter: none;
     -moz-filter: none;
     -ms-filter: none;
     filter: none;
+}
+
+.button {
+    background-color: #14679e;
+    font: 600 1.0rem 'Roboto Slab', sans-serif;
+}
+
+.img-group:hover .button {
+    background-color: #1c9ef4;
+    color: #fefefe
 }
 
 .img-card {
@@ -58,70 +69,69 @@ body, html {
 }
 
 
-
 .type-sidelines {
-  display: block;
-  text-align: center;
-  overflow: hidden;
-  white-space: nowrap;
+    display: block;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .type-sidelines span {
-  display: inline-block;
-  position: relative;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
+    display: inline-block;
+    position: relative;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
 }
 
 .type-sidelines span:before, .type-sidelines span:after {
-  content: '';
-  position: absolute;
-  height: 100%;
-  width: 9999px;
-  top: 50%;
-  border-top-style: solid;
-  border-top-width: 1px;
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 9999px;
+    top: 50%;
+    border-top-style: solid;
+    border-top-width: 1px;
 }
 
 .type-sidelines span:before {
-  right: 100%;
+    right: 100%;
 }
 
 .type-sidelines span:after {
-  left: 100%;
+    left: 100%;
 }
+
 .custom-2 {
-  display: block;
-  text-align: center;
-  overflow: hidden;
-  white-space: nowrap;
+    display: block;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .custom-2 span {
-  display: inline-block;
-  position: relative;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
+    display: inline-block;
+    position: relative;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
 }
 
 .custom-2 span:before, .custom-2 span:after {
-  content: '';
-  position: absolute;
-  height: 100%;
-  width: 9999px;
-  top: 50%;
-  border-top-style: solid;
-  border-top-width: 4px;
-  border-top-color: #fefefe;
-  margin-top: -2px;
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 9999px;
+    top: 50%;
+    border-top-style: solid;
+    border-top-width: 4px;
+    border-top-color: #fefefe;
+    margin-top: -2px;
 }
 
 .custom-2 span:before {
-  right: 100%;
+    right: 100%;
 }
 
 .custom-2 span:after {
-  left: 100%;
+    left: 100%;
 }
-
 

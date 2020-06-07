@@ -9,84 +9,83 @@
 {% block content %}
     <div class="grid-container fluid">
         <br>
-        <button class="button secondary" onclick="history.back()">Zurück</button>
-        <h1>Attendance</h1>
+        <h1><a class="button secondary"
+               href="{% url 'roster_overview' %}?specialization={{ character.specialization.id }}">Zurück</a> Attendance
+        </h1>
         <br>
-        <div class="table-scroll">
-            <table>
-                <thead>
-                <tr>
-                    <th>Attribut</th>
-                    {% for raid_day in character.attendance.all %}
-                        <th class="text-center">{{ raid_day.raid_day.date }}</th>
-                    {% endfor %}
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td><b>Anwesenheit</b></td>
-                    {% for raid_day in character.attendance.all %}
-                        <td class="text-center">{% if raid_day.present %}
-                            <i class="fas fa-check" style="color: green"></i>{% else %}
-                            <i class="fas fa-times" style="color: red"></i>{% endif %}</td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <td><b>Kalendereintrag</b></td>
-                    {% for raid_day in character.attendance.all %}
-                        <td class="text-center">{% if raid_day.calendar_entry %}
-                            <i class="fas fa-check" style="color: green"></i>{% else %}
-                            <i class="fas fa-times" style="color: red"></i>{% endif %}</td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <td><b>Consumables</b></td>
-                    {% for raid_day in character.attendance.all %}
-                        <td class="text-center">{% if raid_day.consumables %}
-                            <i class="fas fa-check" style="color: green"></i>{% else %}
-                            <i class="fas fa-times" style="color: red"></i>{% endif %}</td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <td><b>World Buffs</b></td>
-                    {% for raid_day in character.attendance.all %}
-                        <td class="text-center">{% if raid_day.world_buffs %}
-                            <i class="fas fa-check" style="color: green"></i>{% else %}
-                            <i class="fas fa-times" style="color: red"></i>{% endif %}</td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <td><b>Fehlverhalten</b></td>
-                    {% for raid_day in character.attendance.all %}
-                        <td class="text-center">{% if raid_day.misconduct %}
-                            <span data-tooltip class="top" tabindex="2" title="{{ raid_day.comment }}"><i
-                                    class="fas fa-check" style="color: green"></i></span>{% else %}
-                            <i class="fas fa-times" style="color: red"></i>{% endif %}</td>
-                    {% endfor %}
-                </tr>
-                </tbody>
-            </table>
+        <div class="callout gear-background">
+            <div class="outer">
+                <div class="inner">
+                    <table class="attendance-table unstriped">
+                        <thead>
+                        <tr>
+                            <th class="fix">Datum</th>
+                            {% for raid_day in character.attendance.all reversed %}
+                                <th class="text-center">{{ raid_day.raid_day.date }}</th>
+                            {% endfor %}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="fix"><b>Anwesenheit</b></td>
+                            {% for raid_day in character.attendance.all reversed %}
+                                <td class="text-center {% if raid_day.present %}check{% else %}cross{% endif %}">+</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td class="fix"><b>Kalendereintrag</b></td>
+                            {% for raid_day in character.attendance.all reversed %}
+                                <td class="text-center {% if raid_day.calendar_entry %}check{% else %}cross{% endif %}">
+                                    +
+                                </td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td class="fix"><b>Consumables</b></td>
+                            {% for raid_day in character.attendance.all reversed %}
+                                <td class="text-center {% if raid_day.consumables %}check{% else %}cross{% endif %}">+
+                                </td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td class="fix"><b>World Buffs</b></td>
+                            {% for raid_day in character.attendance.all reversed %}
+                                <td class="text-center {% if raid_day.world_buffs %}check{% else %}cross{% endif %}">+
+                                </td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td class="fix"><b>Fehlverhalten</b></td>
+                            {% for raid_day in character.attendance.all reversed %}
+                                <td {% if raid_day.misconduct %}data-tooltip tabindex="2" title="{{ raid_day.comment }}"{% endif %} class="text-center {% if raid_day.misconduct %}cross top{% else %}check{% endif %}">+
+                                </td>
+                            {% endfor %}
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
         <br>
         <h1>Gear</h1>
         <br>
         <div class="grid-x">
-            <div class="cell medium-3">
+            <div class="cell medium-2">
 
             </div>
-            <div class="cell medium-6 callout gear-background">
+            <div class="cell medium-8 callout gear-background">
                 <div class="grid-x">
                     <div class="cell small-6">
                         {% for item in character|get_items:"HEAD" %}
                             <a class="float-left" href="{{ item.wowhead_link }}" target="_blank">
-                                <img src="/media/{{ item.icon }}">
+                                <img class="item-img" src="/media/{{ item.icon }}">
                             </a>
                         {% endfor %}
                     </div>
                     <div class="cell small-6">
                         {% for item in character|get_items:"HANDS" %}
                             <a class="float-right" href="{{ item.wowhead_link }}" target="_blank">
-                                <img src="/media/{{ item.icon }}">
+                                <img class="item-img" src="/media/{{ item.icon }}">
                             </a>
                         {% endfor %}
                     </div>
@@ -96,14 +95,14 @@
                     <div class="cell small-6">
                         {% for item in character|get_items:"NECK" %}
                             <a class="float-left" href="{{ item.wowhead_link }}" target="_blank">
-                                <img src="/media/{{ item.icon }}">
+                                <img class="item-img" src="/media/{{ item.icon }}">
                             </a>
                         {% endfor %}
                     </div>
                     <div class="cell small-6">
                         {% for item in character|get_items:"WAIST" %}
                             <a class="float-right" href="{{ item.wowhead_link }}" target="_blank">
-                                <img src="/media/{{ item.icon }}">
+                                <img class="item-img" src="/media/{{ item.icon }}">
                             </a>
                         {% endfor %}
                     </div>
@@ -113,14 +112,14 @@
                     <div class="cell small-6">
                         {% for item in character|get_items:"SHOULDERS" %}
                             <a class="float-left" href="{{ item.wowhead_link }}" target="_blank">
-                                <img src="/media/{{ item.icon }}">
+                                <img class="item-img" src="/media/{{ item.icon }}">
                             </a>
                         {% endfor %}
                     </div>
                     <div class="cell small-6">
                         {% for item in character|get_items:"LEGS" %}
                             <a class="float-right" href="{{ item.wowhead_link }}" target="_blank">
-                                <img src="/media/{{ item.icon }}">
+                                <img class="item-img" src="/media/{{ item.icon }}">
                             </a>
                         {% endfor %}
                     </div>
@@ -130,14 +129,14 @@
                     <div class="cell small-6">
                         {% for item in character|get_items:"BACK" %}
                             <a class="float-left" href="{{ item.wowhead_link }}" target="_blank">
-                                <img src="/media/{{ item.icon }}">
+                                <img class="item-img" src="/media/{{ item.icon }}">
                             </a>
                         {% endfor %}
                     </div>
                     <div class="cell small-6">
                         {% for item in character|get_items:"FEET" %}
                             <a class="float-right" href="{{ item.wowhead_link }}" target="_blank">
-                                <img src="/media/{{ item.icon }}">
+                                <img class="item-img" src="/media/{{ item.icon }}">
                             </a>
                         {% endfor %}
                     </div>
@@ -147,14 +146,14 @@
                     <div class="cell small-6">
                         {% for item in character|get_items:"CHEST" %}
                             <a class="float-left" href="{{ item.wowhead_link }}" target="_blank">
-                                <img src="/media/{{ item.icon }}">
+                                <img class="item-img" src="/media/{{ item.icon }}">
                             </a>
                         {% endfor %}
                     </div>
                     <div class="cell small-6">
                         {% for item in character|get_items:"FINGER" %}
                             <a class="float-right" href="{{ item.wowhead_link }}" target="_blank">
-                                <img src="/media/{{ item.icon }}">
+                                <img class="item-img" src="/media/{{ item.icon }}">
                             </a>
                         {% endfor %}
                     </div>
@@ -164,14 +163,14 @@
                     <div class="cell small-6">
                         {% for item in character|get_items:"WRIST" %}
                             <a class="float-left" href="{{ item.wowhead_link }}" target="_blank">
-                                <img src="/media/{{ item.icon }}">
+                                <img class="item-img" src="/media/{{ item.icon }}">
                             </a>
                         {% endfor %}
                     </div>
                     <div class="cell small-6">
                         {% for item in character|get_items:"TRINKET" %}
                             <a class="float-right" href="{{ item.wowhead_link }}" target="_blank">
-                                <img src="/media/{{ item.icon }}">
+                                <img class="item-img" src="/media/{{ item.icon }}">
                             </a>
                         {% endfor %}
                     </div>
@@ -186,21 +185,21 @@
                             <div class="cell medium-4">
                                 {% for item in character|get_mainhand_items %}
                                     <a href="{{ item.wowhead_link }}" target="_blank">
-                                        <img src="/media/{{ item.icon }}">
+                                        <img class="item-img" src="/media/{{ item.icon }}">
                                     </a>
                                 {% endfor %}
                             </div>
                             <div class="cell medium-4">
                                 {% for item in character|get_offhand_items %}
                                     <a href="{{ item.wowhead_link }}" target="_blank">
-                                        <img src="/media/{{ item.icon }}">
+                                        <img class="item-img" src="/media/{{ item.icon }}">
                                     </a>
                                 {% endfor %}
                             </div>
                             <div class="cell medium-4">
                                 {% for item in character|get_third_weapon_slot %}
                                     <a href="{{ item.wowhead_link }}" target="_blank">
-                                        <img src="/media/{{ item.icon }}">
+                                        <img class="item-img" src="/media/{{ item.icon }}">
                                     </a>
                                 {% endfor %}
                             </div>
@@ -209,6 +208,21 @@
                 </div>
                 <br>
             </div>
+        </div>
+        <br>
+        <h1>Loot History</h1>
+        <br>
+        <div class="callout gear-background" style="max-height: 500px; overflow-y: scroll">
+            {% for loot in character.loot_history.all reversed %}
+                <div class="grid-x grid-padding-y grid-padding-x">
+                    <div class="cell small-2">
+                        {{ loot.raid_day.date }}
+                    </div>
+                    <div class="cell small-10">
+                        <a class="{{ loot.item.quality }}" href="{{ loot.item.wowhead_link }}"><img class="item-icon" src="/media/{{ loot.item.icon }}">&emsp;{{ loot.item }}</a>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock content %}

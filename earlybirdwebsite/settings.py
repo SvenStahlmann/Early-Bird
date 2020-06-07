@@ -76,12 +76,22 @@ WSGI_APPLICATION = 'earlybirdwebsite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
-DATABASES = {
+# see https://stackoverflow.com/questions/11187123
+DATABASES_AVAILABLE = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    },
+    'develop': {
+        'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+            'read_default_file': '/etc/mysql/my.cnf',
+            },
+        },
+}
+database = os.environ.get('DJANGO_DATABASE', 'default')
+DATABASES = {
+    'default': DATABASES_AVAILABLE[database]
 }
 
 # Password validation

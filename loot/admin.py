@@ -1,6 +1,6 @@
 from django.contrib import admin
 from adminsortable2.admin import SortableAdminMixin
-from .models import Enchants, RaidDay, Attendance, LootHistory, Entitlement
+from .models import Enchants, RaidDay, Attendance, LootHistory, Entitlement, Softlock
 
 
 class EnchantsAdmin(admin.ModelAdmin):
@@ -23,9 +23,14 @@ class EntitlementAdmin(SortableAdminMixin, admin.ModelAdmin):
     model = Entitlement
 
 
+class SoftlockAdmin(admin.ModelAdmin):
+    model = Softlock
+
+
 admin.site.register(Enchants, EnchantsAdmin)
 admin.site.register(RaidDay, RaidDayAdmin)
 admin.site.register(Attendance, AttendanceAdmin)
 admin.site.register(LootHistory, LootHistoryAdmin)
 admin.site.register(Entitlement, EntitlementAdmin)
+admin.site.register(Softlock, SoftlockAdmin)
 

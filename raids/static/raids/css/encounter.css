@@ -1,0 +1,37 @@
+.callout {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.item-background {
+    background-color: #181818;
+    color: #f4f4f4;
+}
+
+.thumbnail {
+    border: 1px solid #C0B283;
+}
+
+.badge {
+    position: absolute;
+    max-width: 14px;
+    min-height: 14px;
+    top: 5px;
+    right: 5px;
+    background-color: #C0B283;
+    color: #1e1e21;
+    font-size: .7rem;
+}
+
+.tooltip {
+    background-color: #C0B283;
+    color: #1e1e21;
+    border: 1px solid #1e1e21;
+}
+
+.tooltip.left::before {
+    border-color: transparent transparent transparent #C0B283;
+}
+
+.has-tip {
+    border-bottom: none;
+}

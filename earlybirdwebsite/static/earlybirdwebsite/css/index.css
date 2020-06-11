@@ -30,10 +30,17 @@ body, html {
 
 .main-content {
     color: #fefefe;
-    padding: 25px 50px;
+    padding: 25px 25px;
     margin: auto;
     width: 100%;
     max-width: 1000px;
+}
+
+/* Medium and up */
+@media screen and (min-width: 40em) {
+    .main-content {
+        padding: 25px 50px;
+    }
 }
 
 .img-responsive {

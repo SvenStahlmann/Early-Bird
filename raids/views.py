@@ -9,11 +9,30 @@ from .models import Encounter, Item
 
 def encounter(request):
     if request.method == 'GET':
-        if request.GET.get('boss'):
-            boss_id = request.GET.get('boss')
+        if request.GET.get('id'):
+            boss_id = request.GET.get('id')
             if Encounter.objects.filter(pk=boss_id).exists():
+                # Prepare items
+                items = {key[1]: [] for key in Item.SLOT_CHOICES}
+
+                for item in Encounter.objects.get(pk=boss_id).item.all():
+                    items[item.get_slot_display()].append(item)
+
+                # Render page
                 return render(request, 'raids/encounter.html',
-                              {'instances': get_instances(), 'encounter': Encounter.objects.get(pk=boss_id)})
+                              {'instances': get_instances(), 'encounter': Encounter.objects.get(pk=boss_id),
+                               'items': items})
+        else:
+            if Encounter.objects.all().count() > 0:
+                # Prepare items
+                items = {key[1]: [] for key in Item.SLOT_CHOICES}
+
+                for item in Encounter.objects.order_by('order').first().item.all():
+                    items[item.get_slot_display()].append(item)
+
+                # Render page
+                return render(request, 'raids/encounter.html',
+                              {'instances': get_instances(), 'encounter': Encounter.objects.order_by('order').first(), 'items': items})
 
     # Return 404 if any of the checks fail
     response = render(request, '404.html')
@@ -42,6 +61,7 @@ def dispatch_loot_system(request):
 
 
 def search(request):
+    print(request)
     if request.method == 'GET':
         if request.GET.get('search'):
             specifier, pk = request.GET.get('search').split('-')
@@ -57,7 +77,7 @@ def search(request):
                     encounter_id = Encounter.objects.get(pk=pk).id
 
             if encounter_id:
-                return HttpResponseRedirect(reverse('raids_encounter') + '?' + urlencode({'boss': encounter_id}))
+                return HttpResponseRedirect(reverse('raids_encounter') + '?' + urlencode({'id': encounter_id}))
 
     # Return 404 if any of the checks fail
     response = render(request, '404.html')

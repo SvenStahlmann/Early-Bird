@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="{% static 'raids/css/base.css' %}">
 {% endblock css_app %}
 
+{% block raids_top_bar %}
+    active
+{% endblock raids_top_bar %}
+
 {% block sidebar %}
     <div id="sidebar-search" class="input-group">
         <input id="search-input" name="search" class="input-group-field autocomplete-input" type="search"
@@ -27,7 +31,7 @@
                     {% for encounter in encounters %}
                         <li>
                             <a id="encounter-{{ encounter.id }}"
-                               href="{% url 'raids_encounter' %}?boss={{ encounter.id }}"><span><i
+                               href="{% url 'raids_encounter' %}?id={{ encounter.id }}"><span><i
                                     class="fas fa-skull"></i>&emsp;{{ encounter.name }}</span></a>
                         </li>
                     {% endfor %}

@@ -9,6 +9,7 @@ class InstanceAdmin(SortableAdminMixin, admin.ModelAdmin):
 
 class EncounterAdmin(SortableAdminMixin, admin.ModelAdmin):
     model = Encounter
+    list_display = ['name', 'instance']
 
 
 class ItemAdmin(SortableAdminMixin, admin.ModelAdmin):

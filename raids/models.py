@@ -74,7 +74,6 @@ class Item(models.Model):
         ('MISCELLANEOUS', 'Sonstiges'),
     )
 
-    # TODO: Weapon types
     TYPE_CHOICES = (
         ('CLOTH', 'Stoff'),
         ('LEATHER', 'Leder'),

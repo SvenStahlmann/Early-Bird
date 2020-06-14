@@ -94,12 +94,10 @@
                                                 </p>
                                             </div>
                                             <div class="cell medium-6">
-                                                <p>
-                                                    <i class="fas fa-book"></i> Items erhalten:<br>
-                                                    {% for value in character|get_loot_history %}
-                                                        <i class="fas fa-users"></i> {{ value.0 }}: {{ value.1 }}<br>
-                                                    {% endfor %}
-                                                </p>
+                                                <i class="fas fa-book"></i> Items erhalten:<br>
+                                                {% for value in character|get_loot_history %}
+                                                    <i class="fas fa-users"></i> {{ value.0 }}: {{ value.1 }}<br>
+                                                {% endfor %}
                                             </div>
                                         </div>
                                     </div>
@@ -114,3 +112,7 @@
         {% endfor %}
     </div>
 {% endblock content %}
+
+{% block js_page %}
+    {{ specialization.id|json_script:'specialization-id' }}
+{% endblock js_page %}

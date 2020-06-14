@@ -74,7 +74,6 @@ class Item(models.Model):
         ('MISCELLANEOUS', 'Sonstiges'),
     )
 
-    # TODO: Weapon types
     TYPE_CHOICES = (
         ('CLOTH', 'Stoff'),
         ('LEATHER', 'Leder'),
@@ -98,7 +97,6 @@ class Item(models.Model):
     quality = models.CharField(max_length=9, choices=QUALITY_CHOICES, help_text='Qualität des Items.')
     slot = models.CharField(max_length=13, choices=SLOT_CHOICES,
                             help_text='Ausrüstungsplatz, an welchem dieses Item angelegt wird.')
-    type = models.CharField(max_length=10, choices=TYPE_CHOICES, blank=True, null=True,
     type = models.CharField(max_length=13, choices=TYPE_CHOICES, blank=True, null=True,
                             help_text='Rüstungstyp des Items.')
     wowhead_link = models.URLField(help_text='Hyperlink zum Item auf wowhead.com.')

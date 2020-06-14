@@ -2,8 +2,14 @@
 {% load static %}
 
 {% block css_app %}
+    <link rel="stylesheet" href="{% static 'raids/css/auto-complete.css' %}">
+
     <link rel="stylesheet" href="{% static 'roster/css/base.css' %}">
 {% endblock css_app %}
+
+{% block roster_top_bar %}
+    active
+{% endblock roster_top_bar %}
 
 {% block sidebar %}
     <div id="sidebar-search" class="input-group">
@@ -26,7 +32,7 @@
                     {% for specialization in specializations %}
                         <li>
                             <a id="specialization-{{ specialization.id }}"
-                               href="{% url 'roster_overview' %}?specialization={{ specialization.id }}"><span><img
+                               href="{% url 'roster_overview' %}?id={{ specialization.id }}"><span><img
                                     class="sidebar-img"
                                     src="/media/{{ specialization.icon }}">&emsp;{{ specialization.name }}</span></a>
                         </li>
@@ -38,5 +44,7 @@
 {% endblock sidebar %}
 
 {% block js_app %}
+    <script src="{% static 'raids/js/auto-complete.min.js' %}"></script>
+
     <script src="{% static 'roster/js/base.js' %}"></script>
 {% endblock js_app %}

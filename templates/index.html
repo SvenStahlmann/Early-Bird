@@ -19,12 +19,12 @@
                 <a class="button expanded">Loot</a>
             </div>
             <div class="cell small-4 img-group">
-                <a href="#"><img class="img-card" src="{% static 'earlybirdwebsite/img/raids.jpg' %}"/></a>
+                <a href="{% url 'raids_encounter' %}"><img class="img-card" src="{% static 'earlybirdwebsite/img/raids.jpg' %}"/></a>
                 <a class="button expanded">Raids</a>
             </div>
             <div class="cell small-4 img-group">
-                <a href="#"><img class="img-card" src="{% static 'earlybirdwebsite/img/rooster.jpg' %}"/></a>
-                <a class="button expanded">Rooster</a>
+                <a href="{% url 'roster_overview' %}"><img class="img-card" src="{% static 'earlybirdwebsite/img/rooster.jpg' %}"/></a>
+                <a class="button expanded">Roster</a>
             </div>
         </div>
         <p>

@@ -23,11 +23,11 @@
                     </div>
                     <div class="top-bar-right">
                         <ul class="menu menu-hover-lines">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Über uns</a></li>
-                            <li class="active"><a href="#">Raids</a></li>
-                            <li><a href="#">Roster</a></li>
-                            <li><a href="#" disabled>Kalender</a></li>
+                            <li><a href="{% url 'index' %}">Home</a></li>
+                            <li class="{% block about_top_bar %}{% endblock about_top_bar %}"><a href="#">Über uns</a></li>
+                            <li class="{% block raids_top_bar %}{% endblock raids_top_bar %}"><a href="{% url 'raids_encounter' %}">Raids</a></li>
+                            <li class="{% block roster_top_bar %}{% endblock roster_top_bar %}"><a href="{% url 'roster_overview' %}">Roster</a></li>
+                            <li class="{% block calendar_top_bar %}{% endblock calendar_top_bar %}"><a href="#" disabled>Kalender</a></li>
                         </ul>
                     </div>
                 </div>

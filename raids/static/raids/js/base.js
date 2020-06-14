@@ -3,7 +3,7 @@ $(document).ready(function () {
     set_active_encounter();
 
     // Initialize search autocomplete
-    autocomplete();
+    autocomplete_raids();
 })
 
 function set_active_encounter() {
@@ -20,7 +20,7 @@ function set_active_encounter() {
     }
 }
 
-function autocomplete() {
+function autocomplete_raids() {
     new autoComplete({
         selector: 'input[id="search-input"]',
         minChars: 2,

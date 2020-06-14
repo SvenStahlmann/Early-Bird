@@ -1,8 +1,5 @@
 .callout {
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-}
-
-.item-background {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     background-color: #181818;
     color: #f4f4f4;
 }
@@ -34,4 +31,73 @@
 
 .has-tip {
     border-bottom: none;
+}
+
+/* wowhead */
+.wowhead-tooltip table tr {
+    background: none;
+    border: none;
+}
+
+.wowhead-tooltip table tbody {
+    background-color: #060b1f;
+}
+
+/* Tabs */
+.tabs, .tabs-content.vertical, .tabs-panel, .tabs-content, .accordion, .accordion-content, .accordion-panel, .accordion-title {
+    border: none;
+    background: transparent;
+}
+
+.tabs-panel, .accordion-panel {
+    min-height: 654px;
+}
+
+.accordion-item > a {
+    color: #181818;
+    font-size: 1.2em;
+    border-left: 2px solid #181818;
+    border-bottom: 2px solid #181818;
+    outline: none;
+}
+
+.accordion-item > a:hover {
+    background: transparent;
+    color: #181818;
+    border-left: 2px solid #181818;
+    border-bottom: 2px solid #181818;
+}
+
+.accordion-item > a:focus, .accordion-item > a[aria-selected=true] {
+    background: transparent;
+    color: #181818;
+    border-left: 2px solid #C0B283;
+    border-bottom: 2px solid #C0B283;
+}
+
+:last-child:not(.is-active) > .accordion-title {
+    border-left: 2px solid #181818;
+    border-bottom: 2px solid #181818;
+}
+
+.tabs-title > a {
+    color: #181818;
+    outline: none;
+    border-left: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+    font-size: 1.2em;
+}
+
+.tabs-title > a:hover {
+    background: transparent;
+    color: #181818;
+    border-left: 2px solid #181818;
+    border-bottom: 2px solid #181818;
+}
+
+.tabs-title > a:focus, .tabs-title > a[aria-selected=true] {
+    background: transparent;
+    color: #181818;
+    border-left: 2px solid #C0B283;
+    border-bottom: 2px solid #C0B283;
 }

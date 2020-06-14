@@ -1,6 +1,5 @@
 from .models import Instance
 
-
 def get_instances():
     instances = {}
 

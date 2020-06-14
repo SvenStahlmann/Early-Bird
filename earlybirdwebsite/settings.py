@@ -24,7 +24,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['173.249.31.162', '127.0.0.1','localhost']
+ALLOWED_HOSTS = ['173.249.31.162', '127.0.0.1','localhost','ebe.svenstahlmann.de']
 
 # Application definition
 
@@ -77,12 +77,22 @@ WSGI_APPLICATION = 'earlybirdwebsite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
-DATABASES = {
+# see https://stackoverflow.com/questions/11187123
+DATABASES_AVAILABLE = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    },
+    'deploy': {
+        'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+            'read_default_file': '/etc/mysql/my.cnf',
+            },
+        },
+}
+database = os.environ.get('DJANGO_DATABASE', 'default')
+DATABASES = {
+    'default': DATABASES_AVAILABLE[database]
 }
 
 # Password validation

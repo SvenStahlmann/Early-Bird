@@ -32,7 +32,8 @@ def encounter(request):
 
                 # Render page
                 return render(request, 'raids/encounter.html',
-                              {'instances': get_instances(), 'encounter': Encounter.objects.order_by('order').first(), 'items': items})
+                              {'instances': get_instances(), 'encounter': Encounter.objects.order_by('order').first(),
+                               'items': items})
 
     # Return 404 if any of the checks fail
     response = render(request, '404.html')
@@ -44,15 +45,14 @@ def dispatch_loot_system(request):
     if request.method == 'GET':
         if request.GET.get('loot') and request.GET.get('item'):
             loot = request.GET.get('loot')
-            item = request.GET.get('item')
+            item_id = request.GET.get('item')
 
             if loot == 'SOFTLOCK':
                 # TODO: dispatch to softlock view of item
                 pass
 
             if loot == 'LOOTCOUNCIL':
-                # TODO: dispatch to loot council view of item
-                pass
+                return HttpResponseRedirect(reverse('loot_council') + '?' + urlencode({'id': item_id}))
 
     # Return 404 if any of the checks fail
     response = render(request, '404.html')
@@ -67,8 +67,8 @@ def search(request):
 
             if specifier == 'item':
                 if Item.objects.filter(pk=pk).exists():
-                    # TODO: Show softlock or loot council statistics of item
-                    pass
+                    return HttpResponseRedirect(reverse('raids_dispatch') + '?' + urlencode(
+                        {'loot': Item.objects.get(pk=pk).encounter.first().instance.loot_system, 'item': pk}))
 
             if specifier == 'encounter':
                 if Encounter.objects.filter(pk=pk).exists():

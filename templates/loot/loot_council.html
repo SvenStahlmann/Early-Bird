@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'raids/base.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block content %}
+    <br>
+    {% for tuple in characters %}
+        {{ tuple.0 }} - {{ tuple.1 }}<br>
+    {% endfor %}
+{% endblock content %}
+
+{% block js_page %}
+    {{ encounter.id|json_script:'encounter-id' }}
+{% endblock js_page %}

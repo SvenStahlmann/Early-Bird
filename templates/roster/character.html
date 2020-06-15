@@ -11,8 +11,8 @@
 {% block content %}
     <div class="grid-container fluid">
         <br>
-        <a class="float-left" href="{% url 'roster_overview' %}?specialization={{ character.specialization.id }}"><i
-                class="fas fa-arrow-left"></i></a>
+        <button class="float-left" onclick="window.history.back();" style="cursor: pointer; outline: none"><i
+                class="fas fa-arrow-left"></i></button>
         <h1><span class="{{ character.specialization.wow_class }}">{{ character.name }}</span></h1>
         <br>
 

@@ -12,7 +12,7 @@
         {% for character in specialization.character.all %}
             {% if forloop.counter|divisibleby:2 %}
                 <div class="cell large-6">
-                    <a href="{% url 'roster_character' %}?character={{ character.id }}">
+                    <a href="{% url 'roster_character' %}?id={{ character.id }}">
                         <div class="callout character-background">
                             <div class="media-object">
                                 <div class="media-object-section">
@@ -61,7 +61,7 @@
             {% else %}
                 <div class="grid-x grid-padding-x">
                     <div class="cell large-6">
-                        <a href="{% url 'roster_character' %}?character={{ character.id }}">
+                        <a href="{% url 'roster_character' %}?id={{ character.id }}">
                             <div class="callout character-background">
                                 <div class="media-object">
                                     <div class="media-object-section">

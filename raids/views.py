@@ -61,11 +61,9 @@ def dispatch_loot_system(request):
 
 
 def search(request):
-    print(request)
     if request.method == 'GET':
         if request.GET.get('search'):
             specifier, pk = request.GET.get('search').split('-')
-            encounter_id = False
 
             if specifier == 'item':
                 if Item.objects.filter(pk=pk).exists():
@@ -74,10 +72,7 @@ def search(request):
 
             if specifier == 'encounter':
                 if Encounter.objects.filter(pk=pk).exists():
-                    encounter_id = Encounter.objects.get(pk=pk).id
-
-            if encounter_id:
-                return HttpResponseRedirect(reverse('raids_encounter') + '?' + urlencode({'id': encounter_id}))
+                    return HttpResponseRedirect(reverse('raids_encounter') + '?' + urlencode({'id': pk}))
 
     # Return 404 if any of the checks fail
     response = render(request, '404.html')

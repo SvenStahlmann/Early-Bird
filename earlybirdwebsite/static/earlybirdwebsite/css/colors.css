@@ -59,3 +59,8 @@
 .LEGENDARY {
     color: #ff8000;
 }
+
+/* Top bar */
+.top-bar-container {
+    background: #1e1e21;
+}

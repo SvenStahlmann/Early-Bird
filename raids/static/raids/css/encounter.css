@@ -1,7 +1,8 @@
 .callout {
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    background-color: #181818;
+    box-shadow: 0 10px 20px rgba(1,1,1,0.19), 0 6px 6px rgba(1,1,1,0.23);
+    background-color: #1e1e21;
     color: #f4f4f4;
+    border: none;
 }
 
 .thumbnail {
@@ -33,6 +34,17 @@
     border-bottom: none;
 }
 
+.left-cell {
+    margin-right: 0 !important;
+    margin-left: 30px !important;
+    background: #1e1e21;
+}
+
+.right-cell {
+    margin-left: 0 !important;
+    background: #181818;
+}
+
 /* wowhead */
 .wowhead-tooltip table tr {
     background: none;
@@ -53,51 +65,41 @@
     min-height: 654px;
 }
 
-.accordion-item > a {
+.accordion-item > a, .accordion-item > a:focus {
+    background: transparent;
     color: #181818;
     font-size: 1.2em;
-    border-left: 2px solid #181818;
-    border-bottom: 2px solid #181818;
+    border: 1px solid #1e1e21;
     outline: none;
 }
 
 .accordion-item > a:hover {
-    background: transparent;
-    color: #181818;
-    border-left: 2px solid #181818;
-    border-bottom: 2px solid #181818;
+    background: #1e1e21;
+    color: #f4f4f4;
 }
 
-.accordion-item > a:focus, .accordion-item > a[aria-selected=true] {
-    background: transparent;
-    color: #181818;
-    border-left: 2px solid #C0B283;
-    border-bottom: 2px solid #C0B283;
+.accordion-item > a[aria-selected=true] {
+    background: #1e1e21;
+    color: #f4f4f4;
 }
 
 :last-child:not(.is-active) > .accordion-title {
-    border-left: 2px solid #181818;
-    border-bottom: 2px solid #181818;
+    border-bottom: 1px solid #181818;
 }
 
-.tabs-title > a {
-    color: #181818;
+.tabs-title > a, .tabs-title > a:focus {
+    color: #ababab;
     outline: none;
-    border-left: 2px solid transparent;
-    border-bottom: 2px solid transparent;
+    background: transparent;
     font-size: 1.2em;
 }
 
 .tabs-title > a:hover {
     background: transparent;
-    color: #181818;
-    border-left: 2px solid #181818;
-    border-bottom: 2px solid #181818;
+    color: #f4f4f4;
 }
 
-.tabs-title > a:focus, .tabs-title > a[aria-selected=true] {
+.tabs-title > a[aria-selected=true] {
     background: transparent;
-    color: #181818;
-    border-left: 2px solid #C0B283;
-    border-bottom: 2px solid #C0B283;
+    color: #f4f4f4;
 }

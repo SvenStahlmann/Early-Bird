@@ -34,15 +34,17 @@ function autocomplete_roster() {
             });
         },
         renderItem: function (data) {
-            let html = '<div class="autocomplete-suggestion" data-val="' + data[0] + '"><input type="hidden" value="' + data[2] + '-' + data[1] + '">';
+            let html = '';
 
-            if (data[3] === 'specialization') {
-                html += '<img class="sidebar-img" src="/media/' + data[2] + '"> ';
+            if (data[4] === 'specialization') {
+                html += '<div class="autocomplete-suggestion" data-val="' + data[0] + '"><input type="hidden" value="' + data[4] + '-' + data[2] + '">';
+                html += '<img class="sidebar-img" src="/media/' + data[3] + '"> ';
+                html += data[1] + ' - '  + data[0] + '</div>'
             } else if (data[3] === 'character') {
+                html += '<div class="autocomplete-suggestion" data-val="' + data[0] + '"><input type="hidden" value="' + data[3] + '-' + data[1] + '">';
                 html += '<img class="sidebar-img" src="/media/' + data[2] + '"> ';
+                html += data[0] + '</div>'
             }
-
-            html += data[0] + '</div>'
 
             return html
         },
@@ -61,7 +63,7 @@ function autocomplete_roster() {
 
 function search() {
     let search_param = document.getElementById('search-hidden').value;
-    window.location.href = '/raids/search?search=' + search_param;
+    window.location.href = '/roster/search?search=' + search_param;
 }
 
 function search_event(e) {

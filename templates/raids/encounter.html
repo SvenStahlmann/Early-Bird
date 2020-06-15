@@ -7,23 +7,23 @@
 {% endblock css_page %}
 
 {% block content %}
-    <div class="grid-container fluid">
+    <div class="grid-container fluid" style="min-height: calc(100vh - 56px)">
         <br>
 
         <!-- medium, large -->
-        <div class="grid-x grid-padding-x show-for-medium">
-            <div class="cell medium-3">
+        <div class="grid-x grid-margin-x show-for-medium" style="min-height: calc(100vh - 56px - 50px)">
+            <div class="cell medium-3 left-cell">
                 <ul class="vertical tabs" data-tabs id="slot-tabs">
                     {% for slot, list in items.items %}
                         {% if list %}
                             <li class="tabs-title"><a data-tabs-target="{{ slot }}-panel"
-                                                      href="#{{ slot }}-panel">{{ slot }}</a></li>
+                                                      href="#{{ slot }}-panel" style="word-break: break-word">{{ slot }}</a></li>
                         {% endif %}
                     {% endfor %}
                 </ul>
             </div>
 
-            <div class="cell medium-9">
+            <div class="cell medium-9 right-cell">
                 <div class="tabs-content vertical" data-tabs-content="slot-tabs">
                     {% for slot, list in items.items %}
                         {% if list %}

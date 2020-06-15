@@ -1,7 +1,7 @@
 {% extends 'roster/base.html' %}
 {% load static %}
 {% load count_enchants get_loot_history get_attendance get_calendar_entries get_misconduct get_consumables get_worldbuffs %}
-{% load get_items get_mainhand_items get_offhand_items get_third_weapon_slot %}
+{% load get_items get_mainhand_items get_offhand_items get_third_weapon_slot strip_time %}
 {% load mathfilters %}
 
 {% block css_page %}
@@ -27,64 +27,68 @@
 
         <div class="tabs-content background" data-tabs-content="character-tabs">
             <div class="tabs-panel is-active background" id="attendance">
-                <div class="outer">
-                    <div class="inner">
-                        <table class="attendance-table unstriped">
-                            <thead>
-                            <tr>
-                                <th class="fix">Datum</th>
-                                {% for raid_day in character.attendance.all reversed %}
-                                    <th class="text-center">{{ raid_day.raid_day.date }}</th>
-                                {% endfor %}
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td class="fix"><b>Anwesenheit</b></td>
-                                {% for raid_day in character.attendance.all reversed %}
-                                    <td class="text-center {% if raid_day.present %}check{% else %}cross{% endif %}">
-                                        +
-                                    </td>
-                                {% endfor %}
-                            </tr>
-                            <tr>
-                                <td class="fix"><b>Kalendereintrag</b></td>
-                                {% for raid_day in character.attendance.all reversed %}
-                                    <td class="text-center {% if raid_day.calendar_entry %}check{% else %}cross{% endif %}">
-                                        +
-                                    </td>
-                                {% endfor %}
-                            </tr>
-                            <tr>
-                                <td class="fix"><b>Consumables</b></td>
-                                {% for raid_day in character.attendance.all reversed %}
-                                    <td class="text-center {% if raid_day.consumables %}check{% else %}cross{% endif %}">
-                                        +
-                                    </td>
-                                {% endfor %}
-                            </tr>
-                            <tr>
-                                <td class="fix"><b>World Buffs</b></td>
-                                {% for raid_day in character.attendance.all reversed %}
-                                    <td class="text-center {% if raid_day.world_buffs %}check{% else %}cross{% endif %}">
-                                        +
-                                    </td>
-                                {% endfor %}
-                            </tr>
-                            <tr>
-                                <td class="fix"><b>Fehlverhalten</b></td>
-                                {% for raid_day in character.attendance.all reversed %}
-                                    <td {% if raid_day.misconduct %}data-tooltip tabindex="2"
-                                        title="{{ raid_day.comment }}"{% endif %}
-                                        class="text-center {% if raid_day.misconduct %}cross top{% else %}check{% endif %}">
-                                        +
-                                    </td>
-                                {% endfor %}
-                            </tr>
-                            </tbody>
-                        </table>
+                {% if character.attendance.all %}
+                    <div class="outer">
+                        <div class="inner">
+                            <table class="attendance-table unstriped">
+                                <thead>
+                                <tr>
+                                    <th class="fix">Datum</th>
+                                    {% for raid_day in character.attendance.all reversed %}
+                                        <th class="text-center">{{ raid_day.raid_day.date }}</th>
+                                    {% endfor %}
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td class="fix"><b>Anwesenheit</b></td>
+                                    {% for raid_day in character.attendance.all reversed %}
+                                        <td class="text-center {% if raid_day.present %}check{% else %}cross{% endif %}">
+                                            +
+                                        </td>
+                                    {% endfor %}
+                                </tr>
+                                <tr>
+                                    <td class="fix"><b>Kalendereintrag</b></td>
+                                    {% for raid_day in character.attendance.all reversed %}
+                                        <td class="text-center {% if raid_day.calendar_entry %}check{% else %}cross{% endif %}">
+                                            +
+                                        </td>
+                                    {% endfor %}
+                                </tr>
+                                <tr>
+                                    <td class="fix"><b>Consumables</b></td>
+                                    {% for raid_day in character.attendance.all reversed %}
+                                        <td class="text-center {% if raid_day.consumables %}check{% else %}cross{% endif %}">
+                                            +
+                                        </td>
+                                    {% endfor %}
+                                </tr>
+                                <tr>
+                                    <td class="fix"><b>World Buffs</b></td>
+                                    {% for raid_day in character.attendance.all reversed %}
+                                        <td class="text-center {% if raid_day.world_buffs %}check{% else %}cross{% endif %}">
+                                            +
+                                        </td>
+                                    {% endfor %}
+                                </tr>
+                                <tr>
+                                    <td class="fix"><b>Fehlverhalten</b></td>
+                                    {% for raid_day in character.attendance.all reversed %}
+                                        <td {% if raid_day.misconduct %}data-tooltip tabindex="2"
+                                            title="{{ raid_day.comment }}"{% endif %}
+                                            class="text-center {% if raid_day.misconduct %}cross top{% else %}check{% endif %}">
+                                            +
+                                        </td>
+                                    {% endfor %}
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
+                {% else %}
+                    <h4>{{ character.name }} hat an keinen Raids teilgenommen!</h4>
+                {% endif %}
                 <br>
                 <br>
                 <div class="grid-x grid-padding-x">
@@ -97,16 +101,42 @@
                             {% endif %}
                             <span class="no-break"><i
                                     class="fas fa-calendar"></i> Attendance:</span> <span
-                                class="no-break">{{ character|get_attendance|div:character.attendance.all.count|mul:100 }}% ({{ character|get_attendance }} von {{ character.attendance.all.count }})</span><br>
+                                class="no-break">
+                            {% if character.attendance.all.count > 0 %}
+                                {{ character|get_attendance|div:character.attendance.all.count|mul:100 }}%
+                            {% else %}
+                                0%
+                            {% endif %}
+                            ({{ character|get_attendance }} von {{ character.attendance.all.count }})
+                        </span><br>
                             <i class="fas fa-calendar-check"></i> Einträge: <span
-                                class="no-break">{{ character|get_calendar_entries|div:character.attendance.all.count|mul:100 }}% ({{ character|get_calendar_entries }} von {{ character.attendance.all.count }})</span><br>
+                                class="no-break">
+                            {% if character.attendance.all.count > 0 %}
+                                {{ character|get_calendar_entries|div:character.attendance.all.count|mul:100 }}%
+                            {% else %}
+                                0%
+                            {% endif %}
+                            ({{ character|get_calendar_entries }} von {{ character.attendance.all.count }})
+                        </span><br>
                             <span class="no-break"><i
                                     class="fas fa-exclamation-triangle"></i> Fehlverhalten:</span> {{ character|get_misconduct }}<br>
                             <span class="no-break"><i
                                     class="fas fa-utensils"></i> Consumables:</span> <span
-                                class="no-break">{{ character|get_consumables|div:character.attendance.all.count|mul:100 }}% ({{ character|get_consumables }} von {{ character.attendance.all.count }})</span><br>
+                                class="no-break">
+                            {% if character.attendance.all.count > 0 %}
+                                {{ character|get_consumables|div:character.attendance.all.count|mul:100 }}%
+                            {% else %}
+                                0%
+                            {% endif %}
+                            ({{ character|get_consumables }} von {{ character.attendance.all.count }})</span><br>
                             <span class="no-break"><i class="fas fa-sun"></i> World Buffs:</span>
-                            <span class="no-break">{{ character|get_world_buffs|div:character.attendance.all.count|mul:100 }}% ({{ character|get_world_buffs }} von {{ character.attendance.all.count }})</span>
+                            <span class="no-break">
+                                {% if character.attendance.all.count > 0 %}
+                                    {{ character|get_world_buffs|div:character.attendance.all.count|mul:100 }}%
+                                {% else %}
+                                    0%
+                                {% endif %}
+                                ({{ character|get_world_buffs }} von {{ character.attendance.all.count }})</span>
                         </p>
                     </div>
                     <div class="cell medium-6 overview-container">
@@ -263,10 +293,10 @@
                 <div style="max-height: 622px; overflow-y: scroll">
                     {% for loot in character.loot_history.all reversed %}
                         <div class="grid-x grid-padding-y grid-padding-x">
-                            <div class="cell small-2">
-                                {{ loot.raid_day.date }}
+                            <div class="cell small-3">
+                                {{ loot.raid_day.date|strip_time }}
                             </div>
-                            <div class="cell small-10">
+                            <div class="cell small-9">
                                 <a class="{{ loot.item.quality }}" href="{{ loot.item.wowhead_link }}"><img
                                         class="item-icon"
                                         src="/media/{{ loot.item.icon }}">&emsp;{{ loot.item }}
@@ -277,7 +307,7 @@
                 </div>
             </div>
         </div>
-    <br>
+        <br>
     </div>
 {% endblock content %}
 

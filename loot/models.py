@@ -51,6 +51,11 @@ class RaidDay(models.Model):
     class Meta:
         ordering = ['order']
 
+    @classmethod
+    def create(cls, date, order):
+        raid_day = cls(date=date, order=order)
+        return raid_day
+
     def __str__(self):
         return str(self.date)
 
@@ -60,7 +65,7 @@ class Attendance(models.Model):
     calendar_entry = models.BooleanField(default=True, help_text='Ist der Charakter im Kalender eingetragen.')
     world_buffs = models.BooleanField(default=True, help_text='Hatte der Charakter mindestens 2 von 5 World Buffs am Raidtag.')
     consumables = models.BooleanField(default=True, help_text='Hat der Charakter am Raidtag ausreichend Consumables eingeworfen.')
-    misconduct = models.BooleanField(help_text='Jegliches Fehlverhalten des Charakters, z.B. zu spät zum Raid erschienen.')
+    misconduct = models.BooleanField(default=False, help_text='Jegliches Fehlverhalten des Charakters, z.B. zu spät zum Raid erschienen.')
     comment = models.TextField(blank=True, null=True, help_text='Kommentar zum Charakter am Raidtag.')
     order = models.PositiveIntegerField(blank=False, null=False)
 
@@ -74,6 +79,11 @@ class Attendance(models.Model):
 
     class Meta:
         ordering = ['order']
+
+    @classmethod
+    def create(cls, present, character, raid_day, order):
+        attendance = cls(present=present, character=character, raid_day=raid_day, order=order)
+        return attendance
 
     def __str__(self):
         return str(self.raid_day) + ' - ' + str(self.character)

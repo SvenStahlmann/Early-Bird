@@ -291,7 +291,7 @@
             </div>
             <div class="tabs-panel background" id="loot-history">
                 <div style="max-height: 622px; overflow-y: scroll">
-                    {% for loot in character.loot_history.all reversed %}
+                    {% for loot in loot_history %}
                         <div class="grid-x grid-padding-y grid-padding-x">
                             <div class="cell small-3">
                                 {{ loot.raid_day.date|strip_time }}

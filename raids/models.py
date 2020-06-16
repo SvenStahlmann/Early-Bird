@@ -92,6 +92,7 @@ class Item(models.Model):
         ('THROWN', 'Wurfwaffe'),
     )
 
+    # TODO: Tokens!
     name = models.CharField(max_length=80, unique=True, help_text='Name des Items.')
     icon = models.ImageField(upload_to='item_icons/', help_text='Icon des Items.')
     quality = models.CharField(max_length=9, choices=QUALITY_CHOICES, help_text='Qualität des Items.')

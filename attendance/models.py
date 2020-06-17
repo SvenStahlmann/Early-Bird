@@ -10,8 +10,16 @@ class Player(object):
     def __init__(self, name, player_id, worldbuffs, enchants):
         self.name = name
         self.player_id = player_id
-        self.worldbuffs = worldbuffs
+        self.worldbuffs = Player._set_worldbuffs(worldbuffs)
         self.enchants = enchants
+
+    @staticmethod
+    def _set_worldbuffs(worldbuffs):
+
+        if worldbuffs >= 2:
+            return True
+        else:
+            return False
 
     def __str__(self):
         return str(self.name)
@@ -69,3 +77,19 @@ class Item(Enum):
     MAIN = 15
     OFF = 16
     # RANGE = 17
+
+
+class Worldbuff(Enum):
+
+    DRAGONSLAYER = 22888
+    ZANDALAR = 24425
+    SONGFLOWER = 15366
+
+    # different kinds of DMF buffs
+    DMF_DPS = 23768
+    DMF_INT = 23766
+
+    # DM buffs
+    SLIP = 22820
+    MOL = 22818
+    FENGUS = 22817

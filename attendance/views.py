@@ -26,10 +26,8 @@ def overview(request):
             try:
                 character = Character.objects.get(name=player.name)
 
-                # update worldbuffs
-
                 # update attendance
-                attendance = Attendance.create(True, character, raid_day, 10)
+                attendance = Attendance.create(True, player.worldbuffs, character, raid_day, 10)
                 attendance.save()
 
                 # update enchants

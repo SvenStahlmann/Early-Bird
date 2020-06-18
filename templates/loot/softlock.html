@@ -1,10 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'raids/base.html' %}
+{% load static %}
+{% load get_wowhead_item_id %}
 
-</body>
-</html>
+{% block css_page %}
+    <link rel="stylesheet" href="{% static 'loot/css/softlock.css' %}">
+{% endblock css_page %}
+
+{% block content %}
+    <div class="grid-container">
+        <br>
+        <button class="float-left" onclick="window.history.back();" style="cursor: pointer; outline: none"><i
+                class="fas fa-arrow-left"></i></button>
+        <div class="callout">
+            <a class="media-object" href="{{ item.wowhead_link }}" target="_blank">
+                <div class="media-object-section">
+                    <div class="thumbnail">
+                        <img alt="Foliant des einlullenden Schusses"
+                             src="/media/{{ item.icon }}">
+                    </div>
+                </div>
+                <div class="media-object-section">
+                    <h5 class="{{ item.quality }}">{{ item.name }}</h5>
+                </div>
+            </a>
+        </div>
+        <br>
+        <table>
+            <thead>
+            <tr>
+                <th>Lock-Priorität</th>
+                <th>Spieler</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for tuple in characters %}
+                <tr>
+                    <td>{{ tuple.0 }}</td>
+                    <td>
+                        {% for character in tuple.1 %}
+                            {% if forloop.last %}
+                                <a href="{% url 'roster_character' %}?id={{ character.id }}">{{ character.name }}</a>
+                            {% else %}
+                                <a href="{% url 'roster_character' %}?id={{ character.id }}">{{ character.name }}</a> |
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
+
+{% block js_page %}
+    {{ encounter.id|json_script:'encounter-id' }}
+{% endblock js_page %}

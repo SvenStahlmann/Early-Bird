@@ -1,0 +1,49 @@
+.callout {
+    box-shadow: 0 10px 20px rgba(1,1,1,0.19), 0 6px 6px rgba(1,1,1,0.23);
+    background-color: #1e1e21;
+    color: #f4f4f4;
+    border: none;
+    padding: 0 !important;
+    margin-left: 80px;
+    word-break: break-all;
+}
+
+.media-object {
+    padding: 16px !important;
+}
+
+.thumbnail {
+    border: 1px solid #C0B283;
+}
+
+/* wowhead */
+.wowhead-tooltip table tr {
+    background: none;
+    border: none;
+}
+
+.wowhead-tooltip table tbody {
+    background-color: #060b1f;
+}
+
+.fa-arrow-left {
+    font-size: 50px;
+    color: #181818;
+    margin-top: 20px;
+    margin-right: 30px;
+}
+
+/* Table */
+table, tbody, thead, td, tr, th {
+    background: #181818;
+    color: #ababab;
+    border: none;
+}
+
+th a, td a {
+    color: #ababab;
+}
+
+th a:hover, td a:hover {
+    color: #f4f4f4;
+}

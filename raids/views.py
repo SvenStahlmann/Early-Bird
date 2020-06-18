@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.utils.http import urlencode
 from rest_framework.utils import json
 from earlybirdwebsite.utils import get_instances
-from .models import Encounter, Item
+from .models import Encounter, Item, Token
 
 
 def encounter(request):
@@ -16,7 +16,9 @@ def encounter(request):
                 items = {key[1]: [] for key in Item.SLOT_CHOICES}
 
                 for item in Encounter.objects.get(pk=boss_id).item.all():
-                    items[item.get_slot_display()].append(item)
+                    for tokens in Token.objects.all():
+                        if item not in tokens.items.all():
+                            items[item.get_slot_display()].append(item)
 
                 # Render page
                 return render(request, 'raids/encounter.html',
@@ -28,11 +30,14 @@ def encounter(request):
                 items = {key[1]: [] for key in Item.SLOT_CHOICES}
 
                 for item in Encounter.objects.order_by('order').first().item.all():
-                    items[item.get_slot_display()].append(item)
+                    for tokens in Token.objects.all():
+                        if item not in tokens.items.all():
+                            items[item.get_slot_display()].append(item)
 
                 # Render page
                 return render(request, 'raids/encounter.html',
-                              {'instances': get_instances(), 'encounter': Encounter.objects.order_by('order').first(), 'items': items})
+                              {'instances': get_instances(), 'encounter': Encounter.objects.order_by('order').first(),
+                               'items': items})
 
     # Return 404 if any of the checks fail
     response = render(request, '404.html')
@@ -44,15 +49,15 @@ def dispatch_loot_system(request):
     if request.method == 'GET':
         if request.GET.get('loot') and request.GET.get('item'):
             loot = request.GET.get('loot')
-            item = request.GET.get('item')
+            item_id = request.GET.get('item')
 
             if loot == 'SOFTLOCK':
-                # TODO: dispatch to softlock view of item
-                pass
+                return HttpResponseRedirect(reverse('softlock') + '?' + urlencode({'encounter': request.GET.get(
+                    'encounter') if request.GET.get('encounter') else -1}) + '&' + urlencode({'item': item_id}))
 
             if loot == 'LOOTCOUNCIL':
-                # TODO: dispatch to loot council view of item
-                pass
+                return HttpResponseRedirect(reverse('loot_council') + '?' + urlencode({'encounter': request.GET.get(
+                    'encounter') if request.GET.get('encounter') else -1}) + '&' + urlencode({'item': item_id}))
 
     # Return 404 if any of the checks fail
     response = render(request, '404.html')
@@ -67,8 +72,8 @@ def search(request):
 
             if specifier == 'item':
                 if Item.objects.filter(pk=pk).exists():
-                    # TODO: Show softlock or loot council statistics of item
-                    pass
+                    return HttpResponseRedirect(reverse('raids_dispatch') + '?' + urlencode(
+                        {'loot': Item.objects.get(pk=pk).encounter.first().instance.loot_system, 'item': pk}))
 
             if specifier == 'encounter':
                 if Encounter.objects.filter(pk=pk).exists():

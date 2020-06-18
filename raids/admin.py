@@ -1,6 +1,6 @@
 from django.contrib import admin
 from adminsortable2.admin import SortableAdminMixin
-from .models import Instance, Encounter, Item
+from .models import Instance, Encounter, Item, Token
 
 
 class InstanceAdmin(SortableAdminMixin, admin.ModelAdmin):
@@ -16,6 +16,11 @@ class ItemAdmin(SortableAdminMixin, admin.ModelAdmin):
     model = Item
 
 
+class TokenAdmin(admin.ModelAdmin):
+    model = Token
+
+
 admin.site.register(Instance, InstanceAdmin)
 admin.site.register(Encounter, EncounterAdmin)
 admin.site.register(Item, ItemAdmin)
+admin.site.register(Token, TokenAdmin)

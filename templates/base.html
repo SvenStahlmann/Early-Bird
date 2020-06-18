@@ -9,6 +9,7 @@
 
     <!-- foundation -->
     <link rel="stylesheet" href="{% static 'earlybirdwebsite/css/foundation.min.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/motion-ui@1.2.3/dist/motion-ui.min.css"/>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
@@ -44,6 +45,8 @@
     <script>
         $(document).foundation();
     </script>
+
+    <script src="{% static 'earlybirdwebsite/js/base.js' %}"></script>
 
     {% block js_app %}{% endblock js_app %}
     {% block js_app_section %}{% endblock js_app_section %}

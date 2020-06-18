@@ -1,4 +1,3 @@
-from django.db.models import Max
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse

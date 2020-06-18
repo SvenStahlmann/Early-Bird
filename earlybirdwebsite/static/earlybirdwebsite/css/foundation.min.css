@@ -8021,3 +8021,75 @@ html.is-reveal-open body {
 .menu-hover-lines .active a::after {
     width: 100%;
 }
+
+.left-top-menu {
+    max-width: 30px !important;
+}
+
+.right-top-menu {
+    max-width: 30px !important;
+}
+
+#small-top-menu {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+#small-top-menu li a {
+    color: #ababab;
+    background: #1e1e21;
+}
+
+#small-top-menu li a:hover {
+    color: #f4f4f4;
+}
+
+#small-top-menu li.active a {
+    color: #f4f4f4;
+    background: #1e1e21;
+}
+
+.menu-icon.light:focus {
+    outline: none;
+}
+
+.menu-icon.light:after {
+    transition: all 0.3s ease;
+}
+
+.menu-icon.light:before {
+    transition: all 0.3s ease;
+}
+
+.menu-icon.light.active {
+    transition: all 0.3s ease;
+}
+
+.menu-icon.light.active:after {
+    transition: all 0.3s ease;
+    background: #fefefe;
+    box-shadow: none;
+    transform: rotate(45deg);
+    top: 5px;
+}
+
+.menu-icon.light.active:after:hover {
+    opacity: 0.9;
+}
+
+.menu-icon.light.active:before {
+    transition: all 0.3s ease;
+    position: absolute;
+    top: 5px;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #fefefe;
+    box-shadow: none;
+    transform: rotate(-44deg);
+    content: "";
+}
+
+.menu-icon.light.active:before:hover {
+    opacity: 0.9;
+}

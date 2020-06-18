@@ -7,9 +7,14 @@
     <link rel="stylesheet" href="{% static 'raids/css/base.css' %}">
 {% endblock css_app %}
 
+<!-- TODO: Anzeigen des aktiven Top Menu Links via JavaScript und App -->
 {% block raids_top_bar %}
     active
 {% endblock raids_top_bar %}
+
+{% block raids_top_bar_small %}
+    active
+{% endblock raids_top_bar_small %}
 
 {% block sidebar %}
     <div id="sidebar-search" class="input-group">

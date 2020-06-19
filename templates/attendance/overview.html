@@ -9,7 +9,7 @@
     <div class="grid-container fluid">
         <br>
         <div class="cell large-12 attendance-card">
-            <a class="button secondary" href="#">Update</a>
+            <a class="button secondary" href="#">Update Attendance</a>
 
             <div>
                 <table class="stack">
@@ -37,6 +37,13 @@
 
                     </tbody>
                 </table>
+
+                <ul>
+                    {% for player in not_found %}
+                        <li>{{ player }}</li>
+                    {% endfor %}
+                </ul>
+
             </div>
 
 

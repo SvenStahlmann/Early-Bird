@@ -1,0 +1,45 @@
+{% extends 'attendance/base.html' %}
+{% load static %}
+
+{% block css_page %}
+    <link rel="stylesheet" href="{% static 'attendance/css/overview.css' %}">
+{% endblock css_page %}
+
+{% block content %}
+    <div class="grid-container fluid">
+        <br>
+        <div class="cell large-12 attendance-card">
+            <a class="button secondary" href="#">Update</a>
+
+            <div>
+                <table class="stack">
+                    <thead>
+                        <tr>
+                            <th>Character</th>
+                            <th>Angemeldet</th>
+                            <th>Worldbuffs</th>
+                            <th>Consumables</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for player in players%}
+
+                            <tr>
+                                <td>{{ player.name }}</td>
+                                <td>Yes</td>
+                                <td>{{ player.worldbuffs }}</td>
+                                <td>{{ Yes }}</td>
+                            </tr>
+
+                        {% endfor %}
+
+
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock content %}

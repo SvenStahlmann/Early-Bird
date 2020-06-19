@@ -13,6 +13,7 @@ def overview(request):
     if request.method == 'GET':
 
         player_not_found = []
+        player_found = []
 
         # scrape the data from classic.warcraftlogs
         players, raid_day = utils.get_attendance_for_last_raid()
@@ -34,8 +35,12 @@ def overview(request):
                 for enchant in player.enchants:
                     enchant.update_enchants()
 
+                player_found.append(player)
+
             except ObjectDoesNotExist:
                 player_not_found.append(player.name)
+
+        return render(request, 'attendance/overview.html', {'players': player_found, 'not_found': player_not_found})
 
     # Return 404 if any of the checks fail
     response = render(request, '404.html')

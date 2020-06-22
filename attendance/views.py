@@ -16,7 +16,6 @@ def overview(request):
 
     if request.method == 'POST':
 
-        print(request.POST)
         player_not_found = []
         player_found = []
 

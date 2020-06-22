@@ -37,6 +37,8 @@
                             <li class="{% block calendar_top_bar %}{% endblock calendar_top_bar %}"><a href="#"
                                                                                                        disabled>Kalender</a>
                             </li>
+                            <li class="{% block attendance_top_bar %}{% endblock attendance_top_bar %}"><a
+                                    href="{% url 'attendance_overview' %}">Attendance</a></li>
                         </ul>
                     </div>
 
@@ -59,6 +61,8 @@
                     <li class="{% block calendar_top_bar_small %}{% endblock calendar_top_bar_small %}"><a href="#"
                                                                                                  disabled>Kalender</a>
                     </li>
+                    <li class="{% block attendance_top_bar_small %}{% endblock attendance_top_bar_small %}"><a
+                            href="{% url 'attendance_overview' %}">Attendance</a></li>
                 </ul>
             </div>
         </div>

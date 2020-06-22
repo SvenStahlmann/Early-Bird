@@ -28,6 +28,7 @@ class Encounter(models.Model):
     order = models.PositiveIntegerField(blank=False, null=False)
 
     # Foreign Key
+    # TODO: Encounter to encounter
     instance = models.ForeignKey(Instance, related_name='Encounter', on_delete=models.CASCADE,
                                  help_text='Instanz, zu welcher dieser Encounter gehört.')
 
@@ -71,6 +72,7 @@ class Item(models.Model):
         ('TWOHAND', 'Zweihändig'),
         ('RANGED', 'Distanz'),
         ('RELIC', 'Relikt'),
+        ('TOKEN', 'Token'),
         ('MISCELLANEOUS', 'Sonstiges'),
     )
 
@@ -114,3 +116,18 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Token(models.Model):
+    # Foreign key
+    token_item = models.ForeignKey(Item, related_name='token_item', on_delete=models.CASCADE, help_text='Das entsprechende Token-Item.')
+
+    # Many to Many
+    items = models.ManyToManyField(Item, related_name='items')
+
+    # Timestamp
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.token_item)

@@ -67,8 +67,7 @@ class Specialization(models.Model):
 
 class Character(models.Model):
     name = models.CharField(max_length=80, help_text='Name des Charakters.')
-    # TODO: active
-    # active = models.BooleanField(default=False, help_text='Gibt an, ob der Charakter aktiver Bestandteil des Raidkaders ist.')
+    active = models.BooleanField(default=False, help_text='Gibt an, ob der Charakter aktiver Bestandteil des Raidkaders ist.')
     order = models.PositiveIntegerField(blank=False, null=False)
 
     # Foreign keys

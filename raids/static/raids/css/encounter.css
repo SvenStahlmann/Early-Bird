@@ -3,6 +3,11 @@
     background-color: #1e1e21;
     color: #f4f4f4;
     border: none;
+    padding: 0 !important;
+}
+
+.media-object {
+    padding: 16px !important;
 }
 
 .thumbnail {

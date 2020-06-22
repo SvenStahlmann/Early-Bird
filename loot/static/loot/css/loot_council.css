@@ -1,0 +1,20 @@
+.callout {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    background-color: #181818;
+    color: #ababab
+}
+
+.thumbnail {
+    border: 1px solid #C0B283;
+}
+
+.fa-arrow-left {
+    font-size: 50px;
+    color: #181818;
+    margin-top: 10px;
+    margin-right: 30px;
+}
+
+.no-break {
+    white-space: nowrap;
+}

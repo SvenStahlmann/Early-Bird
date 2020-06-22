@@ -7,9 +7,14 @@
     <link rel="stylesheet" href="{% static 'roster/css/base.css' %}">
 {% endblock css_app %}
 
+<!-- TODO: Anzeigen des aktiven Top Menu Links via JavaScript und App -->
 {% block roster_top_bar %}
     active
 {% endblock roster_top_bar %}
+
+{% block roster_top_bar_small %}
+    active
+{% endblock roster_top_bar_small %}
 
 {% block sidebar %}
     <div id="sidebar-search" class="input-group">

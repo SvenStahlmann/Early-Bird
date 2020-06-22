@@ -92,8 +92,8 @@ class Attendance(models.Model):
 class LootHistory(models.Model):
     # Foreign Keys
     character = models.ForeignKey(Character, related_name='loot_history', on_delete=models.CASCADE)
-    item = models.ForeignKey(Item, related_name='loost_history', on_delete=models.CASCADE)
-    raid_day = models.ForeignKey(RaidDay, related_name='loost_history', on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, related_name='loot_history', on_delete=models.CASCADE)
+    raid_day = models.ForeignKey(RaidDay, related_name='loot_history', on_delete=models.CASCADE)
     order = models.PositiveIntegerField(blank=False, null=False)
 
     # Timestamp

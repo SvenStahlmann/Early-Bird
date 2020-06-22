@@ -33,7 +33,9 @@ def character(request):
             character_id = request.GET.get('id')
             if Character.objects.filter(pk=character_id).exists():
                 return render(request, 'roster/character.html',
-                              {'classes': get_classes(), 'character': Character.objects.get(pk=character_id)})
+                              {'classes': get_classes(), 'character': Character.objects.get(pk=character_id),
+                               'loot_history': Character.objects.get(pk=character_id).loot_history.all().order_by(
+                                   '-raid_day')})
 
     # Return 404 if any of the checks fail
     response = render(request, '404.html')

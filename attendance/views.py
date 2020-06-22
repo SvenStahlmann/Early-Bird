@@ -12,11 +12,16 @@ from roster.models import Character
 def overview(request):
     if request.method == 'GET':
 
+        return render(request, 'attendance/overview.html')
+
+    if request.method == 'POST':
+
+        print(request.POST)
         player_not_found = []
         player_found = []
 
         # scrape the data from classic.warcraftlogs
-        players, raid_day = utils.get_attendance_for_last_raid()
+        players, raid_day = utils.get_attendance_for_raid(request.POST['raid'])
 
         # create a new raid day
         raid_day = RaidDay.create(raid_day, 10)

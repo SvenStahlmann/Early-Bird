@@ -9,10 +9,22 @@
     <div class="grid-container fluid">
         <br>
         <div class="cell large-12 attendance-card">
-            <a class="button secondary" href="#">Update Attendance</a>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="grid-container">
+                    <div class="grid-x grid-padding-x">
+                        <div class="medium-6 cell">
+                            <label class="label-color"><b>WCLog name of raid</b></label>
+                            <input type="text" placeholder="Optional" name="raid" id="raid">
+                        </div>
+                    </div>
+                    <button type="submit" class="button secondary">Update Attendance</button>
+                </div>
+
+            </form>
 
             <div>
-                <table class="stack">
+                <table class="stack tbl-striped">
                     <thead>
                         <tr>
                             <th>Character</th>
@@ -27,9 +39,14 @@
 
                             <tr>
                                 <td>{{ player.name }}</td>
-                                <td>Yes</td>
-                                <td>{{ player.worldbuffs }}</td>
-                                <td>{{ Yes }}</td>
+                                <td>TODO</td>
+                                <td>{% if player.worldbuffs %}
+                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                    {% else %}
+                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                    {% endif %}
+                                </td>
+                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
                             </tr>
 
                         {% endfor %}
@@ -37,7 +54,7 @@
 
                     </tbody>
                 </table>
-
+                <p><b>Spieler nicht in Datenbank:</b></p>
                 <ul>
                     {% for player in not_found %}
                         <li>{{ player }}</li>

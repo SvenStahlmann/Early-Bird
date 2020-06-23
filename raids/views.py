@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.utils.http import urlencode
 from rest_framework.utils import json
 from earlybirdwebsite.utils import get_instances
-from .models import Encounter, Item, Token
+from .models import Encounter, Item
 
 
 def encounter(request):
@@ -16,8 +16,10 @@ def encounter(request):
                 items = {key[1]: [] for key in Item.SLOT_CHOICES}
 
                 for item in Encounter.objects.get(pk=boss_id).item.all():
-                    for tokens in Token.objects.all():
-                        if item not in tokens.items.all():
+                    if item.slot == 'TOKEN':
+                        items[item.get_slot_display()].append(item)
+                    else:
+                        if item.token_items.all().count() == 0:
                             items[item.get_slot_display()].append(item)
 
                 # Render page
@@ -30,8 +32,10 @@ def encounter(request):
                 items = {key[1]: [] for key in Item.SLOT_CHOICES}
 
                 for item in Encounter.objects.order_by('order').first().item.all():
-                    for tokens in Token.objects.all():
-                        if item not in tokens.items.all():
+                    if item.slot == 'TOKEN':
+                        items[item.get_slot_display()].append(item)
+                    else:
+                        if item.token_items.all().count() == 0:
                             items[item.get_slot_display()].append(item)
 
                 # Render page

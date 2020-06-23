@@ -119,14 +119,14 @@ class Item(models.Model):
 
 class Token(models.Model):
     # Foreign key
-    token_item = models.ForeignKey(Item, related_name='token_item', on_delete=models.CASCADE, help_text='Das entsprechende Token-Item.')
+    token = models.ForeignKey(Item, related_name='token', on_delete=models.CASCADE, help_text='Das entsprechende Token-Item.')
 
     # Many to Many
-    items = models.ManyToManyField(Item, related_name='token_items')
+    token_items = models.ManyToManyField(Item, related_name='token_items')
 
     # Timestamp
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return str(self.token_item)
+        return str(self.token)

@@ -13,7 +13,10 @@ function set_active_encounter() {
 
         if (document.getElementById('encounter-' + encounter_id)) {
             let active_encounter = document.getElementById('encounter-' + encounter_id);
-            active_encounter.parentElement.parentElement.previousElementSibling.click();
+            active_encounter.parentElement.parentElement.parentElement.setAttribute('aria-expanded', 'true');
+            active_encounter.parentElement.parentElement.setAttribute('aria-hidden', 'false');
+            active_encounter.parentElement.parentElement.removeAttribute('style');
+            active_encounter.parentElement.parentElement.classList.add('is-active');
             active_encounter.parentElement.parentElement.previousElementSibling.classList.add('active');
             active_encounter.classList.add('active');
         }

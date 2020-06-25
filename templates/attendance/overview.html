@@ -1,0 +1,69 @@
+{% extends 'attendance/base.html' %}
+{% load static %}
+
+{% block css_page %}
+    <link rel="stylesheet" href="{% static 'attendance/css/overview.css' %}">
+{% endblock css_page %}
+
+{% block content %}
+    <div class="grid-container fluid">
+        <br>
+        <div class="cell large-12 attendance-card">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="grid-container">
+                    <div class="grid-x grid-padding-x">
+                        <div class="medium-6 cell">
+                            <label class="label-color"><b>WCLog name of raid</b></label>
+                            <input type="text" placeholder="Optional" name="raid" id="raid">
+                        </div>
+                    </div>
+                    <button type="submit" class="button secondary">Update Attendance</button>
+                </div>
+
+            </form>
+
+            <div>
+                <table class="stack tbl-striped">
+                    <thead>
+                        <tr>
+                            <th>Character</th>
+                            <th>Angemeldet</th>
+                            <th>Worldbuffs</th>
+                            <th>Consumables</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for player in players%}
+
+                            <tr>
+                                <td>{{ player.name }}</td>
+                                <td>TODO</td>
+                                <td>{% if player.worldbuffs %}
+                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                    {% else %}
+                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                    {% endif %}
+                                </td>
+                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                            </tr>
+
+                        {% endfor %}
+
+
+                    </tbody>
+                </table>
+                <p><b>Spieler nicht in Datenbank:</b></p>
+                <ul>
+                    {% for player in not_found %}
+                        <li>{{ player }}</li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+
+
+        </div>
+    </div>
+{% endblock content %}

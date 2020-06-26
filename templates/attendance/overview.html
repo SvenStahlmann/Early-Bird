@@ -6,64 +6,126 @@
 {% endblock css_page %}
 
 {% block content %}
-    <div class="grid-container fluid">
-        <br>
-        <div class="cell large-12 attendance-card">
-            <form method="POST">
-                {% csrf_token %}
-                <div class="grid-container">
-                    <div class="grid-x grid-padding-x">
-                        <div class="medium-6 cell">
-                            <label class="label-color"><b>WCLog name of raid</b></label>
-                            <input type="text" placeholder="Optional" name="raid" id="raid">
+
+    <ul class="tabs" data-tabs id="tabs">
+        <li class="tabs-title is-active"><a href="#rcloot" aria-selected="true">RC Loot</a></li>
+        <li class="tabs-title"><a data-tabs-target="attendance" href="#attendance" >Attendance</a></li>
+    </ul>
+
+
+    <div class="tabs-content" data-tabs-content="tabs">
+        <div class="tabs-panel" id="attendance">
+            <div class="grid-container fluid">
+                <br>
+                <div class="cell large-12 attendance-card">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="grid-container">
+                            <div class="grid-x grid-padding-x">
+                                <div class="medium-6 cell">
+                                    <label class="label-color"><b>WCLog name of raid</b></label>
+                                    <input type="text" placeholder="Optional" name="raid" id="raid">
+                                </div>
+                            </div>
+                            <button type="submit" class="button secondary">Update Attendance</button>
                         </div>
+
+                    </form>
+
+                    <div>
+                        <table class="stack tbl-striped">
+                            <thead>
+                                <tr>
+                                    <th>Character</th>
+                                    <th>Angemeldet</th>
+                                    <th>Worldbuffs</th>
+                                    <th>Consumables</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for player in players%}
+
+                                    <tr>
+                                        <td>{{ player.name }}</td>
+                                        <td>TODO</td>
+                                        <td>{% if player.worldbuffs %}
+                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                            {% else %}
+                                                <i class="fa fa-times" aria-hidden="true"></i>
+                                            {% endif %}
+                                        </td>
+                                        <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                                    </tr>
+
+                                {% endfor %}
+
+
+                            </tbody>
+                        </table>
+                        <p><b>Spieler nicht in Datenbank:</b></p>
+                        <ul>
+                            {% for player in not_found %}
+                                <li>{{ player }}</li>
+                            {% endfor %}
+                        </ul>
+
                     </div>
-                    <button type="submit" class="button secondary">Update Attendance</button>
+
+
                 </div>
-
-            </form>
-
-            <div>
-                <table class="stack tbl-striped">
-                    <thead>
-                        <tr>
-                            <th>Character</th>
-                            <th>Angemeldet</th>
-                            <th>Worldbuffs</th>
-                            <th>Consumables</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        {% for player in players%}
-
-                            <tr>
-                                <td>{{ player.name }}</td>
-                                <td>TODO</td>
-                                <td>{% if player.worldbuffs %}
-                                        <i class="fa fa-check" aria-hidden="true"></i>
-                                    {% else %}
-                                        <i class="fa fa-times" aria-hidden="true"></i>
-                                    {% endif %}
-                                </td>
-                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                            </tr>
-
-                        {% endfor %}
-
-
-                    </tbody>
-                </table>
-                <p><b>Spieler nicht in Datenbank:</b></p>
-                <ul>
-                    {% for player in not_found %}
-                        <li>{{ player }}</li>
-                    {% endfor %}
-                </ul>
-
             </div>
+        </div>
+        <div class="tabs-panel is-active" id="rcloot">
+            <div class="grid-container fluid">
+                <br>
+                <div class="cell large-12 attendance-card">
+                    <form method="POST" action="/roster/rcloot">
+                        {% csrf_token %}
+                        <div class="grid-container">
+                            <div class="grid-x grid-padding-x">
+                                <div class="medium-6 cell">
+                                    <label class="label-color"><b>Insert export of RC history here</b></label>
+                                    <textarea placeholder="RC-lootcouncil JSON data" name="loot" id="loot"></textarea>
+                                </div>
+                            </div>
+                            <button type="submit" class="button secondary">Update Loot</button>
+                        </div>
+                    </form>
+
+                    {% if items %}
+                        <p><b>Items updated:</b></p>
+                        <table class="stack tbl-striped">
+                            <thead>
+                                <tr>
+                                    <th>Character</th>
+                                    <th>Item</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in items %}
+                                    <tr>
+                                        <td>{{ item.0 }}</td>
+                                        <td>{{ item.1 }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
+                    {% if faulty %}
+
+                        <p><b>Some items could not be added. The player or item is missing in the database.</b></p>
+
+                    {% endif %}
 
 
+
+
+                </div>
+            </div>
         </div>
     </div>
+
+
+
 {% endblock content %}

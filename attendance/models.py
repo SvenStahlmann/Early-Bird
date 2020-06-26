@@ -7,9 +7,8 @@ from enum import Enum
 # Create your models here.
 class Player(object):
 
-    def __init__(self, name, player_id, worldbuffs, enchants):
+    def __init__(self, name, worldbuffs, enchants):
         self.name = name
-        self.player_id = player_id
         self.worldbuffs = Player._set_worldbuffs(worldbuffs)
         self.enchants = enchants
 
@@ -84,6 +83,7 @@ class Worldbuff(Enum):
     DRAGONSLAYER = 22888
     ZANDALAR = 24425
     SONGFLOWER = 15366
+    REND = 16609
 
     # different kinds of DMF buffs
     DMF_DPS = 23768

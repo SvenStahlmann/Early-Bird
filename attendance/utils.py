@@ -54,7 +54,6 @@ def get_present_players(report_id, report_end):
         enchants = []
         worldbuffs = 0
         name = x['name']
-        player_id = x['id']
 
         # get player enchants
         for item in x['gear']:
@@ -65,19 +64,19 @@ def get_present_players(report_id, report_end):
 
         # get players worldbuffs
         for buff in buffs:
-            for item in buff['events']:
-                if 'targetID' in item.keys():
-                    if player_id == item['targetID']:
+            for item in buff['auras']:
+                if name == item['name']:
+                    if item['totalUses'] > 0:
                         worldbuffs += 1
                         break
 
-        players.append(Player(name, player_id, worldbuffs, enchants))
+        players.append(Player(name, worldbuffs, enchants))
 
     return players
 
 
 def get_worldbuff(report_id, worldbuff, end):
-    slug = "/report/events/buffs/{}?end={}&abilityid={}&api_key={}".format(report_id, end, worldbuff, API_KEY)
+    slug = "/report/tables/buffs/{}?end={}&abilityid={}&api_key={}".format(report_id, end, worldbuff, API_KEY)
     url = BASE_URL + slug
 
     req = requests.get(url)

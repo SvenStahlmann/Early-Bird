@@ -12,10 +12,13 @@ function set_active_specialization() {
         specialization_id = specialization_id.split('\"').join('');
 
         if (document.getElementById('specialization-' + specialization_id)) {
-            let active_encounter = document.getElementById('specialization-' + specialization_id);
-            active_encounter.parentElement.parentElement.previousElementSibling.click();
-            active_encounter.parentElement.parentElement.previousElementSibling.classList.add('active');
-            active_encounter.classList.add('active');
+            let active_specialization = document.getElementById('specialization-' + specialization_id);
+            active_specialization.parentElement.parentElement.parentElement.setAttribute('aria-expanded', 'true');
+            active_specialization.parentElement.parentElement.setAttribute('aria-hidden', 'false');
+            active_specialization.parentElement.parentElement.removeAttribute('style');
+            active_specialization.parentElement.parentElement.classList.add('is-active');
+            active_specialization.parentElement.parentElement.previousElementSibling.classList.add('active');
+            active_specialization.classList.add('active');
         }
     }
 }

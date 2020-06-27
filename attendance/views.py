@@ -17,6 +17,7 @@ def overview(request):
 
     if request.method == 'POST':
 
+        all_player = Character.objects.all()
         player_not_found = []
         player_found = []
 
@@ -34,6 +35,7 @@ def overview(request):
         for player in players:
             try:
                 character = Character.objects.get(name=player.name)
+                all_player = all_player.exclude(name=player.name)
 
                 # update attendance
                 Attendance.objects.get_or_create(present=True, world_buffs=player.worldbuffs, character=character,
@@ -47,6 +49,11 @@ def overview(request):
 
             except ObjectDoesNotExist:
                 player_not_found.append(player.name)
+
+        for absent_player in all_player:
+            # update attendance
+            Attendance.objects.get_or_create(present=False, world_buffs=False, consumables=False,
+                                             character=absent_player, raid_day=raid, order=10)
 
         return render(request, 'attendance/overview.html', {'players': player_found, 'not_found': player_not_found,
                                                             'raidday_exists': True})
@@ -75,15 +82,15 @@ def update_loot(request):
 
                 player = item['player'].split('-')[0]
                 item_name = item['item'].replace('[', '').replace(']', '')
+                # get datetime
                 date = item['date'].split('/')
                 date[2] = '20' + date[2]
+                dt = datetime.datetime(int(date[2]), int(date[1]), int(date[0]), 9, 0)
 
                 # get character
                 try:
                     char = Character.objects.get(name=player)
-                    raid_day = RaidDay.objects.get(date__day=date[0],
-                                                   date__month=date[1],
-                                                   date__year=date[2])
+                    raid_day = RaidDay.objects.get(date=dt)
                     item = Item.objects.get(name=item_name)
                     LootHistory.objects.get_or_create(character=char, item=item, raid_day=raid_day, order=1)
 

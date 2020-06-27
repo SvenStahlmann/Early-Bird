@@ -1,6 +1,6 @@
 import requests
 import json
-from .models import Player, Enchant, Worldbuff
+from .models import Player, Enchant, Worldbuff, Item
 import datetime
 
 
@@ -56,11 +56,15 @@ def get_present_players(report_id, report_end):
         name = x['name']
 
         # get player enchants
-        for item in x['gear']:
-            if 'permanentEnchantName' in item.keys():
-                enchants.append(Enchant(item['slot'], True, name))
-            else:
-                enchants.append(Enchant(item['slot'], False, name))
+        for slot in Item:
+            enchanted = False
+            for item in x['gear']:
+                if slot.value == item['slot']:
+                    if 'permanentEnchantName' in item.keys():
+                        enchants.append(Enchant(item['slot'], True, name))
+                        enchanted = True
+            if not enchanted:
+                enchants.append(Enchant(slot.value, False, name))
 
         # get players worldbuffs
         for buff in buffs:

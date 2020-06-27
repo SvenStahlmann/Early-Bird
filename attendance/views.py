@@ -95,7 +95,8 @@ def update_loot(request):
 
                 print(player + " " + item_name)
 
-        return render(request, 'attendance/overview.html', {'items': items_added, 'faulty': faulty_items})
+        return render(request, 'attendance/overview.html', {'items': items_added, 'faulty': faulty_items,
+                                                            'raidday_exists': True})
 
 
     # Return 404 if any of the checks fail

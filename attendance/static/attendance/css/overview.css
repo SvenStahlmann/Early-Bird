@@ -1,3 +1,8 @@
+.background {
+    background-color: #181818;
+    color: #ababab;
+}
+
 .callout {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
@@ -41,6 +46,82 @@
     color: #ff8000;
 }
 
+/* Tabs */
+.tabs, .tabs-content, .tabs-panel {
+    border: none;
+}
 
+.tabs {
+    background-color: #1e1e21
+}
+
+.tabs-panel {
+    min-height: 654px;
+}
+
+.tabs-link {
+    color: #ababab !important;
+    outline: none;
+}
+
+.tabs-title > a:focus, .tabs-title, .tabs-title > a:hover {
+    background-color: #1e1e21;
+}
+
+.tabs-title > a:hover {
+    color: #f4f4f4 !important;
+}
+
+.tabs-title > a:focus, .tabs-title > a[aria-selected=true] {
+    color: #f4f4f4 !important;
+    background-color: #1e1e21;
+}
+
+/* Table */
+.attendance-table {
+    table-layout: fixed;
+    width: 100%;
+    *margin-left: -200px;
+}
+
+.attendance-table td, .attendance-table th {
+    vertical-align: top;
+    border-top: 1px solid #ccc;
+    padding: 10px;
+    width: 200px;
+}
+
+.attendance-table thead, .attendance-table.unstriped tbody, .attendance-table.unstriped tr, .attendance-table td, .attendance-table th {
+    background: transparent;
+    color: #ababab;
+    border: transparent;
+}
+
+.attendance-table td {
+    border: 1px solid #1e1e21;
+}
+
+.attendance-table td {
+    max-height: 200px !important;
+}
+
+.fix {
+    position: absolute;
+    *position: relative; /*ie7*/
+    margin-left: -200px;
+    width: 200px;
+    border: transparent !important;
+}
+
+.outer {
+    position: relative;
+}
+
+.inner {
+    overflow-x: scroll;
+    overflow-y: visible;
+    width: calc(100% - 200px);
+    margin-left: 200px;
+}
 
 

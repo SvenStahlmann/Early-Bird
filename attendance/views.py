@@ -13,7 +13,7 @@ import datetime
 def overview(request):
     if request.method == 'GET':
 
-        return render(request, 'attendance/overview.html')
+        return render(request, 'attendance/overview.html', {'raidday_exists': True})
 
     if request.method == 'POST':
 
@@ -29,7 +29,7 @@ def overview(request):
                                            date__month=raid_day.month,
                                            date__day=raid_day.day)
         except ObjectDoesNotExist:
-            return render(request, 'attendance/overview_error.html')
+            return render(request, 'attendance/overview.html', {'raidday_exists': False})
 
         # iterate over all present players and create an entry in the attendance table
         for player in players:
@@ -37,8 +37,8 @@ def overview(request):
                 character = Character.objects.get(name=player.name)
 
                 # update attendance
-                attendance = Attendance.create(True, player.worldbuffs, character, raid_day, 10)
-                attendance.save()
+                Attendance.objects.get_or_create(present=True, world_buffs=player.worldbuffs, character=character,
+                                                 raid_day=raid_day, order=10)
 
                 # update enchants
                 for enchant in player.enchants:
@@ -49,7 +49,8 @@ def overview(request):
             except ObjectDoesNotExist:
                 player_not_found.append(player.name)
 
-        return render(request, 'attendance/overview.html', {'players': player_found, 'not_found': player_not_found})
+        return render(request, 'attendance/overview.html', {'players': player_found, 'not_found': player_not_found,
+                                                            'raidday_exists': True})
 
     # Return 404 if any of the checks fail
     response = render(request, '404.html')

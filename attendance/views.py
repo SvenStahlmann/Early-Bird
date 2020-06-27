@@ -25,9 +25,8 @@ def overview(request):
 
         try:
             # get raid day object
-            raid_day = RaidDay.objects.get(date__year=raid_day.year,
-                                           date__month=raid_day.month,
-                                           date__day=raid_day.day)
+            raid_day = raid_day.replace(hour=9, minute=0, second=0, microsecond=0)
+            raid = RaidDay.objects.get(date=raid_day)
         except ObjectDoesNotExist:
             return render(request, 'attendance/overview.html', {'raidday_exists': False})
 
@@ -38,7 +37,7 @@ def overview(request):
 
                 # update attendance
                 Attendance.objects.get_or_create(present=True, world_buffs=player.worldbuffs, character=character,
-                                                 raid_day=raid_day, order=10)
+                                                 raid_day=raid, order=10)
 
                 # update enchants
                 for enchant in player.enchants:

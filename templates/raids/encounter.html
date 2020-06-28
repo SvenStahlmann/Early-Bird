@@ -33,7 +33,7 @@
                                     <div class="callout">
                                         <a class="media-object"
                                            href="{% url 'raids_dispatch' %}?loot={{ encounter.instance.loot_system }}&encounter={{ encounter.id }}&item={{ item.id }}"
-                                           data-wowhead="{{ item.wowhead_link|get_wowhead_item_id }}">
+                                           data-wowhead="{{ item.wowhead_link|get_wowhead_item_id }}&domain=classic">
                                             <div class="media-object-section">
                                                 <div class="thumbnail">
                                                     <img alt="Foliant des einlullenden Schusses"
@@ -69,7 +69,7 @@
                                 <div class="callout">
                                     <a class="media-object"
                                        href="{% url 'raids_dispatch' %}?loot={{ encounter.instance.loot_system }}&encounter={{ encounter.id }}&item={{ item.id }}"
-                                       data-wowhead="{{ item.wowhead_link|get_wowhead_item_id }}">
+                                       data-wowhead="{{ item.wowhead_link|get_wowhead_item_id }}&domain=classic">
                                         <div class="media-object-section">
                                             <div class="thumbnail">
                                                 <img alt="Foliant des einlullenden Schusses"

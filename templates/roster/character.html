@@ -156,14 +156,14 @@
                         <div class="grid-x">
                             <div class="cell small-6">
                                 {% for item in character|get_items:"HEAD" %}
-                                    <a class="float-left" href="{{ item.wowhead_link }}" target="_blank">
+                                    <a class="float-left" href="{{ item.wowhead_link }}&domain=classic" target="_blank">
                                         <img class="item-img" src="/media/{{ item.icon }}">
                                     </a>
                                 {% endfor %}
                             </div>
                             <div class="cell small-6">
                                 {% for item in character|get_items:"HANDS" %}
-                                    <a class="float-right" href="{{ item.wowhead_link }}" target="_blank">
+                                    <a class="float-right" href="{{ item.wowhead_link }}&domain=classic" target="_blank">
                                         <img class="item-img" src="/media/{{ item.icon }}">
                                     </a>
                                 {% endfor %}
@@ -173,14 +173,14 @@
                         <div class="grid-x">
                             <div class="cell small-6">
                                 {% for item in character|get_items:"NECK" %}
-                                    <a class="float-left" href="{{ item.wowhead_link }}" target="_blank">
+                                    <a class="float-left" href="{{ item.wowhead_link }}&domain=classic" target="_blank">
                                         <img class="item-img" src="/media/{{ item.icon }}">
                                     </a>
                                 {% endfor %}
                             </div>
                             <div class="cell small-6">
                                 {% for item in character|get_items:"WAIST" %}
-                                    <a class="float-right" href="{{ item.wowhead_link }}" target="_blank">
+                                    <a class="float-right" href="{{ item.wowhead_link }}&domain=classic" target="_blank">
                                         <img class="item-img" src="/media/{{ item.icon }}">
                                     </a>
                                 {% endfor %}
@@ -190,14 +190,14 @@
                         <div class="grid-x">
                             <div class="cell small-6">
                                 {% for item in character|get_items:"SHOULDERS" %}
-                                    <a class="float-left" href="{{ item.wowhead_link }}" target="_blank">
+                                    <a class="float-left" href="{{ item.wowhead_link }}&domain=classic" target="_blank">
                                         <img class="item-img" src="/media/{{ item.icon }}">
                                     </a>
                                 {% endfor %}
                             </div>
                             <div class="cell small-6">
                                 {% for item in character|get_items:"LEGS" %}
-                                    <a class="float-right" href="{{ item.wowhead_link }}" target="_blank">
+                                    <a class="float-right" href="{{ item.wowhead_link }}&domain=classic" target="_blank">
                                         <img class="item-img" src="/media/{{ item.icon }}">
                                     </a>
                                 {% endfor %}
@@ -207,14 +207,14 @@
                         <div class="grid-x">
                             <div class="cell small-6">
                                 {% for item in character|get_items:"BACK" %}
-                                    <a class="float-left" href="{{ item.wowhead_link }}" target="_blank">
+                                    <a class="float-left" href="{{ item.wowhead_link }}&domain=classic" target="_blank">
                                         <img class="item-img" src="/media/{{ item.icon }}">
                                     </a>
                                 {% endfor %}
                             </div>
                             <div class="cell small-6">
                                 {% for item in character|get_items:"FEET" %}
-                                    <a class="float-right" href="{{ item.wowhead_link }}" target="_blank">
+                                    <a class="float-right" href="{{ item.wowhead_link }}&domain=classic" target="_blank">
                                         <img class="item-img" src="/media/{{ item.icon }}">
                                     </a>
                                 {% endfor %}
@@ -224,14 +224,14 @@
                         <div class="grid-x">
                             <div class="cell small-6">
                                 {% for item in character|get_items:"CHEST" %}
-                                    <a class="float-left" href="{{ item.wowhead_link }}" target="_blank">
+                                    <a class="float-left" href="{{ item.wowhead_link }}&domain=classic" target="_blank">
                                         <img class="item-img" src="/media/{{ item.icon }}">
                                     </a>
                                 {% endfor %}
                             </div>
                             <div class="cell small-6">
                                 {% for item in character|get_items:"FINGER" %}
-                                    <a class="float-right" href="{{ item.wowhead_link }}" target="_blank">
+                                    <a class="float-right" href="{{ item.wowhead_link }}&domain=classic" target="_blank">
                                         <img class="item-img" src="/media/{{ item.icon }}">
                                     </a>
                                 {% endfor %}
@@ -241,14 +241,14 @@
                         <div class="grid-x">
                             <div class="cell small-6">
                                 {% for item in character|get_items:"WRIST" %}
-                                    <a class="float-left" href="{{ item.wowhead_link }}" target="_blank">
+                                    <a class="float-left" href="{{ item.wowhead_link }}&domain=classic" target="_blank">
                                         <img class="item-img" src="/media/{{ item.icon }}">
                                     </a>
                                 {% endfor %}
                             </div>
                             <div class="cell small-6">
                                 {% for item in character|get_items:"TRINKET" %}
-                                    <a class="float-right" href="{{ item.wowhead_link }}" target="_blank">
+                                    <a class="float-right" href="{{ item.wowhead_link }}&domain=classic" target="_blank">
                                         <img class="item-img" src="/media/{{ item.icon }}">
                                     </a>
                                 {% endfor %}
@@ -263,21 +263,21 @@
                                 <div class="grid-x text-center">
                                     <div class="cell medium-4">
                                         {% for item in character|get_mainhand_items %}
-                                            <a href="{{ item.wowhead_link }}" target="_blank">
+                                            <a href="{{ item.wowhead_link }}&domain=classic" target="_blank">
                                                 <img class="item-img" src="/media/{{ item.icon }}">
                                             </a>
                                         {% endfor %}
                                     </div>
                                     <div class="cell medium-4">
                                         {% for item in character|get_offhand_items %}
-                                            <a href="{{ item.wowhead_link }}" target="_blank">
+                                            <a href="{{ item.wowhead_link }}&domain=classic" target="_blank">
                                                 <img class="item-img" src="/media/{{ item.icon }}">
                                             </a>
                                         {% endfor %}
                                     </div>
                                     <div class="cell medium-4">
                                         {% for item in character|get_third_weapon_slot %}
-                                            <a href="{{ item.wowhead_link }}" target="_blank">
+                                            <a href="{{ item.wowhead_link }}&domain=classic" target="_blank">
                                                 <img class="item-img" src="/media/{{ item.icon }}">
                                             </a>
                                         {% endfor %}
@@ -297,7 +297,7 @@
                                 {{ loot.raid_day.date|strip_time }}
                             </div>
                             <div class="cell small-9">
-                                <a class="{{ loot.item.quality }}" href="{{ loot.item.wowhead_link }}"><img
+                                <a class="{{ loot.item.quality }}" href="{{ loot.item.wowhead_link }}&domain=classic"><img
                                         class="item-icon"
                                         src="/media/{{ loot.item.icon }}">&emsp;{{ loot.item }}
                                 </a>

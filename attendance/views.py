@@ -39,7 +39,7 @@ def overview(request):
 
                 # update attendance
                 Attendance.objects.get_or_create(present=True, world_buffs=player.worldbuffs, character=character,
-                                                 raid_day=raid, order=10)
+                                                 raid_day=raid)
 
                 # update enchants
                 for enchant in player.enchants:
@@ -53,7 +53,7 @@ def overview(request):
         for absent_player in all_player:
             # update attendance
             Attendance.objects.get_or_create(present=False, world_buffs=False, consumables=False,
-                                             character=absent_player, raid_day=raid, order=10)
+                                             character=absent_player, raid_day=raid)
 
         return render(request, 'attendance/overview.html', {'players': player_found, 'not_found': player_not_found,
                                                             'raidday_exists': True})
@@ -92,7 +92,7 @@ def update_loot(request):
                     char = Character.objects.get(name=player)
                     raid_day = RaidDay.objects.get(date=dt)
                     item = Item.objects.get(name=item_name)
-                    LootHistory.objects.get_or_create(character=char, item=item, raid_day=raid_day, order=1)
+                    LootHistory.objects.get_or_create(character=char, item=item, raid_day=raid_day)
 
                     items_added.append([char, item])
 
@@ -104,10 +104,7 @@ def update_loot(request):
         return render(request, 'attendance/overview.html', {'items': items_added, 'faulty': faulty_items,
                                                             'raidday_exists': True})
 
-
     # Return 404 if any of the checks fail
     response = render(request, '404.html')
     response.status_code = 404
     return response
-
-

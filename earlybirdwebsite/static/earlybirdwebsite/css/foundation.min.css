@@ -8048,6 +8048,10 @@ html.is-reveal-open body {
     background: #1e1e21;
 }
 
+.menu-icon {
+    margin-right: 15px;
+}
+
 .menu-icon.light:focus {
     outline: none;
 }

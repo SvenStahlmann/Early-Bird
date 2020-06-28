@@ -67,7 +67,6 @@ class Attendance(models.Model):
     consumables = models.BooleanField(default=True, help_text='Hat der Charakter am Raidtag ausreichend Consumables eingeworfen.')
     misconduct = models.BooleanField(default=False, help_text='Jegliches Fehlverhalten des Charakters, z.B. zu spät zum Raid erschienen.')
     comment = models.TextField(blank=True, null=True, help_text='Kommentar zum Charakter am Raidtag.')
-    order = models.PositiveIntegerField(blank=False, null=False)
 
     # Foreign keys
     character = models.ForeignKey(Character, related_name='attendance', on_delete=models.CASCADE)
@@ -76,14 +75,6 @@ class Attendance(models.Model):
     # Timestamp
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        ordering = ['order']
-
-    @classmethod
-    def create(cls, present, world_buffs, character, raid_day, order):
-        attendance = cls(present=present, world_buffs=world_buffs, character=character, raid_day=raid_day, order=order)
-        return attendance
 
     def __str__(self):
         return str(self.raid_day) + ' - ' + str(self.character)
@@ -94,14 +85,10 @@ class LootHistory(models.Model):
     character = models.ForeignKey(Character, related_name='loot_history', on_delete=models.CASCADE)
     item = models.ForeignKey(Item, related_name='loot_history', on_delete=models.CASCADE)
     raid_day = models.ForeignKey(RaidDay, related_name='loot_history', on_delete=models.CASCADE)
-    order = models.PositiveIntegerField(blank=False, null=False)
 
     # Timestamp
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        ordering = ['order']
 
     def __str__(self):
         return str(self.character) + ' - ' + str(self.item) + ' - ' + str(self.raid_day)

@@ -99,7 +99,7 @@ class Item(models.Model):
     slot = models.CharField(max_length=13, choices=SLOT_CHOICES,
                             help_text='Ausrüstungsplatz, an welchem dieses Item angelegt wird.')
     type = models.CharField(max_length=13, choices=TYPE_CHOICES, blank=True, null=True,
-                            help_text='Rüstungstyp des Items.')
+                            help_text='Rüstungstyp des Items (optional).')
     wowhead_link = models.URLField(help_text='Hyperlink zum Item auf wowhead.com.')
     order = models.PositiveIntegerField(blank=False, null=False)
 

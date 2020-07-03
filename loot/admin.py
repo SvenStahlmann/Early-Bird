@@ -11,11 +11,11 @@ class RaidDayAdmin(SortableAdminMixin, admin.ModelAdmin):
     model = RaidDay
 
 
-class AttendanceAdmin(SortableAdminMixin, admin.ModelAdmin):
+class AttendanceAdmin(admin.ModelAdmin):
     model = Attendance
 
 
-class LootHistoryAdmin(SortableAdminMixin, admin.ModelAdmin):
+class LootHistoryAdmin(admin.ModelAdmin):
     model = LootHistory
 
 

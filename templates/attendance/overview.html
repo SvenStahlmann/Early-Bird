@@ -1,0 +1,153 @@
+{% extends 'attendance/base.html' %}
+{% load static %}
+
+{% block css_page %}
+    <link rel="stylesheet" href="{% static 'attendance/css/overview.css' %}">
+{% endblock css_page %}
+
+{% block content %}
+
+    <div class="grid-container fluid">
+
+        <br>
+
+        <ul class="tabs background" data-tabs id="control-tabs">
+            <li class="tabs-title is-active"><a class="tabs-link" href="#rcloot" aria-selected="true"><h5>RC Loot</h5></a></li>
+            <li class="tabs-title"><a class="tabs-link" data-tabs-target="attendance" href="#attendance" ><h5>Attendance</h5></a></li>
+        </ul>
+
+
+        <div class="tabs-content background" data-tabs-content="control-tabs">
+
+            <div class="tabs-panel is-active background" id="rcloot">
+
+                <div class="cell large-12">
+
+                    <form method="POST" action="/roster/rcloot">
+                        {% csrf_token %}
+                        <div class="grid-container">
+                            <div class="grid-x grid-padding-x">
+                                <div class="medium-6 cell">
+                                    <label class="label-color"><b>Insert export of RC history here</b></label>
+                                    <textarea placeholder="RC-lootcouncil JSON data" name="loot" id="loot"></textarea>
+                                </div>
+                            </div>
+                            <button type="submit" class="button secondary">Update Loot</button>
+                        </div>
+                    </form>
+
+                    {% if items %}
+                        <p><b>Items updated:</b></p>
+                        <table class="stack tbl-striped">
+                            <thead>
+                                <tr>
+                                    <th>Character</th>
+                                    <th>Item</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in items %}
+                                    <tr>
+                                        <td>{{ item.0 }}</td>
+                                        <td>{{ item.1 }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
+                    {% if faulty %}
+
+                        <p><b>Some items could not be added. The player or item is missing in the database.</b></p>
+
+                    {% endif %}
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+            <div class="tabs-panel background" id="attendance">
+
+
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="grid-container">
+                        <div class="grid-x grid-padding-x">
+                            <div class="medium-6 cell">
+                                <label class="label-color"><b>WCLog name of raid</b></label>
+                                <input type="text" placeholder="Optional" name="raid" id="raid">
+                            </div>
+                        </div>
+                        <button type="submit" class="button secondary">Update Attendance</button>
+                    </div>
+
+                </form>
+
+                {% if not raidday_exists %}
+
+                    <div data-alert class="alert-box">
+                      No 'Raid day' object could be found for the specified raid.
+                    </div>
+
+                {% endif %}
+
+                <div>
+                    <table class="attendance-table unstriped">
+                        <thead>
+                            <tr>
+                                <th>Character</th>
+                                <th>Angemeldet</th>
+                                <th>Worldbuffs</th>
+                                <th>Consumables</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for player in players%}
+
+                                <tr>
+                                    <td>{{ player.name }}</td>
+                                    <td>TODO</td>
+                                    <td>{% if player.worldbuffs %}
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                        {% else %}
+                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                        {% endif %}
+                                    </td>
+                                    <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                                </tr>
+
+                            {% endfor %}
+
+
+                        </tbody>
+                    </table>
+
+                    {% if not_found %}
+
+                        <p><b>Spieler nicht in Datenbank:</b></p>
+                        <ul>
+                            {% for player in not_found %}
+                                <li>{{ player }}</li>
+                            {% endfor %}
+                        </ul>
+
+                    {% endif %}
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock content %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from . import utils
 from loot.models import Attendance, RaidDay, LootHistory, Entitlement
@@ -66,6 +66,10 @@ def overview(request):
 
 def update_loot(request):
     if request.user.is_superuser:
+        if request.method == 'GET':
+            response = redirect('/admin/attendance')
+            return response
+
         if request.method == 'POST':
 
             # context

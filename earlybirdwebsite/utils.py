@@ -8,3 +8,11 @@ def get_instances():
         instances[instance] = list(instance.encounter.all())
 
     return instances
+
+
+def is_integer(value: str, *, base: int = 10) -> bool:
+    try:
+        int(value, base=base)
+        return True
+    except ValueError:
+        return False

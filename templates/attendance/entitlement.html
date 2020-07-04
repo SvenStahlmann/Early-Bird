@@ -1,0 +1,108 @@
+{% extends 'attendance/base.html' %}
+{% load static %}
+
+{% block admin_entitlement %}
+    active
+{% endblock admin_entitlement %}
+
+{% block css_page %}
+{% endblock css_page %}
+
+{% block content %}
+    <div class="grid-container">
+        <br>
+        <h1>Priorität</h1>
+        <br>
+
+        {% if added %}
+            <div class="callout success">
+                Folgende Prioritäten wurden hinzugefügt: {{ added }}
+            </div>
+        {% endif %}
+
+        {% if changed %}
+            <div class="callout success">
+                Folgende Prioritäten wurden geändert: {{ changed }}
+            </div>
+        {% endif %}
+
+        {% if deleted %}
+            <div class="callout success">
+                Folgende Prioritäten wurden entfernt: {{ deleted }}
+            </div>
+        {% endif %}
+
+        {% if warning %}
+            <div class="callout alert">
+                {{ warning }}
+            </div>
+        {% endif %}
+
+        <form method="POST" action="{% url 'add_entitlement' %}">
+            {% csrf_token %}
+
+            <div class="grid-x grid-padding-x">
+                <div class="cell medium-6">
+                    <label for="select-instance">Instanz:</label>
+                    <select id="select-instance" name="instance" onchange="load_encounter(this.value)" required>
+                        <option disabled selected value> -- Instanz auswählen --</option>
+                        {% for instance in instances %}
+                            <option value="{{ instance.id }}">{{ instance.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="cell medium-6">
+                    <label for="select-encounter">Boss:</label>
+                    <select id="select-encounter" name="encounter" onchange="load_items(this.value)" required>
+                        <option disabled selected value> -- Boss auswählen --</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid-x grid-padding-x">
+                <div class="cell small-12">
+                    <label for="select-item">Item:</label>
+                    <select id="select-item" name="item" onchange="load_entitlements(this.value)" required>
+                        <option disabled selected value> -- Item auswählen --</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="priority-container">
+                <div class="grid-x grid-padding-x">
+                    <div class="cell small-12 medium-9">
+                        <label for="select-specialization-1">Spezialisierung:</label>
+                        <select id="select-specialization-1" name="specializations" required>
+                            {% for specialization in specializations %}
+                                <option value="{{ specialization.id }}">{{ specialization.wow_class }}
+                                    - {{ specialization.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="cell small-10 medium-3">
+                        <label for="priority-1">Priorität:</label>
+                        <input id="priority-1" type="number" name="priority" required>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="grid-x grid-padding-x">
+                <div class="cell small-11">
+                    <button type="submit" class="button primary">Hinzufügen</button>
+                </div>
+                <div class="cell small-1 text-center">
+                    <button type="button" class="button success" onclick="add_select_specialization()"
+                            style="color: white"><i class="fas fa-plus-square"></i></button>
+                </div>
+            </div>
+
+            <br>
+        </form>
+    </div>
+{% endblock content %}
+
+{% block js_page %}
+    <script src="{% static 'attendance/js/entitlement.js' %}"></script>
+{% endblock js_page %}

@@ -24,10 +24,17 @@ urlpatterns = [
     path('loot/', include('loot.urls')),
     path('raids/', include('raids.urls')),
     path('roster/', include('roster.urls')),
-    path('roster/', include('attendance.urls')),
+    path('admin/', include('attendance.urls')),
 
     path('test', views.test, name='test'),
     path('', views.index, name='index'),
+
+    # Ajax
+    path('ajax/encounter', views.ajax_encounter, name='ajax_encounter'),
+    path('ajax/items', views.ajax_items, name='ajax_items'),
+    path('ajax/specializations', views.ajax_specializations, name='ajax_specializations'),
+    path('ajax/entitlements', views.ajax_entitlements, name='ajax_entitlements'),
+    path('ajax/token_items', views.ajax_token_items, name='ajax_token_items'),
 ]
 
 if settings.DEBUG:

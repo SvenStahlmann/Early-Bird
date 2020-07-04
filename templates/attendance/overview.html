@@ -1,6 +1,10 @@
 {% extends 'attendance/base.html' %}
 {% load static %}
 
+{% block admin_attendance %}
+    active
+{% endblock admin_attendance %}
+
 {% block css_page %}
     <link rel="stylesheet" href="{% static 'attendance/css/overview.css' %}">
 {% endblock css_page %}

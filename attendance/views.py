@@ -151,12 +151,12 @@ def add_token(request):
                         items = [Item.objects.get(pk=item_id) for item_id in item_ids]
 
                         # Get which items were added to the token
-                        for item in items:
+                        for item in [Item.objects.get(pk=item_id) for item_id in item_ids]:
                             if item not in token.token_items.all():
                                 added.append(item)
 
                         # Get which items were deleted from the token
-                        deleted = list(set(list(Token.objects.get(token=Item.objects.get(pk=token_id)).token_items.all())) - set([Item.objects.get(pk=item_id) for item_id in item_ids]))
+                        deleted = list(set(list(Token.objects.get(token=Item.objects.get(pk=token_id)).token_items.all())) - set(items))
 
                         # Update token items of the token
                         token.token_items.set(items)

@@ -1,0 +1,93 @@
+{% extends 'attendance/base.html' %}
+{% load static %}
+
+{% block admin_token %}
+    active
+{% endblock admin_token %}
+
+{% block css_page %}
+{% endblock css_page %}
+
+{% block content %}
+    <div class="grid-container">
+        <br>
+        <h1>Token hinzufügen</h1>
+        <br>
+
+        {% if created %}
+            <div class="callout success">
+                Folgendes Token wurden erstellt: {{ created }}
+            </div>
+        {% endif %}
+
+        {% if added %}
+            <div class="callout success">
+                Folgende Items wurden zum Token {% if created %}{{ created }}{% else %}{% if token %}{{ token }}{% endif %}{% endif %}
+                hinzugefügt: {{ added }}
+            </div>
+        {% endif %}
+
+        {% if deleted %}
+            <div class="callout success">
+                Folgende Items wurden vom Token {{ token }} entfernt: {{ deleted }}
+            </div>
+        {% endif %}
+
+        {% if warning %}
+            <div class="callout alert">
+                {{ warning }}
+            </div>
+            <br>
+        {% endif %}
+        <form method="POST" action="{% url 'add_token' %}">
+            {% csrf_token %}
+            <div class="grid-x grid-padding-x">
+                <div class="cell medium-6">
+                    <label for="select-instance">Instanz:</label>
+                    <select id="select-instance" name="instance" onchange="load_encounter(this.value)">
+                        <option disabled selected value> -- Instanz auswählen --</option>
+                        {% for instance in instances %}
+                            <option value="{{ instance.id }}">{{ instance.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="cell medium-6">
+                    <label for="select-encounter">Boss:</label>
+                    <select id="select-encounter" name="encounter" onchange="load_token(this.value)">
+                        <option disabled selected value> -- Boss auswählen --</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid-x grid-padding-x">
+                <div class="cell medium-6">
+                    <label for="select-token">Token:</label>
+                    <select id="select-token" name="token" onchange="load_token_items(this.value)">
+                        <option disabled selected value> -- Token auswählen --</option>
+                    </select>
+                </div>
+                <div class="cell medium-6">
+
+                </div>
+            </div>
+
+            <div class="grid-x grid-padding-x">
+                <div class="cell small-12">
+                    <label for="select-items">Items:</label>
+                    <select id="select-items" name="items" multiple style="min-height: 490px">
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid-x grid-padding-x">
+                <div class="cell small-12">
+                    <button type="submit" class="button primary">Hinzufügen</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
+
+{% block js_page %}
+    <script src="{% static 'attendance/js/token.js' %}"></script>
+{% endblock js_page %}

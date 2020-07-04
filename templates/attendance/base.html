@@ -7,41 +7,28 @@
     <link rel="stylesheet" href="{% static 'raids/css/base.css' %}">
 {% endblock css_app %}
 
-{% block attendance_top_bar %}
+{% block admin_top_bar %}
     active
-{% endblock attendance_top_bar %}
+{% endblock admin_top_bar %}
 
-{% block attendance_top_bar_small %}
+{% block admin_top_bar_small %}
     active
-{% endblock attendance_top_bar_small %}
+{% endblock admin_top_bar_small %}
 
 {% block sidebar %}
-    <div id="sidebar-search" class="input-group">
-        <input id="search-input" name="search" class="input-group-field autocomplete-input" type="search"
-               placeholder="Suchen..." onkeypress="search_event(event)">
-        <input id="search-hidden" type="hidden" value="">
-        <ul class="autocomplete-result-list"></ul>
-        <div class="input-group-button">
-            <button id="search-input-button" type="submit" class="button secondary" onclick="search()"><i class="fas fa-search"></i>
-            </button>
-        </div>
-    </div>
-
     <ul id="instances-accordion" class="vertical menu accordion-menu" data-accordion-menu>
-        {% for instance, encounters in instances.items %}
-            <li>
-                <a href="#"><span><i class="fas fa-users"></i>&emsp;{{ instance.name }}</span></a>
-                <ul class="menu vertical nested">
-                    {% for encounter in encounters %}
-                        <li>
-                            <a id="encounter-{{ encounter.id }}"
-                               href="{% url 'raids_encounter' %}?id={{ encounter.id }}"><span><i
-                                    class="fas fa-skull"></i>&emsp;{{ encounter.name }}</span></a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </li>
-        {% endfor %}
+        <li>
+            <a class="{% block admin_attendance %}{% endblock admin_attendance %}"
+               href="{% url 'attendance_overview' %}"><span><i class="fas fa-angle-right"></i> Attendance & Loot History</span></a>
+        </li>
+        <li>
+            <a class="{% block admin_token %}{% endblock admin_token %}" href="{% url 'add_token' %}"><span><i
+                    class="fas fa-angle-right"></i> Tokens</span></a>
+        </li>
+        <li>
+            <a class="{% block admin_entitlement %}{% endblock admin_entitlement %}" href="{% url 'add_entitlement' %}"><span><i
+                    class="fas fa-angle-right"></i> Prioritäten</span></a>
+        </li>
     </ul>
 {% endblock sidebar %}
 

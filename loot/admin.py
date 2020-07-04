@@ -19,7 +19,7 @@ class LootHistoryAdmin(admin.ModelAdmin):
     model = LootHistory
 
 
-class EntitlementAdmin(SortableAdminMixin, admin.ModelAdmin):
+class EntitlementAdmin(admin.ModelAdmin):
     model = Entitlement
 
 

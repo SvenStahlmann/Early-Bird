@@ -95,8 +95,7 @@ class LootHistory(models.Model):
 
 
 class Entitlement(models.Model):
-    priority = models.PositiveIntegerField()
-    order = models.PositiveIntegerField(blank=False, null=False)
+    priority = models.PositiveIntegerField(blank=True, null=True)
 
     # Foreign Keys
     item = models.ForeignKey(Item, related_name='entitlement', on_delete=models.CASCADE)
@@ -107,7 +106,7 @@ class Entitlement(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['order']
+        unique_together = ('item', 'specialization',)
 
     def __str__(self):
         return str(self.item) + ' - ' + str(self.specialization) + ' - ' + str(self.priority)

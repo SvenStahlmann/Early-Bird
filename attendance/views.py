@@ -151,7 +151,7 @@ def add_token(request):
                         items = [Item.objects.get(pk=item_id) for item_id in item_ids]
 
                         # Get which items were added to the token
-                        for item in [Item.objects.get(pk=item_id) for item_id in item_ids]:
+                        for item in items:
                             if item not in token.token_items.all():
                                 added.append(item)
 

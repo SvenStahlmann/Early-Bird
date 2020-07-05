@@ -103,7 +103,7 @@
                                     class="fas fa-calendar"></i> Attendance:</span> <span
                                 class="no-break">
                             {% if character.attendance.all.count > 0 %}
-                                {{ character|get_attendance|div:character.attendance.all.count|mul:100 }}%
+                                {{ character|get_attendance|div:character.attendance.all.count|mul:100|floatformat:2 }}%
                             {% else %}
                                 0%
                             {% endif %}
@@ -112,7 +112,7 @@
                             <i class="fas fa-calendar-check"></i> Einträge: <span
                                 class="no-break">
                             {% if character.attendance.all.count > 0 %}
-                                {{ character|get_calendar_entries|div:character.attendance.all.count|mul:100 }}%
+                                {{ character|get_calendar_entries|div:character.attendance.all.count|mul:100|floatformat:2 }}%
                             {% else %}
                                 0%
                             {% endif %}
@@ -124,7 +124,7 @@
                                     class="fas fa-utensils"></i> Consumables:</span> <span
                                 class="no-break">
                             {% if character.attendance.all.count > 0 %}
-                                {{ character|get_consumables|div:character.attendance.all.count|mul:100 }}%
+                                {{ character|get_consumables|div:character.attendance.all.count|mul:100|floatformat:2 }}%
                             {% else %}
                                 0%
                             {% endif %}
@@ -132,7 +132,7 @@
                             <span class="no-break"><i class="fas fa-sun"></i> World Buffs:</span>
                             <span class="no-break">
                                 {% if character.attendance.all.count > 0 %}
-                                    {{ character|get_world_buffs|div:character.attendance.all.count|mul:100 }}%
+                                    {{ character|get_world_buffs|div:character.attendance.all.count|mul:100|floatformat:2 }}%
                                 {% else %}
                                     0%
                                 {% endif %}

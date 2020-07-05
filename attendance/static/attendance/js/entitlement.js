@@ -212,14 +212,14 @@ function load_entitlements(id) {
                 let specialization_selects = document.getElementsByName('specializations');
                 let priorities = document.getElementsByName('priority');
 
-                // Timeout 50ms
+                // Timeout 200ms
                 setTimeout(function () {
                     // Set values of select and priority field just created
                     for (let count = 0; count < data.length; count++) {
                         specialization_selects[count].value = data[count][2];
                         priorities[count].value = data[count][3];
                     }
-                }, 50);
+                }, 200);
             }
         }
     })

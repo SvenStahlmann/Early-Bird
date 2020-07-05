@@ -4,7 +4,7 @@ register = template.Library()
 
 
 def strip_time(date):
-    return date.strftime("%d.%M.%Y")
+    return date.strftime("%d.%m.%Y")
 
 
 register.filter('strip_time', strip_time)

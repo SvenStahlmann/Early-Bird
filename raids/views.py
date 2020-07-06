@@ -96,8 +96,8 @@ def ajax_autocomplete_search(request):
         keyword = request.GET.get('search', '').capitalize()
 
         # Get all encounters and items whose title contains the keyword
-        encounters = Encounter.objects.filter(name__contains=keyword)
-        items = Item.objects.filter(name__contains=keyword)
+        encounters = Encounter.objects.filter(name__icontains=keyword)
+        items = Item.objects.filter(name__icontains=keyword)
 
         # Prepare names for autocomplete
         names = []

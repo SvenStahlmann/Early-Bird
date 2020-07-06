@@ -69,8 +69,8 @@ def ajax_autocomplete_search(request):
         keyword = request.GET.get('search', '').capitalize()
 
         # Get all specializations and characters whose name contains the keyword
-        specializations = Specialization.objects.filter(name__contains=keyword)
-        characters = Character.objects.filter(name__contains=keyword)
+        specializations = Specialization.objects.filter(name__icontains=keyword)
+        characters = Character.objects.filter(name__icontains=keyword)
 
         # Prepare names for autocomplete
         names = []

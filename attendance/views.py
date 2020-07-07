@@ -13,10 +13,12 @@ import datetime
 def overview(request):
     if request.user.is_superuser:
         if request.method == 'GET':
-            return render(request, 'attendance/overview.html', {'raidday_exists': True})
+
+            raid_days = RaidDay.objects.all()
+            return render(request, 'attendance/overview.html', {'raidday_exists': True, 'raids': raid_days})
 
         if request.method == 'POST':
-
+            raid_days = RaidDay.objects.all()
             all_player = Character.objects.all()
             player_not_found = []
             player_found = []
@@ -29,7 +31,7 @@ def overview(request):
                 raid_day = raid_day.replace(hour=9, minute=0, second=0, microsecond=0)
                 raid = RaidDay.objects.get(date=raid_day)
             except ObjectDoesNotExist:
-                return render(request, 'attendance/overview.html', {'raidday_exists': False})
+                return render(request, 'attendance/overview.html', {'raidday_exists': False, 'raids': raid_days})
 
             # iterate over all present players and create an entry in the attendance table
             for player in players:
@@ -56,7 +58,7 @@ def overview(request):
                                                  character=absent_player, raid_day=raid)
 
             return render(request, 'attendance/overview.html', {'players': player_found, 'not_found': player_not_found,
-                                                                'raidday_exists': True})
+                                                                'raidday_exists': True, 'raids': raid_days})
 
     # Return 404 if any of the checks fail
     response = render(request, '404.html')

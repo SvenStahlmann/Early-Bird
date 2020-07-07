@@ -15,24 +15,27 @@ REGION = "EU"
 BASE_URL = "https://classic.warcraftlogs.com:443/v1"
 
 
-def get_attendance_for_raid(raid_name):
+def get_attendance_for_raid(raid_date):
     slug = "/reports/guild/{}/{}/{}?api_key={}".format(GUILD_NAME, SERVER_NAME, REGION, API_KEY)
     url = BASE_URL + slug
 
     req = requests.get(url)
     resp = json.loads(req.content)
 
-    # get last raid
-    if raid_name == '':
-        report_id = resp[0]['id']
-        report_end = resp[0]['end']
-    # get specific raid
-    else:
-        for raid in resp:
-            if raid['title'] == raid_name:
-                report_id = raid['id']
-                report_end = raid['end']
-                break
+    raid_date = datetime.datetime.strptime(raid_date, '%d.%m.%Y')
+    raids_on_date = []
+
+    for raid in resp:
+
+        date = datetime.datetime.fromtimestamp(raid['start']//1000)
+        date = date.replace(hour=0, minute=0, second=0, microsecond=0)
+
+        if date == raid_date:
+            raids_on_date.append(raid)
+
+    first_raid_on_date = raids_on_date[-1]
+    report_id = first_raid_on_date['id']
+    report_end = first_raid_on_date['end']
 
     players = get_present_players(report_id, report_end)
     return players, datetime.datetime.fromtimestamp(report_end//1000)

@@ -56,13 +56,6 @@ class RaidDay(models.Model):
         return str(self.date)
 
 
-@receiver(post_init, sender=RaidDay)
-def set_default_title(sender, instance, *args, **kwargs):
-    if not instance.title:
-        instance.title = instance.date.strftime('%d.%m.%Y')
-
-
-
 class Attendance(models.Model):
     present = models.BooleanField(help_text='Anwesenheit des Charakters am Raidtag.')
     calendar_entry = models.BooleanField(default=True, help_text='Ist der Charakter im Kalender eingetragen.')

@@ -14,11 +14,11 @@ def overview(request):
     if request.user.is_superuser:
         if request.method == 'GET':
 
-            raid_days = RaidDay.objects.all()
+            raid_days = RaidDay.objects.all().order_by('-date')
             return render(request, 'attendance/overview.html', {'raidday_exists': True, 'raids': raid_days})
 
         if request.method == 'POST':
-            raid_days = RaidDay.objects.all()
+            raid_days = RaidDay.objects.all().order_by('date')
             all_player = Character.objects.all()
             player_not_found = []
             player_found = []

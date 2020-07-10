@@ -87,7 +87,7 @@
                                 <label class="label-color"><b>Raid to check attendance for</b></label>
                                 <select id="raid" name="raid">
                                     {% for raid in raids %}
-                                        <option value={{ raid.date|strip_time }}>{{ raid.title }}</option>
+                                        <option value={{ raid.date|strip_time }}>{{ raid.title }} {{ raid.date|strip_time }}</option>
                                     {% endfor %}
                                 </select>
                             </div>

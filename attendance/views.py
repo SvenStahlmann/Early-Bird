@@ -18,7 +18,7 @@ def overview(request):
             return render(request, 'attendance/overview.html', {'raidday_exists': True, 'raids': raid_days})
 
         if request.method == 'POST':
-            raid_days = RaidDay.objects.all().order_by('date')
+            raid_days = RaidDay.objects.all().order_by('-date')
             all_player = Character.objects.all()
             player_not_found = []
             player_found = []

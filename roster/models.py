@@ -83,3 +83,17 @@ class Character(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Twink(models.Model):
+    name = models.CharField(max_length=128, help_text='Name des Twinks.')
+
+    # Foreign keys
+    character = models.ForeignKey(Character, related_name='twink', on_delete=models.CASCADE)
+
+    # Timestamp
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.character) + ' - ' + self.name

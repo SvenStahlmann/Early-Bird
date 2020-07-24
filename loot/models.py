@@ -72,6 +72,9 @@ class Attendance(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ['raid_day__date']
+
     def __str__(self):
         return str(self.raid_day) + ' - ' + str(self.character)
 

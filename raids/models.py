@@ -83,13 +83,14 @@ class Item(models.Model):
         ('BOW', 'Bogen'),
         ('CROSSBOW', 'Armbrust'),
         ('DAGGER', 'Dolch'),
-        ('FISTWEAPON', 'Fauswaffe'),
+        ('FISTWEAPON', 'Faustwaffe'),
         ('GUN', 'Schusswaffe'),
         ('AXE', 'Axt'),
         ('MACE', 'Streitkolben'),
         ('SWORD', 'Schwert'),
         ('POLEARM', 'Stangenwaffe'),
         ('STAVE', 'Stab'),
+        ('WAND', 'Zauberstab'),
         ('THROWN', 'Wurfwaffe'),
     )
 

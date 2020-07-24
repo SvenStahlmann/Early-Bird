@@ -28,8 +28,6 @@
                         <!-- medium, large -->
                         <ul class="menu menu-hover-lines show-for-medium">
                             <li><a href="{% url 'index' %}">Home</a></li>
-                            <li class="{% block about_top_bar %}{% endblock about_top_bar %}"><a href="#">Über uns</a>
-                            </li>
                             <li class="{% block raids_top_bar %}{% endblock raids_top_bar %}"><a
                                     href="{% url 'raids_encounter' %}">Raids</a></li>
                             <li class="{% block roster_top_bar %}{% endblock roster_top_bar %}"><a
@@ -54,9 +52,6 @@
                 <ul class="menu vertical hide-for-medium" id="small-top-menu"
                     data-animate="fade-in fade-out">
                     <li><a href="{% url 'index' %}">Home</a></li>
-                    <li class="{% block about_top_bar_small %}{% endblock about_top_bar_small %}"><a href="#">Über
-                        uns</a>
-                    </li>
                     <li class="{% block raids_top_bar_small %}{% endblock raids_top_bar_small %}"><a
                             href="{% url 'raids_encounter' %}">Raids</a></li>
                     <li class="{% block roster_top_bar_small %}{% endblock roster_top_bar_small %}"><a

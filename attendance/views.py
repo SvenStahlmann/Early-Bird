@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponse
 from . import utils
 from loot.models import Attendance, RaidDay, LootHistory, Entitlement
-from roster.models import Character, Specialization
+from roster.models import Character, Specialization, Twink
 from raids.models import Item, Instance, Encounter, Token
 from io import StringIO
 import pandas as pd
@@ -36,16 +37,30 @@ def overview(request):
             # iterate over all present players and create an entry in the attendance table
             for player in players:
                 try:
-                    character = Character.objects.get(name=player.name)
-                    all_player = all_player.exclude(name=player.name)
+                    # check if current player is a twink
+                    twink, main = None, None
+                    try:
+                        twink = Twink.objects.get(name=player.name)
+                        main = twink.character.name
+                    except ObjectDoesNotExist as e:
+                        pass
+
+                    if twink:
+                        character = Character.objects.get(name=main)
+                        all_player = all_player.exclude(name=main)
+
+                    else:
+                        character = Character.objects.get(name=player.name)
+                        all_player = all_player.exclude(name=player.name)
 
                     # update attendance
                     Attendance.objects.get_or_create(present=True, world_buffs=player.worldbuffs, character=character,
                                                      raid_day=raid)
 
-                    # update enchants
-                    for enchant in player.enchants:
-                        enchant.update_enchants()
+                    # update enchants if character is not a twink
+                    if not twink:
+                        for enchant in player.enchants:
+                            enchant.update_enchants()
 
                     player_found.append(player)
 
@@ -64,6 +79,68 @@ def overview(request):
     response = render(request, '404.html')
     response.status_code = 404
     return response
+
+
+def get_complete_attendance(request):
+    if request.user.is_superuser:
+
+        if request.method == 'GET':
+
+            raid_days = RaidDay.objects.all().order_by('date')
+
+            for raid in raid_days:
+                try:
+                    all_player = Character.objects.all()
+                    players, raid_day = utils.get_attendance_for_raid(raid.date.strftime("%d.%m.%Y"))
+
+                    # iterate over all present players and create an entry in the attendance table
+                    for player in players:
+                        try:
+                            # check if current player is a twink
+                            twink, main = None, None
+                            try:
+                                twink = Twink.objects.get(name=player.name)
+                                main = twink.character.name
+                            except ObjectDoesNotExist as e:
+                                pass
+
+                            if twink:
+                                character = Character.objects.get(name=main)
+                                all_player = all_player.exclude(name=main)
+
+                            else:
+                                character = Character.objects.get(name=player.name)
+                                all_player = all_player.exclude(name=player.name)
+
+                            # update attendance
+                            Attendance.objects.get_or_create(present=True, world_buffs=player.worldbuffs,
+                                                             character=character,
+                                                             raid_day=raid)
+
+                            # update enchants if character is not a twink
+                            if not twink:
+                                for enchant in player.enchants:
+                                    enchant.update_enchants()
+
+                        except ObjectDoesNotExist:
+                            print("Player {} not found in database".format(player.name))
+
+                    for absent_player in all_player:
+                        # update attendance
+                        Attendance.objects.get_or_create(present=False, world_buffs=False, consumables=False,
+                                                         character=absent_player, raid_day=raid)
+
+                except IndexError as e:
+                    print(str(e))
+                    print("Error for Raid on" + raid.date.strftime("%d.%m.%Y"))
+
+            return HttpResponse("Success!")
+
+
+
+            response = render(request, '404.html')
+
+    response = render(request, '404.html')
 
 
 def update_loot(request):

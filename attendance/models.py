@@ -90,6 +90,6 @@ class Worldbuff(Enum):
     DMF_INT = 23766
 
     # DM buffs
-    SLIP = 22820
+    #SLIP = 22820
     MOL = 22818
-    FENGUS = 22817
+    #FENGUS = 22817

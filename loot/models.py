@@ -39,7 +39,6 @@ def save_character_enchants(sender, instance, **kwargs):
 
 class RaidDay(models.Model):
     date = models.DateTimeField(help_text='Datum des Raids.')
-    order = models.PositiveIntegerField(blank=False, null=False)
 
     # Many to many
     character = models.ManyToManyField(Character, through='Attendance')
@@ -49,7 +48,7 @@ class RaidDay(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['order']
+        ordering = ['date']
 
     @classmethod
     def create(cls, date, order):

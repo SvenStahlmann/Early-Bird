@@ -35,6 +35,8 @@ urlpatterns = [
     path('ajax/specializations', views.ajax_specializations, name='ajax_specializations'),
     path('ajax/entitlements', views.ajax_entitlements, name='ajax_entitlements'),
     path('ajax/token_items', views.ajax_token_items, name='ajax_token_items'),
+    path('ajax/characters', views.ajax_characters, name='ajax_characters'),
+    path('ajax/attendance/parameters', views.ajax_attendance_parameters, name='ajax_attendance_parameters'),
 ]
 
 if settings.DEBUG:

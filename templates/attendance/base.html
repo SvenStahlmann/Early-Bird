@@ -29,6 +29,10 @@
             <a class="{% block admin_entitlement %}{% endblock admin_entitlement %}" href="{% url 'add_entitlement' %}"><span><i
                     class="fas fa-angle-right"></i> Prioritäten</span></a>
         </li>
+        <li>
+            <a class="{% block admin_update_attendance %}{% endblock admin_update_attendance %}"
+               href="{% url 'update_attendance' %}"><span><i class="fas fa-angle-right"></i> Spielerparameter</span></a>
+        </li>
     </ul>
 {% endblock sidebar %}
 

@@ -250,3 +250,30 @@ def add_entitlement(request):
     response = render(request, '404.html')
     response.status_code = 404
     return response
+
+
+# Updates only calendar entries and only implemented for Sammo to update calendar entries!
+def update_attendance(request):
+    if request.method == 'GET':
+        return render(request, 'attendance/update_attendance.html', {'raid_days': RaidDay.objects.all()})
+
+    if request.method == 'POST':
+        if request.POST.get('raid-day') and request.POST.get('character'):
+            raid_day_id = request.POST.get('raid-day')
+            character_id = request.POST.get('character')
+            if RaidDay.objects.filter(pk=raid_day_id) and Character.objects.filter(pk=character_id):
+                raid_day = RaidDay.objects.get(pk=raid_day_id)
+                character = Character.objects.get(pk=character_id)
+
+                if Attendance.objects.filter(Q(raid_day=raid_day) & Q(character=character)):
+                    attendance = Attendance.objects.filter(Q(raid_day=raid_day) & Q(character=character))[0]
+
+                    attendance.calendar_entry = True if request.POST.get('calendar-entry') else False
+                    attendance.save()
+
+                    return render(request, 'attendance/update_attendance.html', {'raid_days': RaidDay.objects.all(), 'success': 'Erfolgreich!'})
+
+    # Return 404 if any of the checks fail
+    response = render(request, '404.html')
+    response.status_code = 404
+    return response

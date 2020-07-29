@@ -1,5 +1,4 @@
 from django.contrib import admin
-from adminsortable2.admin import SortableAdminMixin
 from .models import Enchants, RaidDay, Attendance, LootHistory, Entitlement, Softlock
 
 
@@ -7,7 +6,7 @@ class EnchantsAdmin(admin.ModelAdmin):
     model = Enchants
 
 
-class RaidDayAdmin(SortableAdminMixin, admin.ModelAdmin):
+class RaidDayAdmin(admin.ModelAdmin):
     model = RaidDay
 
 

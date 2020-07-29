@@ -1,0 +1,92 @@
+{% extends 'attendance/base.html' %}
+{% load static %}
+
+{% block admin_update_attendance %}
+    active
+{% endblock admin_update_attendance %}
+
+{% block css_page %}
+{% endblock css_page %}
+
+{% block content %}
+    <div class="grid-container">
+        <br>
+        <h1>Raid-Tag</h1>
+        <br>
+
+        {% if success %}
+            <div class="callout success">
+                {{ success }}
+            </div>
+        {% endif %}
+
+        <form method="POST" action="{% url 'update_attendance' %}">
+            {% csrf_token %}
+
+            <div class="grid-x grid-padding-x">
+
+                <div class="cell small-12 medium-6">
+                    <label for="select-raid-day">Raid-Tag:</label>
+                    <select id="select-raid-day" name="raid-day" onchange="load_characters(this.value)">
+                        <option disabled selected value> -- Raid-Tag auswählen --</option>
+                        {% for raid_day in raid_days %}
+                            <option value="{{ raid_day.id }}">{{ raid_day.date }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="cell small-12 medium-6">
+                    <label for="select-characters">Charakter:</label>
+                    <select id="select-characters" name="character"
+                            onchange="load_parameters(document.getElementById('select-raid-day').value, this.value)">
+                        <option disabled selected value> -- Charakter auswählen --</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="grid-y grid-padding-y grid-padding-x">
+
+                <div class="cell small-2">
+                    <input id="present" type="checkbox" name="present"><label for="present">Anwesenheit</label>
+                </div>
+
+                <div class="cell small-2">
+                    <input id="calendar-entry" type="checkbox" name="calendar-entry"><label for="calendar-entry"><span style="color: #962424">Kalendereintrag</span></label>
+                </div>
+
+                <div class="cell small-2">
+                    <input id="world-buffs" type="checkbox" name="world-buffs"><label
+                        for="world-buffs">World-Buffs</label>
+                </div>
+
+                <div class="cell small-2">
+                    <input id="consumables" type="checkbox" name="consumables"><label
+                        for="consumables">Consumables</label>
+                </div>
+
+                <div class="cell small-2">
+                    <input id="misconduct" type="checkbox" name="misconduct"><label
+                        for="misconduct">Fehlverhalten</label>
+                </div>
+
+                <div class="cell small-2">
+                    <label for="comment">Kommentar zum Fehlverhalten</label>
+                    <textarea id="comment" name="comment" cols="50" rows="8"></textarea>
+                </div>
+
+            </div>
+
+            <div class="grid-x grid-padding-x">
+                <div class="cell small-12">
+                    <button type="submit" class="button primary">Aktualisieren</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+{% endblock content %}
+
+{% block js_page %}
+    <script src="{% static 'attendance/js/update_attendance.js' %}"></script>
+{% endblock js_page %}

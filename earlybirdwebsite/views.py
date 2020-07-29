@@ -1,9 +1,11 @@
 from django.core import serializers
+from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 
+from loot.models import RaidDay, Attendance
 from raids.models import Instance, Encounter, Item, Token
-from roster.models import Specialization
+from roster.models import Specialization, Character
 
 
 def test(request):
@@ -81,3 +83,31 @@ def ajax_token_items(request):
 
     return JsonResponse({})
 
+
+def ajax_characters(request):
+    if request.is_ajax():
+        if request.GET.get('id'):
+            raid_day_id = request.GET.get('id')
+            if RaidDay.objects.filter(pk=raid_day_id).exists():
+                raid_day = RaidDay.objects.get(pk=raid_day_id)
+                characters = raid_day.character.all()
+
+                return HttpResponse(serializers.serialize('json', characters), content_type='application/json')
+
+    return JsonResponse({})
+
+
+def ajax_attendance_parameters(request):
+    if request.is_ajax():
+        if request.GET.get('raid-day') and request.GET.get('character'):
+            raid_day_id = request.GET.get('raid-day')
+            character_id = request.GET.get('character')
+            if RaidDay.objects.filter(pk=raid_day_id).exists() and Character.objects.filter(pk=character_id).exists():
+                raid_day = RaidDay.objects.get(pk=raid_day_id)
+                character = Character.objects.get(pk=character_id)
+
+                attendance = Attendance.objects.filter(Q(raid_day=raid_day) & Q(character=character))
+
+                return HttpResponse(serializers.serialize('json', attendance), content_type='application/json')
+
+    return JsonResponse({})

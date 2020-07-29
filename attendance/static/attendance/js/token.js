@@ -17,6 +17,7 @@ function load_token(encounter) {
         success: function (data) {
             clear_options('token');
             build_options(data, 'token');
+            load_token_items(document.getElementById('select-token').value);
         }
     });
 }
@@ -39,8 +40,10 @@ function load_token_items(token) {
                     select.appendChild(option);
                 }
             }
-
-            check_multiple_values('select-items', Object.keys(data.selected));
+            
+            if (data.length !== 0 && data !== {} && !$.isEmptyObject(data)) {
+                check_multiple_values('select-items', Object.keys(data.selected));
+            }
         }
     });
 }

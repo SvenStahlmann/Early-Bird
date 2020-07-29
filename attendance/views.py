@@ -1,5 +1,5 @@
 from django.db.models import Q
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from . import utils
 from loot.models import Attendance, RaidDay, LootHistory, Entitlement

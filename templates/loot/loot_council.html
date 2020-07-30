@@ -1,6 +1,6 @@
 {% extends 'raids/base.html' %}
 {% load static %}
-{% load count_enchants get_loot_history get_attendance get_calendar_entries get_misconduct get_consumables get_worldbuffs %}
+{% load count_enchants get_loot_history get_attendance get_calendar_entries get_misconduct get_consumables get_worldbuffs get_logged_count %}
 
 {% block css_page %}
     <link rel="stylesheet" href="{% static 'loot/css/loot_council.css' %}">
@@ -48,7 +48,7 @@
                                                         class="no-break">{{ character|get_consumables }} von {{ character.attendance.all.count }}</span><br>
                                                     <span class="no-break"><i
                                                             class="fas fa-sun"></i> World Buffs:</span>
-                                                    <span class="no-break">{{ character|get_world_buffs }} von {{ character.attendance.all.count }}</span>
+                                                    <span class="no-break">{{ character|get_world_buffs }} von {{ character|get_logged_count }}</span>
                                                 </p>
                                             </div>
                                             <div class="cell medium-6">

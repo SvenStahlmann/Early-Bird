@@ -24,7 +24,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['173.249.31.162', '127.0.0.1','localhost','ebe.svenstahlmann.de']
+ALLOWED_HOSTS = ['173.249.31.162', '127.0.0.1', 'localhost', 'ebe.svenstahlmann.de']
 
 # Application definition
 
@@ -43,12 +43,15 @@ INSTALLED_APPS = [
     'adminsortable2',
     'rest_framework',
     'mathfilters',
+    'clear_cache',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -88,8 +91,8 @@ DATABASES_AVAILABLE = {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
             'read_default_file': '/etc/mysql/my.cnf',
-            },
         },
+    },
 }
 database = os.environ.get('DJANGO_DATABASE', 'default')
 DATABASES = {
@@ -137,3 +140,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Cache
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'django_cache',
+    }
+}
+
+CACHE_MIDDLEWARE_ALIAS = 'default'
+CACHE_MIDDLEWARE_SECONDS = 172800  # 48 hours
+CACHE_MIDDLEWARE_KEY_PREFIX = ''

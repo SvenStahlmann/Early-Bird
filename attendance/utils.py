@@ -1,6 +1,11 @@
 import requests
 import json
 from .models import Player, Enchant, Worldbuff, Item
+from .models import Item as GearItem
+from loot.models import RaidDay, LootHistory
+from roster.models import Character
+from raids.models import Item
+from django.core.exceptions import ObjectDoesNotExist
 import datetime
 
 
@@ -59,7 +64,7 @@ def get_present_players(report_id, report_end):
         name = x['name']
 
         # get player enchants
-        for slot in Item:
+        for slot in GearItem:
             enchanted = False
             for item in x['gear']:
                 if slot.value == item['slot']:
@@ -77,6 +82,9 @@ def get_present_players(report_id, report_end):
                         worldbuffs += 1
                         break
 
+        # update players gear
+        check_items(name, x['gear'])
+
         players.append(Player(name, worldbuffs, enchants))
 
     return players
@@ -90,3 +98,32 @@ def get_worldbuff(report_id, worldbuff, end):
     resp = json.loads(req.content)
 
     return resp
+
+
+def check_items(player_name, gear):
+
+    try:
+        character = Character.objects.get(name=player_name)
+    except ObjectDoesNotExist:
+        print("No entry in database for player {}".format(player_name))
+        return
+
+    for x in gear:
+        try:
+            item = Item.objects.get(name=x['name'])
+        except ObjectDoesNotExist:
+            print("Item {} does not exists".format(x['name']))
+            continue
+        except KeyError:
+            continue
+        try:
+            LootHistory.objects.get(character=character, item=item)
+        except ObjectDoesNotExist:
+            print("No loot history entry for item {} and player {}. Entry will be added to LootHistory on default date.".format(x['name'], player_name))
+
+            default_date = datetime.datetime(1900, 1, 1, 9, 0, 0, 0)
+            raid_day = RaidDay.objects.get(date=default_date)
+            LootHistory.objects.create(character=character, item=item, raid_day=raid_day)
+
+
+

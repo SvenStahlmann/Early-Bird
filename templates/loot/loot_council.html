@@ -97,7 +97,7 @@
                                                         <span class="no-break">{{ character|get_consumables }} von {{ character.attendance.all.count }}</span><br>
                                                         <span class="no-break"><i
                                                                 class="fas fa-sun"></i> World Buffs:</span> <span
-                                                            class="no-break">{{ character|get_world_buffs }} von {{ character.attendance.all.count }}</span>
+                                                            class="no-break">{{ character|get_world_buffs }} von {{ character|get_logged_count }}</span>
                                                     </p>
                                                 </div>
                                                 <div class="cell medium-6">

@@ -15,6 +15,8 @@ class EncounterAdmin(SortableAdminMixin, admin.ModelAdmin):
 class ItemAdmin(SortableAdminMixin, admin.ModelAdmin):
     model = Item
 
+    search_fields = ('name',)
+
 
 class TokenAdmin(admin.ModelAdmin):
     model = Token

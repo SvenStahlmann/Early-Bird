@@ -137,11 +137,7 @@ def get_complete_attendance(request):
 
             return HttpResponse("Success!")
 
-
-
-            response = render(request, '404.html')
-
-    response = render(request, '404.html')
+    return render(request, '404.html')
 
 
 def update_loot(request):
@@ -163,7 +159,7 @@ def update_loot(request):
 
             for idx, item in df.iterrows():
 
-                if item['response'] in ['Offspec/Greed', 'Mainspec/Need', 'Awarded']:
+                if item['response'] in ['Offspec/Greed', 'Mainspec/Need', 'Awarded', 'Minor Upgrade']:
 
                     player = item['player'].split('-')[0]
                     item_name = item['item'].replace('[', '').replace(']', '')

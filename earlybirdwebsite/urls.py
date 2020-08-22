@@ -25,6 +25,7 @@ urlpatterns = [
     path('raids/', include('raids.urls')),
     path('roster/', include('roster.urls')),
     path('admin/', include('attendance.urls')),
+    path('calendar/', include('discord_calendar.urls')),
 
     path('test', views.test, name='test'),
     path('', views.index, name='index'),

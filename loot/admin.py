@@ -38,4 +38,3 @@ admin.site.register(Attendance, AttendanceAdmin)
 admin.site.register(LootHistory, LootHistoryAdmin)
 admin.site.register(Entitlement, EntitlementAdmin)
 admin.site.register(Softlock, SoftlockAdmin)
-

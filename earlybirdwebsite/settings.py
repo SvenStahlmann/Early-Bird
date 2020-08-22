@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'mathfilters',
     'clear_cache',
+    'discord_calendar',
 ]
 
 MIDDLEWARE = [
@@ -151,3 +152,10 @@ CACHES = {
 CACHE_MIDDLEWARE_ALIAS = 'default'
 CACHE_MIDDLEWARE_SECONDS = 172800  # 48 hours
 CACHE_MIDDLEWARE_KEY_PREFIX = ''
+
+# settings for async
+os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
+
+# discord token
+DISCORD_TOKEN = 'FILL_THIS_WITH_TOKEN'
+DISCORD_SERVER = 'Early Bird Express'

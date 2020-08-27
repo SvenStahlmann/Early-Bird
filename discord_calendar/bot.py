@@ -1,18 +1,17 @@
 # bot.py
 import discord
 from threading import Thread
+import asyncio
 from datetime import datetime, timedelta
 import re
 
-from asgiref.sync import sync_to_async
+from asgiref.sync import sync_to_async, async_to_sync
 from django.core.exceptions import ObjectDoesNotExist
 from loot.models import RaidDay
 from roster.models import Character
 from .models import CalendarEntry, LateSignUp
 from . import utils
 from earlybirdwebsite import settings
-
-# TODO: Check if person was already Signed Up correctly before changing reaction (i.e. absence < 24h before raid)
 
 
 class EbeDiscord(discord.Client):
@@ -76,5 +75,24 @@ class EbeDiscord(discord.Client):
                         print(f"Character {char_name} does not exist.")
 
 
-client = EbeDiscord()
-Thread(target=client.run, args=(client.TOKEN,), daemon=True).start()
+class DiscThread(Thread):
+
+    def __init__(self):
+        Thread.__init__(self)
+        self.loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(self.loop)
+        self.start()
+
+    async def starter(self):
+
+        self.discord_client = EbeDiscord()
+        await self.discord_client.start(EbeDiscord.TOKEN)
+
+    def run(self):
+        self.name = 'Discord.py'
+
+        self.loop.create_task(self.starter())
+        self.loop.run_forever()
+
+
+DiscThread()

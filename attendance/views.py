@@ -6,6 +6,7 @@ from . import utils
 from loot.models import Attendance, RaidDay, LootHistory, Entitlement
 from roster.models import Character, Specialization, Twink
 from raids.models import Item, Instance, Encounter, Token
+from discord_calendar.models import CalendarEntry
 from io import StringIO
 import pandas as pd
 import datetime
@@ -54,9 +55,17 @@ def overview(request):
                         character = Character.objects.get(name=player.name)
                         all_player = all_player.exclude(name=player.name)
 
+                    # check if player was singed up in the discord calendar
+                    try:
+                        CalendarEntry.objects.get(character=character, raid_day=raid)
+                        sign_up = True
+                    except ObjectDoesNotExist:
+                        sign_up = False
+
                     # update attendance
-                    Attendance.objects.get_or_create(present=True, world_buffs=player.worldbuffs, character=character,
-                                                     raid_day=raid)
+                    Attendance.objects.get_or_create(present=True, calendar_entry=sign_up, world_buffs=player.worldbuffs,
+                                                     character=character, raid_day=raid)
+                    player.set_calendar(sign_up)
 
                     # update enchants if character is not a twink
                     if not twink:
@@ -69,9 +78,17 @@ def overview(request):
                     player_not_found.append(player.name)
 
             for absent_player in all_player:
+
+                # check if player was singed up in the discord calendar
+                try:
+                    CalendarEntry.objects.get(character=absent_player, raid_day=raid)
+                    sign_up = True
+                except ObjectDoesNotExist:
+                    sign_up = False
+
                 # update attendance
-                Attendance.objects.get_or_create(present=False, world_buffs=False, consumables=False,
-                                                 character=absent_player, raid_day=raid)
+                Attendance.objects.get_or_create(present=False, calendar_entry=sign_up, world_buffs=False,
+                                                 consumables=False, character=absent_player, raid_day=raid)
 
             return render(request, 'attendance/overview.html', {'players': player_found, 'not_found': player_not_found,
                                                                 'raidday_exists': True, 'raids': raid_days})

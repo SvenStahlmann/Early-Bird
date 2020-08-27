@@ -121,7 +121,11 @@
 
                                 <tr>
                                     <td>{{ player.name }}</td>
-                                    <td>TODO</td>
+                                    <td>{% if player.calendar %}
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                        {% else %}
+                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                        {% endif %}</td>
                                     <td>{% if player.worldbuffs %}
                                             <i class="fa fa-check" aria-hidden="true"></i>
                                         {% else %}

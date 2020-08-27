@@ -1,18 +1,18 @@
 # bot.py
 import discord
 from threading import Thread
-from datetime import datetime
+from datetime import datetime, timedelta
 import re
 
 from asgiref.sync import sync_to_async
 from django.core.exceptions import ObjectDoesNotExist
 from loot.models import RaidDay
 from roster.models import Character
-from .models import CalendarEntry
+from .models import CalendarEntry, LateSignUp
 from . import utils
 from earlybirdwebsite import settings
 
-# TODO: do not create CalendarEntry object if reaction was less than 24h before RaidDay
+# TODO: Check if person was already Signed Up correctly before changing reaction (i.e. absence < 24h before raid)
 
 
 class EbeDiscord(discord.Client):
@@ -30,7 +30,7 @@ class EbeDiscord(discord.Client):
     async def on_raw_reaction_add(self, payload):
 
         channel = self.get_channel(payload.channel_id)
-        if channel.name == 'websiteplanung':
+        if channel.name in ['mittwoch-raid', 'freitag-raid']:
 
             # check if message was from Raid-Helper
             msg = await channel.fetch_message(payload.message_id)
@@ -50,11 +50,30 @@ class EbeDiscord(discord.Client):
                 raid_day, created = await sync_to_async(RaidDay.objects.get_or_create)(title=event_name, date=date_time)
 
                 # create note that player reacted to the raid event
-                try:
-                    character = await sync_to_async(Character.objects.get)(name=payload.member.display_name)
-                    await sync_to_async(CalendarEntry.objects.get_or_create)(character=character, raid_day=raid_day)
-                except ObjectDoesNotExist:
-                    print(f"Character {payload.member.display_name} does not exist.")
+                possible_character_names = payload.member.display_name.replace('|', '/').split('/')
+                possible_character_names = [name.strip() for name in possible_character_names]
+
+                # check if character exists in raid line up
+                for char_name in possible_character_names:
+                    try:
+                        character = await sync_to_async(Character.objects.get)(name__iexact=char_name)
+
+                        # check if character has already reacted to event before
+                        try:
+                            # character has already signed up - don't create a new entry
+                            await sync_to_async(CalendarEntry.objects.get)(character=character, raid_day=raid_day)
+                            return
+
+                        except ObjectDoesNotExist:
+                            # check if sign up was within time limit
+                            if datetime.now() < (date_time - timedelta(days=1)):
+                                await sync_to_async(CalendarEntry.objects.get_or_create)(character=character, raid_day=raid_day)
+                                print(f"{char_name} signed up")
+                            else:
+                                await sync_to_async(LateSignUp.objects.get_or_create)(character=character, raid_day=raid_day)
+                                print(f"{char_name} signed up late")
+                    except ObjectDoesNotExist:
+                        print(f"Character {char_name} does not exist.")
 
 
 client = EbeDiscord()

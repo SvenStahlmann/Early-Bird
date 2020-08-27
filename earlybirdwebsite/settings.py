@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import json
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -157,5 +158,8 @@ CACHE_MIDDLEWARE_KEY_PREFIX = ''
 os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 
 # discord token
-DISCORD_TOKEN = 'NzQ2MzU2Nzg3MjQ2MTM3NDI3.Xz_I7A.bIowu2aQh_IwcfRyioala6gj7_8'
-DISCORD_SERVER = 'Early Bird Express'
+with open("discord.json") as f:
+    discord_file = json.load(f)
+
+    DISCORD_SERVER = discord_file['server']
+    DISCORD_TOKEN = discord_file['token']

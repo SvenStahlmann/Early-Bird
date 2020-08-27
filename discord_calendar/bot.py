@@ -5,7 +5,7 @@ import asyncio
 from datetime import datetime, timedelta
 import re
 
-from asgiref.sync import sync_to_async, async_to_sync
+from asgiref.sync import sync_to_async
 from django.core.exceptions import ObjectDoesNotExist
 from loot.models import RaidDay
 from roster.models import Character
@@ -93,6 +93,3 @@ class DiscThread(Thread):
 
         self.loop.create_task(self.starter())
         self.loop.run_forever()
-
-
-DiscThread()

@@ -1,3 +1,6 @@
-from . import bot
+from django.urls import path
+from . import views
 
-urlpatterns = []
+urlpatterns = [
+    path('start', views.start_bot, name='start_bot'),
+]

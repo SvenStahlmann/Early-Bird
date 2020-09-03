@@ -91,7 +91,7 @@ DATABASES_AVAILABLE = {
         'CONN_MAX_AGE': 3600,
     },
     'deploy': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'mysql_server_has_gone_away',
         'OPTIONS': {
             'read_default_file': '/etc/mysql/my.cnf',
         },

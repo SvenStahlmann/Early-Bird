@@ -88,14 +88,12 @@ DATABASES_AVAILABLE = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'CONN_MAX_AGE': 3600,
     },
     'deploy': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
             'read_default_file': '/etc/mysql/my.cnf',
         },
-        'CONN_MAX_AGE': 3600,
     },
 }
 database = os.environ.get('DJANGO_DATABASE', 'default')
@@ -155,9 +153,6 @@ CACHES = {
 CACHE_MIDDLEWARE_ALIAS = 'default'
 CACHE_MIDDLEWARE_SECONDS = 172800  # 48 hours
 CACHE_MIDDLEWARE_KEY_PREFIX = ''
-
-# settings for async
-os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 
 # discord token
 with open("discord.json") as f:

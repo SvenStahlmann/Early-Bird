@@ -39,9 +39,6 @@
                                                     class="no-break">{{ character|get_calendar_entries }} von {{ character.attendance.all.count }}</span><br>
                                                 <span class="no-break"><i class="fas fa-exclamation-triangle"></i> Fehlverhalten:</span> {{ character|get_misconduct }}<br>
                                                 <span class="no-break"><i
-                                                        class="fas fa-utensils"></i> Consumables:</span> <span
-                                                    class="no-break">{{ character|get_consumables }} von {{ character.attendance.all.count }}</span><br>
-                                                <span class="no-break"><i
                                                         class="fas fa-sun"></i> World Buffs:</span>
                                                 <span class="no-break">{{ character|get_world_buffs }} von {{ character|get_logged_count }}</span>
                                             </p>
@@ -88,8 +85,6 @@
                                                         class="no-break">{{ character|get_calendar_entries }} von {{ character.attendance.all.count }}</span><br>
                                                     <span class="no-break"><i
                                                             class="fas fa-exclamation-triangle"></i> Fehlverhalten:</span> {{ character|get_misconduct }}<br>
-                                                    <span class="no-break"><i class="fas fa-utensils"></i> Consumables:</span>
-                                                    <span class="no-break">{{ character|get_consumables }} von {{ character.attendance.all.count }}</span><br>
                                                     <span class="no-break"><i
                                                             class="fas fa-sun"></i> World Buffs:</span> <span
                                                         class="no-break">{{ character|get_world_buffs }} von {{ character|get_logged_count }}</span>

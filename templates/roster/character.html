@@ -57,14 +57,6 @@
                                     {% endfor %}
                                 </tr>
                                 <tr>
-                                    <td class="fix"><b>Consumables</b></td>
-                                    {% for raid_day in character.attendance.all reversed %}
-                                        <td class="text-center {% if raid_day.consumables %}check{% else %}cross{% endif %}">
-                                            +
-                                        </td>
-                                    {% endfor %}
-                                </tr>
-                                <tr>
                                     <td class="fix"><b>World Buffs</b></td>
                                     {% for raid_day in character.attendance.all reversed %}
                                         <td class="text-center {% if raid_day.world_buffs %}check{% else %}cross{% endif %}">
@@ -120,15 +112,6 @@
                         </span><br>
                             <span class="no-break"><i
                                     class="fas fa-exclamation-triangle"></i> Fehlverhalten:</span> {{ character|get_misconduct }}<br>
-                            <span class="no-break"><i
-                                    class="fas fa-utensils"></i> Consumables:</span> <span
-                                class="no-break">
-                            {% if character.attendance.all.count > 0 %}
-                                {{ character|get_consumables|div:character.attendance.all.count|mul:100|floatformat:2 }}%
-                            {% else %}
-                                0%
-                            {% endif %}
-                            ({{ character|get_consumables }} von {{ character.attendance.all.count }})</span><br>
                             <span class="no-break"><i class="fas fa-sun"></i> World Buffs:</span>
                             <span class="no-break">
                                 {% if character|get_logged_count > 0 %}

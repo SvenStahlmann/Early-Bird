@@ -32,9 +32,6 @@
                                     href="{% url 'raids_encounter' %}">Raids</a></li>
                             <li class="{% block roster_top_bar %}{% endblock roster_top_bar %}"><a
                                     href="{% url 'roster_overview' %}">Roster</a></li>
-                            <li class="{% block calendar_top_bar %}{% endblock calendar_top_bar %}"><a href="#"
-                                                                                                       disabled>Kalender</a>
-                            </li>
                             {% if request.user.is_superuser %}
                                 <li class="{% block admin_top_bar %}{% endblock admin_top_bar %}"><a
                                         href="{% url 'attendance_overview' %}">Admin</a></li>
@@ -56,9 +53,6 @@
                             href="{% url 'raids_encounter' %}">Raids</a></li>
                     <li class="{% block roster_top_bar_small %}{% endblock roster_top_bar_small %}"><a
                             href="{% url 'roster_overview' %}">Roster</a></li>
-                    <li class="{% block calendar_top_bar_small %}{% endblock calendar_top_bar_small %}"><a href="#"
-                                                                                                           disabled>Kalender</a>
-                    </li>
                     {% if request.user.is_superuser %}
                         <li class="{% block admin_top_bar_small %}{% endblock admin_top_bar_small %}"><a
                                 href="{% url 'attendance_overview' %}">Admin</a></li>

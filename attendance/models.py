@@ -11,6 +11,7 @@ class Player(object):
         self.name = name
         self.worldbuffs = Player._set_worldbuffs(worldbuffs)
         self.enchants = enchants
+        self.calendar = False
 
     @staticmethod
     def _set_worldbuffs(worldbuffs):
@@ -19,6 +20,9 @@ class Player(object):
             return True
         else:
             return False
+
+    def set_calendar(self, entry):
+        self.calendar = entry
 
     def __str__(self):
         return str(self.name)
@@ -90,6 +94,6 @@ class Worldbuff(Enum):
     DMF_INT = 23766
 
     # DM buffs
-    SLIP = 22820
+    #SLIP = 22820
     MOL = 22818
-    FENGUS = 22817
+    #FENGUS = 22817

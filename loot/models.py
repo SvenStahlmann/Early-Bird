@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_init
 from django.dispatch import receiver
 from roster.models import Character, Specialization
 from raids.models import Instance, Item
@@ -38,6 +38,7 @@ def save_character_enchants(sender, instance, **kwargs):
 
 
 class RaidDay(models.Model):
+    title = models.CharField(help_text='Titel des Raids', null=True, max_length=30)
     date = models.DateTimeField(help_text='Datum des Raids.')
 
     # Many to many
@@ -49,11 +50,6 @@ class RaidDay(models.Model):
 
     class Meta:
         ordering = ['date']
-
-    @classmethod
-    def create(cls, date, order):
-        raid_day = cls(date=date, order=order)
-        return raid_day
 
     def __str__(self):
         return str(self.date)

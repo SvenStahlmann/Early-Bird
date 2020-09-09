@@ -1,5 +1,6 @@
 {% extends 'attendance/base.html' %}
 {% load static %}
+{% load strip_time %}
 
 {% block admin_attendance %}
     active
@@ -27,7 +28,7 @@
 
                 <div class="cell large-12">
 
-                    <form method="POST" action="/roster/rcloot">
+                    <form method="POST" action="/admin/rcloot">
                         {% csrf_token %}
                         <div class="grid-container">
                             <div class="grid-x grid-padding-x">
@@ -83,8 +84,12 @@
                     <div class="grid-container">
                         <div class="grid-x grid-padding-x">
                             <div class="medium-6 cell">
-                                <label class="label-color"><b>WCLog name of raid</b></label>
-                                <input type="text" placeholder="Optional" name="raid" id="raid">
+                                <label class="label-color"><b>Raid to check attendance for</b></label>
+                                <select id="raid" name="raid">
+                                    {% for raid in raids %}
+                                        <option value={{ raid.date|strip_time }}>{{ raid.title }} {{ raid.date|strip_time }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
                         </div>
                         <button type="submit" class="button secondary">Update Attendance</button>
@@ -116,7 +121,11 @@
 
                                 <tr>
                                     <td>{{ player.name }}</td>
-                                    <td>TODO</td>
+                                    <td>{% if player.calendar %}
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                        {% else %}
+                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                        {% endif %}</td>
                                     <td>{% if player.worldbuffs %}
                                             <i class="fa fa-check" aria-hidden="true"></i>
                                         {% else %}

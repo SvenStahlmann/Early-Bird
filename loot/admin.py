@@ -13,9 +13,15 @@ class RaidDayAdmin(admin.ModelAdmin):
 class AttendanceAdmin(admin.ModelAdmin):
     model = Attendance
 
+    search_fields = ('character__name',)
+
+    ordering = ('-raid_day__date',)
+
 
 class LootHistoryAdmin(admin.ModelAdmin):
     model = LootHistory
+
+    search_fields = ('character__name',)
 
 
 class EntitlementAdmin(admin.ModelAdmin):
@@ -32,4 +38,3 @@ admin.site.register(Attendance, AttendanceAdmin)
 admin.site.register(LootHistory, LootHistoryAdmin)
 admin.site.register(Entitlement, EntitlementAdmin)
 admin.site.register(Softlock, SoftlockAdmin)
-

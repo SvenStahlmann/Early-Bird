@@ -1,10 +1,12 @@
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponse
 from . import utils
 from loot.models import Attendance, RaidDay, LootHistory, Entitlement
-from roster.models import Character, Specialization
+from roster.models import Character, Specialization, Twink
 from raids.models import Item, Instance, Encounter, Token
+from discord_calendar.models import CalendarEntry
 from io import StringIO
 import pandas as pd
 import datetime
@@ -14,10 +16,12 @@ import datetime
 def overview(request):
     if request.user.is_superuser:
         if request.method == 'GET':
-            return render(request, 'attendance/overview.html', {'raidday_exists': True})
+
+            raid_days = RaidDay.objects.all().order_by('-date')
+            return render(request, 'attendance/overview.html', {'raidday_exists': True, 'raids': raid_days})
 
         if request.method == 'POST':
-
+            raid_days = RaidDay.objects.all().order_by('-date')
             all_player = Character.objects.all()
             player_not_found = []
             player_found = []
@@ -30,21 +34,43 @@ def overview(request):
                 raid_day = raid_day.replace(hour=9, minute=0, second=0, microsecond=0)
                 raid = RaidDay.objects.get(date=raid_day)
             except ObjectDoesNotExist:
-                return render(request, 'attendance/overview.html', {'raidday_exists': False})
+                return render(request, 'attendance/overview.html', {'raidday_exists': False, 'raids': raid_days})
 
             # iterate over all present players and create an entry in the attendance table
             for player in players:
                 try:
-                    character = Character.objects.get(name=player.name)
-                    all_player = all_player.exclude(name=player.name)
+                    # check if current player is a twink
+                    twink, main = None, None
+                    try:
+                        twink = Twink.objects.get(name=player.name)
+                        main = twink.character.name
+                    except ObjectDoesNotExist as e:
+                        pass
+
+                    if twink:
+                        character = Character.objects.get(name=main)
+                        all_player = all_player.exclude(name=main)
+
+                    else:
+                        character = Character.objects.get(name=player.name)
+                        all_player = all_player.exclude(name=player.name)
+
+                    # check if player was singed up in the discord calendar
+                    try:
+                        CalendarEntry.objects.get(character=character, raid_day=raid)
+                        sign_up = True
+                    except ObjectDoesNotExist:
+                        sign_up = False
 
                     # update attendance
-                    Attendance.objects.get_or_create(present=True, world_buffs=player.worldbuffs, character=character,
-                                                     raid_day=raid)
+                    Attendance.objects.get_or_create(present=True, calendar_entry=sign_up, world_buffs=player.worldbuffs,
+                                                     character=character, raid_day=raid)
+                    player.set_calendar(sign_up)
 
-                    # update enchants
-                    for enchant in player.enchants:
-                        enchant.update_enchants()
+                    # update enchants if character is not a twink
+                    if not twink:
+                        for enchant in player.enchants:
+                            enchant.update_enchants()
 
                     player_found.append(player)
 
@@ -52,12 +78,20 @@ def overview(request):
                     player_not_found.append(player.name)
 
             for absent_player in all_player:
+
+                # check if player was singed up in the discord calendar
+                try:
+                    CalendarEntry.objects.get(character=absent_player, raid_day=raid)
+                    sign_up = True
+                except ObjectDoesNotExist:
+                    sign_up = False
+
                 # update attendance
-                Attendance.objects.get_or_create(present=False, world_buffs=False, consumables=False,
-                                                 character=absent_player, raid_day=raid)
+                Attendance.objects.get_or_create(present=False, calendar_entry=sign_up, world_buffs=False,
+                                                 consumables=False, character=absent_player, raid_day=raid)
 
             return render(request, 'attendance/overview.html', {'players': player_found, 'not_found': player_not_found,
-                                                                'raidday_exists': True})
+                                                                'raidday_exists': True, 'raids': raid_days})
 
     # Return 404 if any of the checks fail
     response = render(request, '404.html')
@@ -65,8 +99,70 @@ def overview(request):
     return response
 
 
+def get_complete_attendance(request):
+    if request.user.is_superuser:
+
+        if request.method == 'GET':
+
+            raid_days = RaidDay.objects.all().order_by('date')
+
+            for raid in raid_days:
+                try:
+                    all_player = Character.objects.all()
+                    players, raid_day = utils.get_attendance_for_raid(raid.date.strftime("%d.%m.%Y"))
+
+                    # iterate over all present players and create an entry in the attendance table
+                    for player in players:
+                        try:
+                            # check if current player is a twink
+                            twink, main = None, None
+                            try:
+                                twink = Twink.objects.get(name=player.name)
+                                main = twink.character.name
+                            except ObjectDoesNotExist as e:
+                                pass
+
+                            if twink:
+                                character = Character.objects.get(name=main)
+                                all_player = all_player.exclude(name=main)
+
+                            else:
+                                character = Character.objects.get(name=player.name)
+                                all_player = all_player.exclude(name=player.name)
+
+                            # update attendance
+                            Attendance.objects.get_or_create(present=True, world_buffs=player.worldbuffs,
+                                                             character=character,
+                                                             raid_day=raid)
+
+                            # update enchants if character is not a twink
+                            if not twink:
+                                for enchant in player.enchants:
+                                    enchant.update_enchants()
+
+                        except ObjectDoesNotExist:
+                            print("Player {} not found in database".format(player.name))
+
+                    for absent_player in all_player:
+                        # update attendance
+                        Attendance.objects.get_or_create(present=False, world_buffs=False, consumables=False,
+                                                         character=absent_player, raid_day=raid)
+
+                except IndexError as e:
+                    print(str(e))
+                    print("Error for Raid on" + raid.date.strftime("%d.%m.%Y"))
+
+            return HttpResponse("Success!")
+
+    return render(request, '404.html')
+
+
 def update_loot(request):
     if request.user.is_superuser:
+        if request.method == 'GET':
+            response = redirect('/admin/attendance')
+            return response
+
         if request.method == 'POST':
 
             # context
@@ -80,7 +176,7 @@ def update_loot(request):
 
             for idx, item in df.iterrows():
 
-                if item['response'] in ['Offspec/Greed', 'Mainspec/Need', 'Awarded']:
+                if item['response'] in ['Offspec/Greed', 'Mainspec/Need', 'Awarded', 'Minor Upgrade']:
 
                     player = item['player'].split('-')[0]
                     item_name = item['item'].replace('[', '').replace(']', '')
